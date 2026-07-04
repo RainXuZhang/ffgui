@@ -484,8 +484,10 @@ FFGui_autogen/timestamp: \
 	/usr/include/qt6/QtCore/qversiontagging.h \
 	/usr/include/qt6/QtCore/qxptype_traits.h \
 	/usr/include/qt6/QtCore/qyieldcpu.h \
+	/usr/include/qt6/QtGui/QMouseEvent \
 	/usr/include/qt6/QtGui/QPaintEvent \
 	/usr/include/qt6/QtGui/QPainter \
+	/usr/include/qt6/QtGui/QResizeEvent \
 	/usr/include/qt6/QtGui/QTransform \
 	/usr/include/qt6/QtGui/qaction.h \
 	/usr/include/qt6/QtGui/qbitmap.h \

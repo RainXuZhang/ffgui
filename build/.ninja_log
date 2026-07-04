@@ -12,3 +12,12 @@
 1178	10089	1783178193963463051	CMakeFiles/FFGui.dir/src/main.cpp.o	f39f65de8221ae5
 1177	10306	1783178193961598748	CMakeFiles/FFGui.dir/FFGui_autogen/mocs_compilation.cpp.o	d52abcb24e6ad7bd
 1180	10905	1783178193965042362	CMakeFiles/FFGui.dir/src/widgets/RenderDialog.cpp.o	ebacec18f982e759
+6	395	1783178612989145102	FFGui_autogen/timestamp	1029238d1dff99aa
+6	395	1783178612989145102	FFGui_autogen/mocs_compilation.cpp	1029238d1dff99aa
+6	395	1783178612989145102	/home/rain/Programming/ffgui/build/FFGui_autogen/timestamp	1029238d1dff99aa
+6	395	1783178612989145102	/home/rain/Programming/ffgui/build/FFGui_autogen/mocs_compilation.cpp	1029238d1dff99aa
+395	5653	1783178613003418493	CMakeFiles/FFGui.dir/FFGui_autogen/mocs_compilation.cpp.o	d52abcb24e6ad7bd
+396	6053	1783178613003992816	CMakeFiles/FFGui.dir/src/widgets/TimelineWidget.cpp.o	3cdf5d8c11c0660f
+396	6734	1783178613003851503	CMakeFiles/FFGui.dir/src/main.cpp.o	f39f65de8221ae5
+395	7268	1783178613003674756	CMakeFiles/FFGui.dir/src/MainWindow.cpp.o	c175cf0b7bd083e6
+7268	8119	1783178619874863443	FFGui	11cc5009e7c04e74

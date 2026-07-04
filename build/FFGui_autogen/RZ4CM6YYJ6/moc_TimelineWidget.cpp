@@ -38,10 +38,23 @@ template <> constexpr inline auto TimelineWidget::qt_create_metaobjectdata<qt_me
 {
     namespace QMC = QtMocConstants;
     QtMocHelpers::StringRefStorage qt_stringData {
-        "TimelineWidget"
+        "TimelineWidget",
+        "clipSelected",
+        "",
+        "clipId",
+        "playheadChanged",
+        "seconds"
     };
 
     QtMocHelpers::UintData qt_methods {
+        // Signal 'clipSelected'
+        QtMocHelpers::SignalData<void(const QString &)>(1, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QString, 3 },
+        }}),
+        // Signal 'playheadChanged'
+        QtMocHelpers::SignalData<void(double)>(4, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Double, 5 },
+        }}),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -63,10 +76,19 @@ Q_CONSTINIT const QMetaObject TimelineWidget::staticMetaObject = { {
 void TimelineWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     auto *_t = static_cast<TimelineWidget *>(_o);
-    (void)_t;
-    (void)_c;
-    (void)_id;
-    (void)_a;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        switch (_id) {
+        case 0: _t->clipSelected((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1]))); break;
+        case 1: _t->playheadChanged((*reinterpret_cast<std::add_pointer_t<double>>(_a[1]))); break;
+        default: ;
+        }
+    }
+    if (_c == QMetaObject::IndexOfMethod) {
+        if (QtMocHelpers::indexOfMethod<void (TimelineWidget::*)(const QString & )>(_a, &TimelineWidget::clipSelected, 0))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (TimelineWidget::*)(double )>(_a, &TimelineWidget::playheadChanged, 1))
+            return;
+    }
 }
 
 const QMetaObject *TimelineWidget::metaObject() const
@@ -85,6 +107,30 @@ void *TimelineWidget::qt_metacast(const char *_clname)
 int TimelineWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QAbstractScrollArea::qt_metacall(_c, _id, _a);
+    if (_id < 0)
+        return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 2)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 2;
+    }
+    if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 2)
+            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+        _id -= 2;
+    }
     return _id;
+}
+
+// SIGNAL 0
+void TimelineWidget::clipSelected(const QString & _t1)
+{
+    QMetaObject::activate<void>(this, &staticMetaObject, 0, nullptr, _t1);
+}
+
+// SIGNAL 1
+void TimelineWidget::playheadChanged(double _t1)
+{
+    QMetaObject::activate<void>(this, &staticMetaObject, 1, nullptr, _t1);
 }
 QT_WARNING_POP
