@@ -1,0 +1,14 @@
+# ninja log v7
+2	1176	1783178193948868319	FFGui_autogen/timestamp	1029238d1dff99aa
+2	1176	1783178193948868319	FFGui_autogen/mocs_compilation.cpp	1029238d1dff99aa
+2	1176	1783178193948868319	/home/rain/Programming/ffgui/build/FFGui_autogen/timestamp	1029238d1dff99aa
+2	1176	1783178193948868319	/home/rain/Programming/ffgui/build/FFGui_autogen/mocs_compilation.cpp	1029238d1dff99aa
+1184	8487	1783178193967870955	CMakeFiles/FFGui.dir/src/widgets/TimelineWidget.cpp.o	3cdf5d8c11c0660f
+1178	8773	1783178193963334890	CMakeFiles/FFGui.dir/src/core/FFmpegProbe.cpp.o	d03295c12c33d4c0
+1178	8815	1783178193963152793	CMakeFiles/FFGui.dir/src/core/FFGuiApplication.cpp.o	d62d43fdb8952f15
+1178	8927	1783178193963739149	CMakeFiles/FFGui.dir/src/widgets/MonitorWidget.cpp.o	30219e28549cdd3f
+1178	9404	1783178193963600751	CMakeFiles/FFGui.dir/src/widgets/EffectStackWidget.cpp.o	7f7a48ec5d397325
+1180	10063	1783178193963869915	CMakeFiles/FFGui.dir/src/widgets/ProjectBinWidget.cpp.o	e5c84ff6db1258b0
+1178	10089	1783178193963463051	CMakeFiles/FFGui.dir/src/main.cpp.o	f39f65de8221ae5
+1177	10306	1783178193961598748	CMakeFiles/FFGui.dir/FFGui_autogen/mocs_compilation.cpp.o	d52abcb24e6ad7bd
+1180	10905	1783178193965042362	CMakeFiles/FFGui.dir/src/widgets/RenderDialog.cpp.o	ebacec18f982e759
