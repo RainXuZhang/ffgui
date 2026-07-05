@@ -387,7 +387,9 @@ void MainWindow::setupSplitterLayout() {
     
     connect(m_timelineWidget, &TimelineWidget::clipSelected, this, &MainWindow::onTimelineClipSelected);
     connect(m_timelineWidget, &TimelineWidget::playheadChanged, this, &MainWindow::onTimelinePlayheadChanged);
-
+connect(timelineWidget, &TimelineWidget::seekRequested, this, [this](double seconds) {
+    mediaPlayer->setPosition(static_cast<qint64>(seconds * 1000));
+});
     connect(m_effectStack, &EffectStackWidget::effectChanged, this, &MainWindow::onEffectChanged);
 
     // Connect QTreeWidget selection to existing functionality

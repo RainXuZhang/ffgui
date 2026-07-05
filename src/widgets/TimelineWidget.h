@@ -28,6 +28,8 @@ public:
 signals:
     void clipSelected(const QString& clipId);
     void playheadChanged(double seconds);
+    // Emitted when the user scrubs the timeline to request a seek operation.
+    void seekRequested(double seconds);
 
 protected:
     void paintEvent(QPaintEvent* event) override;

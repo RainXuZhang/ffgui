@@ -151,34 +151,35 @@ void TimelineWidget::mousePressEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
         m_draggingPlayhead = true;
         m_lastMouseX = event->pos().x();
-        
-        // Update playhead position
-        double newPos = event->pos().x() / m_pixelsPerSecond;
-        if (newPos != m_playheadPos) {
-            m_playheadPos = newPos;
-            if (m_project) {
-                m_project->currentPlayhead = m_playheadPos;
-            }
-            emit playheadChanged(m_playheadPos);
-            viewport()->update();
+
+        // Calculate millisecond position based on X coordinate.
+        // Scale rule: 100 pixels = 1 second = 1000 ms => 1 pixel = 10 ms.
+        int x = event->pos().x();
+        if (x < 0) {
+            x = 0;
         }
+        double ms = static_cast<double>(x) * 10.0; // milliseconds
+
+        // Emit seek request and update view.
+        emit seekRequested(ms);
+        update();
     }
 }
 
 void TimelineWidget::mouseMoveEvent(QMouseEvent* event) {
     if (m_draggingPlayhead) {
-        int deltaX = event->pos().x() - m_lastMouseX;
         m_lastMouseX = event->pos().x();
-        
-        double newPos = event->pos().x() / m_pixelsPerSecond;
-        if (newPos != m_playheadPos) {
-            m_playheadPos = newPos;
-            if (m_project) {
-                m_project->currentPlayhead = m_playheadPos;
-            }
-            emit playheadChanged(m_playheadPos);
-            viewport()->update();
+
+        // Calculate millisecond position based on X coordinate.
+        int x = event->pos().x();
+        if (x < 0) {
+            x = 0;
         }
+        double ms = static_cast<double>(x) * 10.0; // milliseconds
+
+        // Emit seek request and update view.
+        emit seekRequested(ms);
+        update();
     }
 }
 
