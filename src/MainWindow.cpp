@@ -370,9 +370,12 @@ void MainWindow::setupSplitterLayout() {
     m_projectMonitor = new MonitorWidget("Project Timeline Preview", this);
     m_projectMonitor->hide();
     m_timelineWidget = new TimelineWidget(this);
-    m_timelineWidget->setProject(m_project);
-    m_timelineWidget->hide();
-    m_effectStack = new EffectStackWidget(this);
+m_timelineWidget->setProject(m_project);
+m_timelineWidget->hide();
+connect(m_timelineWidget, &TimelineWidget::seekRequested, this, [this](double seconds) {
+    m_mediaPlayer->setPosition(static_cast<qint64>(seconds * 1000));
+});
+m_effectStack = new EffectStackWidget(this);
     m_effectStack->setProject(m_project);
     m_effectStack->hide();
 
@@ -387,8 +390,8 @@ void MainWindow::setupSplitterLayout() {
     
     connect(m_timelineWidget, &TimelineWidget::clipSelected, this, &MainWindow::onTimelineClipSelected);
     connect(m_timelineWidget, &TimelineWidget::playheadChanged, this, &MainWindow::onTimelinePlayheadChanged);
-connect(timelineWidget, &TimelineWidget::seekRequested, this, [this](double seconds) {
-    mediaPlayer->setPosition(static_cast<qint64>(seconds * 1000));
+connect(m_timelineWidget, &TimelineWidget::seekRequested, this, [this](double seconds) {
+    m_mediaPlayer->setPosition(static_cast<qint64>(seconds * 1000));
 });
     connect(m_effectStack, &EffectStackWidget::effectChanged, this, &MainWindow::onEffectChanged);
 
