@@ -22,6 +22,7 @@
 #include <QMediaPlayer>
 #include <QAudioOutput>
 #include <QUrl>
+#include <QKeyEvent>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
@@ -43,7 +44,7 @@ MainWindow::~MainWindow() {
 void MainWindow::setupProjectModel() {
     delete m_project;
     m_project = new Project();
-    
+
     // Add standard tracks matching Kdenlive tracks (V2, V1, A1, A2)
     m_project->tracks.append({1, "Video 2", false, false, false, {}});
     m_project->tracks.append({2, "Video 1", false, false, false, {}});
@@ -59,7 +60,7 @@ void MainWindow::createMenusAndToolbars() {
     auto* toolbar = addToolBar("Main Toolbar");
     toolbar->setMovable(false);
     toolbar->setStyleSheet("QToolBar { background-color: #252525; border-bottom: 1px solid #1a1a1a; spacing: 4px; }");
-    
+
     // Actions are now defined in setupMenuBar, so they would need to be passed or re-created if toolbar buttons are desired here.
     // For now, toolbar will be empty or require manual linking if this function is kept.
 }
@@ -143,74 +144,74 @@ void MainWindow::setupTheme() {
             background-color: #2b2b2b;
             color: #d2d2d2;
         }
-        
+
         QMenuBar {
             background-color: #353535;
             color: #d2d2d2;
             border-bottom: 1px solid #1a1a1a;
         }
-        
+
         QMenuBar::item {
             background-color: transparent;
             padding: 4px 8px;
         }
-        
+
         QMenuBar::item:selected {
             background-color: #2a82da;
             color: white;
         }
-        
+
         QMenu {
             background-color: #353535;
             color: #d2d2d2;
             border: 1px solid #1a1a1a;
         }
-        
+
         QMenu::item {
             padding: 6px 24px;
         }
-        
+
         QMenu::item:selected {
             background-color: #2a82da;
             color: white;
         }
-        
+
         QSplitter::handle {
             background-color: #1a1a1a;
         }
-        
+
         QSplitter::handle:horizontal {
             width: 2px;
         }
-        
+
         QSplitter::handle:vertical {
             height: 2px;
         }
-        
+
         QTreeWidget {
             background-color: #252525;
             color: #d2d2d2;
             border: 1px solid #1a1a1a;
             gridline-color: #1a1a1a;
         }
-        
+
         QTreeWidget::item {
             padding: 4px;
         }
-        
+
         QTreeWidget::item:selected {
             background-color: #2a82da;
             color: white;
         }
-        
+
         QTreeWidget::item:hover {
             background-color: #3a3a3a;
         }
-        
+
         QTreeWidget::item:alternate {
             background-color: #2a2a2a;
         }
-        
+
         QHeaderView::section {
             background-color: #353535;
             color: #d2d2d2;
@@ -219,37 +220,37 @@ void MainWindow::setupTheme() {
             border-right: 1px solid #1a1a1a;
             border-bottom: 1px solid #1a1a1a;
         }
-        
+
         QVideoWidget {
             background-color: #000000;
             border: 1px solid #1a1a1a;
         }
-        
+
         QStatusBar {
             background-color: #353535;
             color: #d2d2d2;
             border-top: 1px solid #1a1a1a;
         }
-        
+
         QToolBar {
             background-color: #353535;
             color: #d2d2d2;
             border-bottom: 1px solid #1a1a1a;
         }
-        
+
         QDockWidget {
             background-color: #252525;
             color: #d2d2d2;
             titlebar-close-icon: url(close.png);
         }
-        
+
         QDockWidget::title {
             background-color: #353535;
             color: #d2d2d2;
             padding: 4px;
             border-bottom: 1px solid #1a1a1a;
         }
-        
+
         QPushButton {
             background-color: #3a3a3a;
             color: #d2d2d2;
@@ -257,21 +258,21 @@ void MainWindow::setupTheme() {
             padding: 4px 8px;
             border-radius: 2px;
         }
-        
+
         QPushButton:hover {
             background-color: #4a4a4a;
         }
-        
+
         QPushButton:pressed {
             background-color: #2a82da;
         }
-        
+
         QSlider::groove:horizontal {
             background-color: #1a1a1a;
             height: 4px;
             border-radius: 2px;
         }
-        
+
         QSlider::handle:horizontal {
             background-color: #2a82da;
             width: 12px;
@@ -279,41 +280,73 @@ void MainWindow::setupTheme() {
             margin: -4px 0;
             border-radius: 6px;
         }
-        
+
         QScrollBar:vertical {
             background-color: #252525;
             width: 12px;
             border: none;
         }
-        
+
         QScrollBar::handle:vertical {
             background-color: #4a4a4a;
             min-height: 20px;
             border-radius: 6px;
         }
-        
+
         QScrollBar::handle:vertical:hover {
             background-color: #5a5a5a;
         }
-        
+
         QScrollBar:horizontal {
             background-color: #252525;
             height: 12px;
             border: none;
         }
-        
+
         QScrollBar::handle:horizontal {
             background-color: #4a4a4a;
             min-width: 20px;
             border-radius: 6px;
         }
-        
+
         QScrollBar::handle:horizontal:hover {
             background-color: #5a5a5a;
         }
     )";
-    
+
     setStyleSheet(stylesheet);
+}
+
+void MainWindow::keyPressEvent(QKeyEvent* event) {
+    switch (event->key()) {
+        case Qt::Key_Space:
+            if (m_mediaPlayer->playbackState() == QMediaPlayer::PlayingState) {
+                m_mediaPlayer->pause();
+            } else {
+                m_mediaPlayer->play();
+            }
+            event->accept();
+            break;
+        case Qt::Key_Left:
+            {
+                qint64 currentPos = m_mediaPlayer->position();
+                qint64 newPos = qMax(currentPos - 5000, 0LL);
+                m_mediaPlayer->setPosition(newPos);
+                event->accept();
+            }
+            break;
+        case Qt::Key_Right:
+            {
+                qint64 currentPos = m_mediaPlayer->position();
+                qint64 totalDuration = m_mediaPlayer->duration();
+                qint64 newPos = qMin(currentPos + 5000, totalDuration);
+                m_mediaPlayer->setPosition(newPos);
+                event->accept();
+            }
+            break;
+        default:
+            QMainWindow::keyPressEvent(event);
+    }
 }
 
 void MainWindow::setupSplitterLayout() {
@@ -370,17 +403,17 @@ void MainWindow::setupSplitterLayout() {
     m_projectMonitor = new MonitorWidget("Project Timeline Preview", this);
     m_projectMonitor->hide();
     m_timelineWidget = new TimelineWidget(this);
-m_timelineWidget->setProject(m_project);
-m_timelineWidget->hide();
-connect(m_timelineWidget, &TimelineWidget::seekRequested, this, [this](double seconds) {
-    m_mediaPlayer->setPosition(static_cast<qint64>(seconds * 1000));
-});
+    m_timelineWidget->setProject(m_project);
+    m_timelineWidget->hide();
+    connect(m_timelineWidget, &TimelineWidget::seekRequested, this, [this](double seconds) {
+        m_mediaPlayer->setPosition(static_cast<qint64>(seconds * 1000));
+    });
 
-connect(m_mediaPlayer, &QMediaPlayer::positionChanged, this, [this](qint64 position) {
-    double seconds = static_cast<double>(position) / 1000.0;
-    m_timelineWidget->setPosition(seconds);
-});
-m_effectStack = new EffectStackWidget(this);
+    connect(m_mediaPlayer, &QMediaPlayer::positionChanged, this, [this](qint64 position) {
+        double seconds = static_cast<double>(position) / 1000.0;
+        m_timelineWidget->setPosition(seconds);
+    });
+    m_effectStack = new EffectStackWidget(this);
     m_effectStack->setProject(m_project);
     m_effectStack->hide();
 
@@ -392,12 +425,12 @@ m_effectStack = new EffectStackWidget(this);
     connect(m_projectBinWidget, &ProjectBinWidget::clipAdded, this, &MainWindow::onBinClipAdded);
     connect(m_projectBinWidget, &ProjectBinWidget::clipSelected, this, &MainWindow::onBinClipSelected);
     connect(m_projectBinWidget, &ProjectBinWidget::clipDoubleClicked, this, &MainWindow::onBinClipDoubleClicked);
-    
+
     connect(m_timelineWidget, &TimelineWidget::clipSelected, this, &MainWindow::onTimelineClipSelected);
     connect(m_timelineWidget, &TimelineWidget::playheadChanged, this, &MainWindow::onTimelinePlayheadChanged);
-connect(m_timelineWidget, &TimelineWidget::seekRequested, this, [this](double seconds) {
-    m_mediaPlayer->setPosition(static_cast<qint64>(seconds * 1000));
-});
+    connect(m_timelineWidget, &TimelineWidget::seekRequested, this, [this](double seconds) {
+        m_mediaPlayer->setPosition(static_cast<qint64>(seconds * 1000));
+    });
     connect(m_effectStack, &EffectStackWidget::effectChanged, this, &MainWindow::onEffectChanged);
 
     // Connect QTreeWidget selection to existing functionality
@@ -474,7 +507,7 @@ void MainWindow::openProject(const QString& path) {
 
         m_project->mediaClips.append(clip);
         m_projectBinWidget->addClip(clip);
-        
+
         // Also add to QTreeWidget
         auto* item = new QTreeWidgetItem(m_projectBinTree);
         item->setText(0, clip.fileName);
@@ -522,7 +555,7 @@ void MainWindow::openProject(const QString& path) {
     m_timelineWidget->setProject(m_project);
     m_effectStack->setProject(m_project);
     m_timelineWidget->updateTimeline();
-    
+
     // Update timeline tracks tree
     m_timelineTracksTree->clear();
     for (const auto& track : m_project->tracks) {
@@ -547,7 +580,7 @@ void MainWindow::onSaveProject() {
         if (path.isEmpty()) return;
         m_project->filePath = path;
     }
-    
+
     // Update timeline tracks tree before saving
     m_timelineTracksTree->clear();
     for (const auto& track : m_project->tracks) {
@@ -658,7 +691,7 @@ void MainWindow::onBinClipDoubleClicked(const MediaClip& clip) {
 
     m_project->tracks[1].clips.append(tClip);
     m_timelineWidget->updateTimeline();
-    
+
     // Update timeline tracks tree
     m_timelineTracksTree->clear();
     for (const auto& track : m_project->tracks) {
@@ -672,7 +705,7 @@ void MainWindow::onBinClipDoubleClicked(const MediaClip& clip) {
         item->setText(2, QString::number(totalDuration, 'f', 2) + "s");
         item->setText(3, track.isLocked ? "Yes" : "No");
     }
-    
+
     statusBar()->showMessage("Inserted clip onto Timeline.");
 }
 
@@ -717,7 +750,7 @@ void MainWindow::addMediaFiles(const QStringList& paths) {
         MediaClip clip;
         if (FFmpegProbe::probeFile(file, clip)) {
             m_projectBinWidget->addClip(clip);
-            
+
             // Also add to QTreeWidget
             auto* item = new QTreeWidgetItem(m_projectBinTree);
             item->setText(0, clip.fileName);
@@ -735,11 +768,10 @@ void MainWindow::openVideoFile() {
         "",
         tr("Video Files (*.mp4 *.mkv *.avi)")
     );
-    
+
     if (!filePath.isEmpty()) {
         m_mediaPlayer->setSource(QUrl::fromLocalFile(filePath));
         m_mediaPlayer->play();
         statusBar()->showMessage("Playing: " + QFileInfo(filePath).fileName());
     }
 }
-

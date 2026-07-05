@@ -56,18 +56,18 @@ void TimelineWidget::paintEvent(QPaintEvent* event) {
     Q_UNUSED(event);
     QPainter painter(viewport());
     painter.setRenderHint(QPainter::Antialiasing);
-    
+
     // Fill background
     painter.fillRect(rect(), QColor("#252525"));
-    
+
     // Draw time ruler
     drawTimeRuler(painter);
-    
+
     // Draw tracks
     drawTracks(painter);
-    
+
     // Draw playhead
-    int playheadX = static_cast<int>(m_playheadPos * m_pixelsPerSecond);
+    int playheadX = static_cast<int>(m_playheadPos * 100.0);
     painter.setPen(QPen(QColor("#ff4444"), 2));
     painter.drawLine(playheadX, 0, playheadX, height());
 }
