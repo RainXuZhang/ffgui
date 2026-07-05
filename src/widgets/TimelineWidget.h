@@ -1,68 +1,38 @@
 #ifndef TIMELINEWIDGET_H
 #define TIMELINEWIDGET_H
 
-#include <QAbstractScrollArea>
-#include <QPaintEvent>
+#include <QWidget>
 #include <QPainter>
-#include <QMouseEvent>
-#include <QResizeEvent>
-#include "../core/ProjectModel.h"
+#include "core/ProjectModel.h"
 
-class TimelineWidget : public QAbstractScrollArea
-{
+class TimelineWidget : public QWidget {
     Q_OBJECT
+
+    // Timeline duration tracking
+public:
+    double totalDurationSeconds = 0.0;
+    void setDuration(double seconds);
 
 public:
     explicit TimelineWidget(QWidget* parent = nullptr);
-    ~TimelineWidget() override = default;
-
-    // Public API for timeline configuration
-    void setDuration(double seconds);
-    void setPixelsPerSecond(double pps);
-    void setTrackCount(int count);
-
-    // Project integration
     void setProject(Project* project);
+    void setPosition(double seconds);
     void updateTimeline();
 
-    // Set the current position of the playhead
-    void setPosition(double seconds);
-
 signals:
+    void seekRequested(double seconds);
     void clipSelected(const QString& clipId);
     void playheadChanged(double seconds);
-    // Emitted when the user scrubs the timeline to request a seek operation.
-    void seekRequested(double seconds);
 
 protected:
     void paintEvent(QPaintEvent* event) override;
-    void resizeEvent(QResizeEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
-    void mouseReleaseEvent(QMouseEvent* event) override;
 
 private:
-    void drawTimeRuler(QPainter& painter);
-    void drawTracks(QPainter& painter);
-    void updateScrollbars();
-
-    // Timeline configuration
-    double m_duration = 300.0;           // Total timeline duration in seconds (default 5 minutes)
-    double m_pixelsPerSecond = 50.0;     // Zoom scale: logical pixels per second
-    int m_trackCount = 3;                // Number of tracks to display
-    int m_rulerHeight = 30;              // Height of the time ruler area
-    int m_trackHeight = 60;              // Height of each track
-    int m_headerWidth = 120;             // Width of track header area (left side)
-
-    // Project data
     Project* m_project = nullptr;
-
-    // Playhead position
-    double m_playheadPos = 0.0;
-
-    // Mouse interaction
-    bool m_draggingPlayhead = false;
-    int m_lastMouseX = 0;
+    double m_currentPosition = 0.0;
+    bool m_isDragging = false;
 };
 
 #endif // TIMELINEWIDGET_H

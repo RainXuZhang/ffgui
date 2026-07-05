@@ -76,6 +76,11 @@ private:
 
     // Play/Pause button
     QPushButton* m_playPauseButton = nullptr;
+
+    // FFmpeg process management
+    QProcess* ffmpegProcess = nullptr;
+    void handleFFmpegOutput();
+    void handleFFmpegFinished(int exitCode);
 };
 
 #endif // MAINWINDOW_H

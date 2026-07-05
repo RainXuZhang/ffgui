@@ -377,6 +377,11 @@ void MainWindow::setupSplitterLayout() {
     m_mediaPlayer->setAudioOutput(m_audioOutput);
     m_mediaPlayer->setVideoOutput(m_videoPlayerWidget);
     connect(m_mediaPlayer, &QMediaPlayer::playbackStateChanged, this, &MainWindow::updatePlayPauseButton);
+    connect(m_mediaPlayer, &QMediaPlayer::durationChanged, this, [this](qint64 durationMs) {
+        double durationSeconds = static_cast<double>(durationMs) / 1000.0;
+        // Tell the timeline widget what the maximum boundary is
+        m_timelineWidget->setDuration(durationSeconds);
+    });
 
     // Initialize play/pause button
     m_playPauseButton = new QPushButton(this);
@@ -686,6 +691,24 @@ void MainWindow::onSaveProject() {
 }
 
 void MainWindow::onRenderProject() {
+    // Initialize FFmpeg process
+    ffmpegProcess = new QProcess(this);
+    connect(ffmpegProcess, &QProcess::readyReadStandardError, this, &MainWindow::handleFFmpegOutput);
+    connect(ffmpegProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &MainWindow::handleFFmpegFinished);
+
+    // Package up asynchronous argument list
+    QStringList arguments;
+    arguments << "-y" // Overwrite output file if it exists
+              << "-ss" << QString::number(0.0) // Start time
+              << "-to" << QString::number(m_timelineWidget->totalDurationSeconds) // End time
+              << "-i" << "input.mp4" // Input file path
+              << "-c" << "copy"
+              << "output.mp4"; // Output file path
+
+    // Start FFmpeg process
+    ffmpegProcess->start("ffmpeg", arguments);
+
+    // Show render dialog
     RenderDialog dialog(m_project, this);
     dialog.exec();
 }
@@ -774,6 +797,20 @@ void MainWindow::updatePlayPauseButton() {
     } else {
         // Update your button icon or text to show "Play"
         m_playPauseButton->setIcon(QIcon(":/icons/play.png"));
+    }
+}
+
+void MainWindow::handleFFmpegOutput() {
+    QByteArray output = ffmpegProcess->readAllStandardError();
+    // Append this string data directly to your log panel/text edit view
+    // e.g., logTextEdit->appendPlainText(QString::fromUtf8(output));
+}
+
+void MainWindow::handleFFmpegFinished(int exitCode) {
+    if (exitCode == 0) {
+        statusBar()->showMessage("FFmpeg process completed successfully");
+    } else {
+        statusBar()->showMessage("FFmpeg process failed with exit code: " + QString::number(exitCode));
     }
 }
 
