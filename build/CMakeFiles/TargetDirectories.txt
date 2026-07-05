@@ -1,9 +1,0 @@
-/home/rain/Programming/ffgui/build/CMakeFiles/FFGui.dir
-/home/rain/Programming/ffgui/build/CMakeFiles/edit_cache.dir
-/home/rain/Programming/ffgui/build/CMakeFiles/rebuild_cache.dir
-/home/rain/Programming/ffgui/build/CMakeFiles/list_install_components.dir
-/home/rain/Programming/ffgui/build/CMakeFiles/install.dir
-/home/rain/Programming/ffgui/build/CMakeFiles/install/local.dir
-/home/rain/Programming/ffgui/build/CMakeFiles/install/strip.dir
-/home/rain/Programming/ffgui/build/CMakeFiles/FFGui_autogen_timestamp_deps.dir
-/home/rain/Programming/ffgui/build/CMakeFiles/FFGui_autogen.dir
