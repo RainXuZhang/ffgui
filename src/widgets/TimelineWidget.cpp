@@ -56,6 +56,13 @@ void TimelineWidget::paintEvent(QPaintEvent* event) {
             painter.drawText(x, height() - 20, QString::number(time, 'f', 1) + "s");
         }
     }
+
+    // Draw selection highlight
+    if (totalDurationSeconds > 0 && inPointSeconds < outPointSeconds) {
+        int inX = static_cast<int>((inPointSeconds / totalDurationSeconds) * width());
+        int outX = static_cast<int>((outPointSeconds / totalDurationSeconds) * width());
+        painter.fillRect(inX, 0, outX - inX, height(), QColor(0, 150, 255, 50));
+    }
 }
 
 void TimelineWidget::mousePressEvent(QMouseEvent* event) {
@@ -66,6 +73,18 @@ void TimelineWidget::mousePressEvent(QMouseEvent* event) {
         m_currentPosition = newPosition;
         emit seekRequested(m_currentPosition);
         update();
+    }
+}
+
+void TimelineWidget::keyPressEvent(QKeyEvent* event) {
+    if (totalDurationSeconds > 0) {
+        if (event->key() == Qt::Key_I) {
+            setInPointSeconds(m_currentPosition);
+            update();
+        } else if (event->key() == Qt::Key_O) {
+            setOutPointSeconds(m_currentPosition);
+            update();
+        }
     }
 }
 

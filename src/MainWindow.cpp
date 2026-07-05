@@ -34,6 +34,7 @@ MainWindow::MainWindow(QWidget* parent)
     setupSplitterLayout();
     setupMenuBar();
     setupTheme();
+    setupFormatComboBox();
     statusBar()->showMessage("Ready");
 }
 
@@ -468,6 +469,29 @@ void MainWindow::setupSplitterLayout() {
             }
         }
     });
+
+    // Set accept drops
+    setAcceptDrops(true);
+}
+
+void MainWindow::dragEnterEvent(QDragEnterEvent* event) {
+    if (event->mimeData()->hasUrls()) {
+        event->acceptProposedAction();
+    }
+}
+
+void MainWindow::dropEvent(QDropEvent* event) {
+    if (event->mimeData()->hasUrls()) {
+        QStringList paths;
+        for (const QUrl& url : event->mimeData()->urls()) {
+            if (url.isLocalFile()) {
+                paths.append(url.toLocalFile());
+            }
+        }
+        if (!paths.isEmpty()) {
+            addMediaFiles(paths);
+        }
+    }
 }
 
 void MainWindow::onNewProject() {
@@ -696,11 +720,17 @@ void MainWindow::onRenderProject() {
     connect(ffmpegProcess, &QProcess::readyReadStandardError, this, &MainWindow::handleFFmpegOutput);
     connect(ffmpegProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &MainWindow::handleFFmpegFinished);
 
+    // Set total cut duration
+    totalCutDurationSeconds = m_timelineWidget->getSelectedDuration();
+
+    // Reset progress bar
+    progressBar->setValue(0);
+
     // Package up asynchronous argument list
     QStringList arguments;
     arguments << "-y" // Overwrite output file if it exists
-              << "-ss" << QString::number(0.0) // Start time
-              << "-to" << QString::number(m_timelineWidget->totalDurationSeconds) // End time
+              << "-ss" << QString::number(m_timelineWidget->getInPointSeconds()) // Start time
+              << "-to" << QString::number(m_timelineWidget->getOutPointSeconds()) // End time
               << "-i" << "input.mp4" // Input file path
               << "-c" << "copy"
               << "output.mp4"; // Output file path
@@ -802,15 +832,51 @@ void MainWindow::updatePlayPauseButton() {
 
 void MainWindow::handleFFmpegOutput() {
     QByteArray output = ffmpegProcess->readAllStandardError();
-    // Append this string data directly to your log panel/text edit view
-    // e.g., logTextEdit->appendPlainText(QString::fromUtf8(output));
+    QString logString = QString::fromUtf8(output);
+
+    // Log to terminal/console view text box if necessary
+    // logTextEdit->appendPlainText(logString);
+
+    // Extract time parameter using a quick search profile or RegExp
+    // Example match format: time=00:01:23.45
+    if (logString.contains("time=")) {
+        int index = logString.indexOf("time=") + 5;
+        QString timeStr = logString.mid(index, 11); // Pulls "HH:MM:SS.xx"
+
+        QStringList parts = timeStr.split(":");
+        if (parts.size() == 3) {
+            double hours = parts[0].toDouble();
+            double minutes = parts[1].toDouble();
+            double seconds = parts[2].toDouble();
+
+            double currentProgressSeconds = (hours * 3600.0) + (minutes * 60.0) + seconds;
+
+            if (totalCutDurationSeconds > 0.0) {
+                int percentage = static_cast<int>((currentProgressSeconds / totalCutDurationSeconds) * 100.0);
+                progressBar->setValue(qBound(0, percentage, 100));
+            }
+        }
+    }
 }
 
 void MainWindow::handleFFmpegFinished(int exitCode) {
-    if (exitCode == 0) {
-        statusBar()->showMessage("FFmpeg process completed successfully");
+    if (exitCode != 0) {
+        // Task failed, style the progress bar or throw an alert box
+        progressBar->setStyleSheet("QProgressBar::chunk { background-color: red; }");
+
+        QMessageBox::critical(this,
+                              "Render Failed",
+                              QString("FFmpeg exited with error code %1.\nPlease check your settings or source file.").arg(exitCode));
     } else {
-        statusBar()->showMessage("FFmpeg process failed with exit code: " + QString::number(exitCode));
+        // Task succeeded
+        progressBar->setValue(100);
+        progressBar->setStyleSheet(""); // Reset to default look
+        QMessageBox::information(this, "Success", "Video processing completed successfully!");
+    }
+
+    if (ffmpegProcess) {
+        ffmpegProcess->deleteLater();
+        ffmpegProcess = nullptr;
     }
 }
 
@@ -843,4 +909,18 @@ void MainWindow::openVideoFile() {
         m_mediaPlayer->play();
         statusBar()->showMessage("Playing: " + QFileInfo(filePath).fileName());
     }
+}
+
+void MainWindow::setupFormatComboBox() {
+    // Create format combo box
+    formatComboBox = new QComboBox(this);
+    formatComboBox->addItem("Stream Copy (Fastest)", "copy");
+    formatComboBox->addItem("MP4 (H.264 / AAC)", "mp4_h264");
+    formatComboBox->addItem("WebM (VP9 / Opus)", "webm_vp9");
+
+    // Add format combo box to the toolbar
+    auto* toolbar = addToolBar("Main Toolbar");
+    toolbar->setMovable(false);
+    toolbar->setStyleSheet("QToolBar { background-color: #252525; border-bottom: 1px solid #1a1a1a; spacing: 4px; }");
+    toolbar->addWidget(formatComboBox);
 }

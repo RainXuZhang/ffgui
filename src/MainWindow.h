@@ -11,6 +11,7 @@
 #include <QMediaPlayer>
 #include <QAudioOutput>
 #include <QPushButton>
+#include <QComboBox>
 #include "core/ProjectModel.h"
 #include "widgets/ProjectBinWidget.h"
 #include "widgets/MonitorWidget.h"
@@ -27,6 +28,10 @@ public:
 
     void openProject(const QString& path);
     void addMediaFiles(const QStringList& paths);
+
+protected:
+    void dragEnterEvent(QDragEnterEvent* event) override;
+    void dropEvent(QDropEvent* event) override;
 
 private slots:
     void onNewProject();
@@ -52,6 +57,7 @@ private:
     void setupProjectModel();
     void setupMenuBar();
     void setupTheme();
+    void setupFormatComboBox();
     Project* m_project = nullptr;
 
     // Layout - Nested QSplitter
@@ -77,10 +83,17 @@ private:
     // Play/Pause button
     QPushButton* m_playPauseButton = nullptr;
 
+    // Format selection combo box
+    QComboBox* formatComboBox = nullptr;
+
     // FFmpeg process management
     QProcess* ffmpegProcess = nullptr;
     void handleFFmpegOutput();
     void handleFFmpegFinished(int exitCode);
+
+    // Progress bar and cut duration
+    QProgressBar* progressBar = nullptr;
+    double totalCutDurationSeconds = 0.0;
 };
 
 #endif // MAINWINDOW_H

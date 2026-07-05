@@ -8,10 +8,17 @@
 class TimelineWidget : public QWidget {
     Q_OBJECT
 
-    // Timeline duration tracking
+// Timeline duration tracking
 public:
-    double totalDurationSeconds = 0.0;
-    void setDuration(double seconds);
+double totalDurationSeconds = 0.0;
+double inPointSeconds = 0.0;
+double outPointSeconds = 0.0;
+void setDuration(double seconds);
+double getInPointSeconds() const { return inPointSeconds; }
+void setInPointSeconds(double seconds) { inPointSeconds = seconds; }
+double getOutPointSeconds() const { return outPointSeconds; }
+void setOutPointSeconds(double seconds) { outPointSeconds = seconds; }
+double getSelectedDuration() const { return outPointSeconds - inPointSeconds; }
 
 public:
     explicit TimelineWidget(QWidget* parent = nullptr);
