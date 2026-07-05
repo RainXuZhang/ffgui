@@ -43,8 +43,7 @@ private slots:
     void onRemoveClipClicked();
     void onItemDoubleClicked(QListWidgetItem* item);
     void onItemSelectionChanged();
-    void onItemDropped(QDropEvent* event);
-
+    
 private:
     QListWidget* m_listWidget;
     QPushButton* m_addButton;
@@ -55,6 +54,7 @@ private:
     QList<SequenceItem> m_projectSequence;
 
 protected:
+    void dragEnterEvent(QDragEnterEvent* event) override;
     void dropEvent(QDropEvent* event) override;
 };
 

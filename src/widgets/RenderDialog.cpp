@@ -16,8 +16,8 @@
 #include <QTextEdit>
 #include <QTimer>
 
-RenderDialog::RenderDialog(QWidget* parent)
-    : QDialog(parent)
+RenderDialog::RenderDialog(Project* project, QWidget* parent)
+    : QDialog(parent), m_project(project)
 {
     setWindowTitle("Render Project");
     setMinimumSize(600, 400);
@@ -123,7 +123,7 @@ RenderDialog::RenderDialog(QWidget* parent)
 
     // FFmpeg process
     m_ffmpegProcess = new QProcess(this);
-    connect(m_ffmpegProcess, &QProcess::readyReadStandardOutput, this, &RenderDialog::onProcessOutput);
+    connect(m_ffmpegProcess, &QProcess::readyReadStandardOutput, this, &RenderDialog::onProcessReadyRead);
     connect(m_ffmpegProcess, &QProcess::readyReadStandardError, this, &RenderDialog::onProcessError);
     connect(m_ffmpegProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
             this, &RenderDialog::onProcessFinished);
@@ -221,84 +221,19 @@ void RenderDialog::onRenderClicked() {
     m_ffmpegProcess->start("ffmpeg", args);
 }
 
-void RenderDialog::onProcessOutput() {
-    QString output = m_ffmpegProcess->readAllStandardOutput();
-    m_outputText->append(output);
-
-    // Parse progress (simplified example)
-    if (output.contains("frame=")) {
-        int progress = output.section("frame=", 1, 1).section(" ", 0, 0).toInt();
-        m_progressBar->setValue(progress);
-    }
+void RenderDialog::setOutputFilePath(const QString& path) {
+    m_outputFilePath = path;
+    m_outputPathEdit->setText(path);
 }
 
-void RenderDialog::onProcessError() {
-    QString error = m_ffmpegProcess->readAllStandardError();
-    m_outputText->append("<span style='color:red;'>" + error + "</span>");
-}
-
-void RenderDialog::onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus) {
-    m_renderButton->setEnabled(true);
-    m_cancelButton->setEnabled(false);
-
-    if (exitCode == 0 && exitStatus == QProcess::NormalExit) {
-        m_outputText->append("<span style='color:green;'>Render completed successfully!</span>");
-        m_progressBar->setValue(100);
-    } else {
-        m_outputText->append("<span style='color:red;'>Render failed!</span>");
-    }
-}
-        
-        arguments << "-filter_complex" << filterComplex
-                  << "-map" << "[outv]"
-                  << "-map" << "[outa]";
-    }
-
-    if (ext == "mp4") {
-        arguments << "-c:v" << "libx264" << "-pix_fmt" << "yuv420p";
-        if (bitrate == "high") arguments << "-crf" << "18";
-        else if (bitrate == "medium") arguments << "-crf" << "23";
-        else arguments << "-crf" << "28";
-        arguments << "-c:a" << "aac" << "-b:a" << "192k";
-    } else if (ext == "mkv") {
-        arguments << "-c:v" << "libx265" << "-pix_fmt" << "yuv420p10le";
-        if (bitrate == "high") arguments << "-crf" << "19";
-        else if (bitrate == "medium") arguments << "-crf" << "24";
-        else arguments << "-crf" << "30";
-        arguments << "-c:a" << "aac" << "-b:a" << "256k";
-    } else if (ext == "webm") {
-        arguments << "-c:v" << "libvpx-vp9" << "-pix_fmt" << "yuv420p";
-        if (bitrate == "high") arguments << "-crf" << "25" << "-b:v" << "0";
-        else if (bitrate == "medium") arguments << "-crf" << "31" << "-b:v" << "0";
-        else arguments << "-crf" << "40" << "-b:v" << "0";
-        arguments << "-c:a" << "libopus" << "-b:a" << "128k";
-    } else if (ext == "gif") {
-        // GIFs don't have audio
-        arguments.removeAll("-map");
-        arguments.removeAll("[outa]");
-        arguments << "-c:v" << "gif" << "-loop" << "0";
-    } else if (ext == "mp3") {
-        // Audio only
-        arguments.removeAll("-map");
-        arguments.removeAll("[outv]");
-        arguments << "-c:a" << "libmp3lame";
-        if (bitrate == "high") arguments << "-q:a" << "2";
-        else if (bitrate == "medium") arguments << "-q:a" << "5";
-        else arguments << "-q:a" << "7";
-    }
-
-    // Add CFR flag if re-encoding and CFR checkbox is checked
-    if (m_cfrCheckBox->isChecked() && ext != "gif" && ext != "mp3") {
-        arguments << "-fps_mode" << "cfr";
-    }
-
-    arguments << "-y" << m_outputPathEdit->text();
+QString RenderDialog::getOutputFilePath() const {
+    return m_outputFilePath;
 }
 
 void RenderDialog::onProcessReadyRead() {
-    QString output = QString::fromUtf8(m_process->readAllStandardOutput());
-    m_logOutput->append(output);
-    m_logOutput->ensureCursorVisible();
+    QString output = QString::fromUtf8(m_ffmpegProcess->readAllStandardOutput());
+    m_outputText->append(output);
+    m_outputText->ensureCursorVisible();
 
     // Parse progress time=HH:MM:SS.ms
     QStringList lines = output.split('\n');
@@ -307,21 +242,9 @@ void RenderDialog::onProcessReadyRead() {
     }
 }
 
-void RenderDialog::parseProgress(const QString& line) {
-    static QRegularExpression re("time=(\\d+):(\\d+):(\\d+)\\.(\\d+)");
-    QRegularExpressionMatch match = re.match(line);
-    if (match.hasMatch()) {
-        int h = match.captured(1).toInt();
-        int m = match.captured(2).toInt();
-        int s = match.captured(3).toInt();
-        int ms = match.captured(4).toInt();
-        
-        double currentSec = h * 3600.0 + m * 60.0 + s + (ms / 100.0);
-        if (m_totalDuration > 0.0) {
-            int percentage = static_cast<int>((currentSec / m_totalDuration) * 100.0);
-            m_progressBar->setValue(qMin(100, percentage));
-        }
-    }
+void RenderDialog::onProcessError() {
+    QString error = m_ffmpegProcess->readAllStandardError();
+    m_outputText->append("<span style='color:red;'>" + error + "</span>");
 }
 
 void RenderDialog::onProcessFinished(int exitCode, QProcess::ExitStatus status) {
@@ -333,5 +256,22 @@ void RenderDialog::onProcessFinished(int exitCode, QProcess::ExitStatus status) 
         QMessageBox::information(this, "Success", "Project Render Completed Successfully!\nOutput saved to:\n" + m_outputPathEdit->text());
     } else {
         QMessageBox::critical(this, "Error", "Render Failed!\nSee the logs for detail.");
+    }
+}
+
+void RenderDialog::parseProgress(const QString& line) {
+    static QRegularExpression re("time=(\\d+):(\\d+):(\\d+)\\.(\\d+)");
+    QRegularExpressionMatch match = re.match(line);
+    if (match.hasMatch()) {
+        int h = match.captured(1).toInt();
+        int m = match.captured(2).toInt();
+        int s = match.captured(3).toInt();
+        int ms = match.captured(4).toInt();
+
+        double currentSec = h * 3600.0 + m * 60.0 + s + (ms / 100.0);
+        if (m_totalDuration > 0.0) {
+            int percentage = static_cast<int>((currentSec / m_totalDuration) * 100.0);
+            m_progressBar->setValue(qMin(100, percentage));
+        }
     }
 }

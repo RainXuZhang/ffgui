@@ -175,35 +175,31 @@ void ProjectBinWidget::onItemSelectionChanged() {
 
 void ProjectBinWidget::dropEvent(QDropEvent* event) {
     if (event->mimeData()->hasUrls()) {
-        QList<QUrl> urls = event->mimeData()->urls();
-        for (const QUrl& url : urls) {
-            QString filePath = url.toLocalFile();
-            if (!filePath.isEmpty()) {
-                MediaAsset asset;
-                asset.filePath = filePath;
-                asset.fileName = QFileInfo(filePath).fileName();
-
-                // Get duration using FFmpegProbe
+        for (const QUrl& url : event->mimeData()->urls()) {
+            QString localPath = url.toLocalFile();
+            if (!localPath.isEmpty()) {
                 MediaClip clip;
-                if (FFmpegProbe::probeFile(filePath, clip)) {
-                    asset.duration = clip.duration;
+                if (FFmpegProbe::probeFile(localPath, clip)) {
+                    addClip(clip);
                 } else {
-                    asset.duration = 0.0;
+                    QMessageBox::warning(this, "Error", QString("Failed to load or parse media file:\n%1").arg(localPath));
                 }
-
-                QString id = QUuid::createUuid().toString();
-                m_binAssets[id] = asset;
-
-                auto* item = new QListWidgetItem(m_listWidget);
-                item->setData(Qt::UserRole, id);
-                item->setText(asset.fileName + QString(" [%1s]").arg(QString::number(asset.duration, 'f', 1)));
-                item->setToolTip(asset.filePath);
             }
         }
+        event->acceptProposedAction();
+    } else {
+        QWidget::dropEvent(event);
     }
-    event->acceptProposedAction();
 }
 
+// Add dragEnterEvent right below it to fully support the drag-and-drop workflow
+void ProjectBinWidget::dragEnterEvent(QDragEnterEvent* event) {
+    if (event->mimeData()->hasUrls()) {
+        event->acceptProposedAction();
+    } else {
+        QWidget::dragEnterEvent(event);
+    }
+}
 void ProjectBinWidget::addToSequence(const MediaClip& clip) {
     SequenceItem item;
     item.assetPath = clip.filePath;

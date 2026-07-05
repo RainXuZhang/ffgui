@@ -18,18 +18,23 @@ class RenderDialog : public QDialog {
     Q_OBJECT
 
 public:
-    explicit RenderDialog(QWidget* parent = nullptr);
-    void setProject(Project* project) { m_project = project; }
+    explicit RenderDialog(Project* project, QWidget* parent = nullptr);
+
+    void setOutputFilePath(const QString& path);
+    QString getOutputFilePath() const;
+    void setTotalDuration(double duration);
 
 private slots:
     void onBrowseOutputClicked();
     void onAdvancedToggled(bool checked);
     void onRenderClicked();
-    void onProcessOutput();
+    void onProcessReadyRead();
     void onProcessError();
-    void onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus);
+    void onProcessFinished(int exitCode, QProcess::ExitStatus status);
 
 private:
+    void parseProgress(const QString& line);
+
     Project* m_project = nullptr;
 
     // UI elements
@@ -50,6 +55,14 @@ private:
 
     // Process
     QProcess* m_ffmpegProcess;
+
+    // Data members
+    QString m_outputFilePath;
+    double m_totalDuration = 0.0;
+
+    // Member variables
+    QProcess* m_process;
+    QTextEdit* m_logOutput;
 };
 
 #endif // RENDERDIALOG_H
