@@ -145,183 +145,68 @@ void MainWindow::setupMenuBar() {
 }
 
 void MainWindow::setupTheme() {
-    // Dark anthracite Kdenlive-style QSS stylesheet
-    QString stylesheet = R"(
-        QMainWindow {
-            background-color: #2b2b2b;
-            color: #d2d2d2;
+    QString archBlackStyleSheet = R"(
+        /* Global Backgrounds - Pitch Obsidian Black matching the Arch-Black theme */
+        QMainWindow, QDialog, QWidget {
+            background-color: #0b0b0c;
+            color: #d1d1d6;
+            font-family: 'Segoe UI', 'DejaVu Sans', Arial, sans-serif;
         }
 
-        QMenuBar {
-            background-color: #353535;
-            color: #d2d2d2;
-            border-bottom: 1px solid #1a1a1a;
-        }
-
-        QMenuBar::item {
-            background-color: transparent;
-            padding: 4px 8px;
-        }
-
-        QMenuBar::item:selected {
-            background-color: #2a82da;
-            color: white;
-        }
-
-        QMenu {
-            background-color: #353535;
-            color: #d2d2d2;
-            border: 1px solid #1a1a1a;
-        }
-
-        QMenu::item {
-            padding: 6px 24px;
-        }
-
-        QMenu::item:selected {
-            background-color: #2a82da;
-            color: white;
-        }
-
+        /* Splitter Handles */
         QSplitter::handle {
-            background-color: #1a1a1a;
+            background-color: #161618;
+        }
+        QSplitter::handle:horizontal { width: 4px; }
+        QSplitter::handle:vertical { height: 4px; }
+
+        /* Core Editor Panels, Bin, and Lists */
+        QLineEdit, QComboBox, QTextEdit, QListWidget, QTreeWidget {
+            background-color: #050505;
+            color: #d1d1d6;
+            border: 1px solid #1c1c1e;
+            border-radius: 4px;
+            padding: 3px;
         }
 
-        QSplitter::handle:horizontal {
-            width: 2px;
+        QListWidget::item:selected, QTreeWidget::item:selected {
+            background-color: #24292e;
+            color: #ffffff;
         }
 
-        QSplitter::handle:vertical {
-            height: 2px;
-        }
-
-        QTreeWidget {
-            background-color: #252525;
-            color: #d2d2d2;
-            border: 1px solid #1a1a1a;
-            gridline-color: #1a1a1a;
-        }
-
-        QTreeWidget::item {
-            padding: 4px;
-        }
-
-        QTreeWidget::item:selected {
-            background-color: #2a82da;
-            color: white;
-        }
-
-        QTreeWidget::item:hover {
-            background-color: #3a3a3a;
-        }
-
-        QTreeWidget::item:alternate {
-            background-color: #2a2a2a;
-        }
-
-        QHeaderView::section {
-            background-color: #353535;
-            color: #d2d2d2;
-            padding: 4px;
-            border: none;
-            border-right: 1px solid #1a1a1a;
-            border-bottom: 1px solid #1a1a1a;
-        }
-
-        QVideoWidget {
-            background-color: #000000;
-            border: 1px solid #1a1a1a;
-        }
-
-        QStatusBar {
-            background-color: #353535;
-            color: #d2d2d2;
-            border-top: 1px solid #1a1a1a;
-        }
-
-        QToolBar {
-            background-color: #353535;
-            color: #d2d2d2;
-            border-bottom: 1px solid #1a1a1a;
-        }
-
-        QDockWidget {
-            background-color: #252525;
-            color: #d2d2d2;
-            titlebar-close-icon: url(close.png);
-        }
-
-        QDockWidget::title {
-            background-color: #353535;
-            color: #d2d2d2;
-            padding: 4px;
-            border-bottom: 1px solid #1a1a1a;
-        }
-
+        /* Buttons */
         QPushButton {
-            background-color: #3a3a3a;
-            color: #d2d2d2;
-            border: 1px solid #1a1a1a;
-            padding: 4px 8px;
-            border-radius: 2px;
+            background-color: #18181a;
+            color: #d1d1d6;
+            border: 1px solid #242426;
+            border-radius: 4px;
+            padding: 5px 12px;
         }
-
         QPushButton:hover {
-            background-color: #4a4a4a;
+            background-color: #222224;
+            border: 1px solid #323236;
+            color: #ffffff;
         }
 
-        QPushButton:pressed {
-            background-color: #2a82da;
+        /* Tabs */
+        QTabWidget::panel {
+            border: 1px solid #1c1c1e;
+            background-color: #0b0b0c;
         }
-
-        QSlider::groove:horizontal {
-            background-color: #1a1a1a;
-            height: 4px;
-            border-radius: 2px;
+        QTabBar::tab {
+            background-color: #050505;
+            color: #7c7c80;
+            border: 1px solid #1c1c1e;
+            padding: 6px 14px;
         }
-
-        QSlider::handle:horizontal {
-            background-color: #2a82da;
-            width: 12px;
-            height: 12px;
-            margin: -4px 0;
-            border-radius: 6px;
+        QTabBar::tab:selected {
+            background-color: #0b0b0c;
+            color: #ffffff;
+            border-bottom-color: #0b0b0c;
         }
+    )"; // <-- ENFORCE THIS EXACT CLOSING PARENTHESIS AND QUOTE
 
-        QScrollBar:vertical {
-            background-color: #252525;
-            width: 12px;
-            border: none;
-        }
-
-        QScrollBar::handle:vertical {
-            background-color: #4a4a4a;
-            min-height: 20px;
-            border-radius: 6px;
-        }
-
-        QScrollBar::handle:vertical:hover {
-            background-color: #5a5a5a;
-        }
-
-        QScrollBar:horizontal {
-            background-color: #252525;
-            height: 12px;
-            border: none;
-        }
-
-        QScrollBar::handle:horizontal {
-            background-color: #4a4a4a;
-            min-width: 20px;
-            border-radius: 6px;
-        }
-
-        QScrollBar::handle:horizontal:hover {
-            background-color: #5a5a5a;
-        }
-    )";
-
-    setStyleSheet(stylesheet);
+    this->setStyleSheet(archBlackStyleSheet);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent* event) {
@@ -378,188 +263,59 @@ break;
 }
 
 void MainWindow::setupSplitterLayout() {
-    // Create main vertical splitter (top section and bottom timeline)
-    m_mainVerticalSplitter = new QSplitter(Qt::Vertical, this);
-    setCentralWidget(m_mainVerticalSplitter);
+    // 1. Create the central container widget
+    QWidget* centralWidget = new QWidget(this);
+    setCentralWidget(centralWidget);
+    auto* mainLayout = new QVBoxLayout(centralWidget);
+    mainLayout->setContentsMargins(2, 2, 2, 2);
 
-    // Create top horizontal splitter (left bin and right player)
+    // 2. Initialize the nested splitters
+    m_mainVerticalSplitter = new QSplitter(Qt::Vertical, this);
     m_topHorizontalSplitter = new QSplitter(Qt::Horizontal, this);
 
-    // === Top-Left: Project Bin (QTreeWidget) ===
-    m_projectBinTree = new QTreeWidget(this);
-    m_projectBinTree->setHeaderLabels({"Name", "Duration", "Type"});
-    m_projectBinTree->setRootIsDecorated(false);
-    m_projectBinTree->setAlternatingRowColors(true);
-    m_projectBinTree->setSelectionMode(QAbstractItemView::SingleSelection);
-    m_topHorizontalSplitter->addWidget(m_projectBinTree);
+// 3. SAFE INSTANTIATION OF ACTIVE WIDGETS (Prevents Segfaults)
+m_projectBinWidget = new ProjectBinWidget(this);
 
-    // === Top-Right: Video Player (QVideoWidget) ===
-    // Will be connected to project monitor's video widget later
-    m_videoPlayerWidget = new QVideoWidget(this);
-    m_videoPlayerWidget->setMinimumSize(400, 300);
-    m_topHorizontalSplitter->addWidget(m_videoPlayerWidget);
+// Create a tab widget or layout deck to hold your video monitor preview frames
+QTabWidget* monitorTabs = new QTabWidget(this);
+m_clipMonitor = new MonitorWidget("Clip Preview", this);
+m_projectMonitor = new MonitorWidget("Project Timeline Preview", this);
+monitorTabs->addTab(m_clipMonitor, "Clip Monitor");
+monitorTabs->addTab(m_projectMonitor, "Project Monitor");
 
-    // === Initialize Multimedia Objects ===
-    m_mediaPlayer = new QMediaPlayer(this);
-    m_audioOutput = new QAudioOutput(this);
-    m_mediaPlayer->setAudioOutput(m_audioOutput);
-    m_mediaPlayer->setVideoOutput(m_videoPlayerWidget);
-    connect(m_mediaPlayer, &QMediaPlayer::playbackStateChanged, this, &MainWindow::updatePlayPauseButton);
-    connect(m_mediaPlayer, &QMediaPlayer::durationChanged, this, [this](qint64 durationMs) {
-        double durationSeconds = static_cast<double>(durationMs) / 1000.0;
-        // Tell the timeline widget what the maximum boundary is
-        m_timelineWidget->setDuration(durationSeconds);
-    });
+m_timelineWidget = new TimelineWidget(this);
 
-    // Initialize play/pause button
-    m_playPauseButton = new QPushButton(this);
-    m_playPauseButton->setIcon(QIcon(":/icons/play.png"));
-    m_playPauseButton->setToolTip("Play/Pause");
-    m_playPauseButton->setFixedSize(32, 32);
-    connect(m_playPauseButton, &QPushButton::clicked, this, [this]() {
-        if (m_mediaPlayer->playbackState() == QMediaPlayer::PlayingState) {
-            m_mediaPlayer->pause();
-        } else {
-            m_mediaPlayer->play();
-        }
-    });
+    // 4. ASSEMBLE SYSTEM HIERARCHY
+    // Top Row: Project Bin on the Left, Video Monitor on the Right
+    m_topHorizontalSplitter->addWidget(m_projectBinWidget);
+    m_topHorizontalSplitter->addWidget(monitorTabs);
 
-    // Add play/pause button to the toolbar
-    auto* toolbar = addToolBar("Main Toolbar");
-    toolbar->setMovable(false);
-    toolbar->setStyleSheet("QToolBar { background-color: #252525; border-bottom: 1px solid #1a1a1a; spacing: 4px; }");
-    toolbar->addWidget(m_playPauseButton);
-
-    // Set initial sizes for top splitter (30% left, 70% right)
-    m_topHorizontalSplitter->setStretchFactor(0, 1);
-    m_topHorizontalSplitter->setStretchFactor(1, 2);
-
-    // Add top splitter to main vertical splitter
+    // Main Stack: Top Row goes on top, Timeline Track goes below
     m_mainVerticalSplitter->addWidget(m_topHorizontalSplitter);
+    m_mainVerticalSplitter->addWidget(m_timelineWidget);
 
-    // === Bottom: Timeline Tracks (QTreeWidget) ===
-    m_timelineTracksTree = new QTreeWidget(this);
-    m_timelineTracksTree->setHeaderLabels({"Track", "Clips", "Duration", "Locked"});
-    m_timelineTracksTree->setRootIsDecorated(false);
-    m_timelineTracksTree->setAlternatingRowColors(true);
-    m_mainVerticalSplitter->addWidget(m_timelineTracksTree);
+    // Put the entire splitter tree into the window's layout view frame
+    mainLayout->addWidget(m_mainVerticalSplitter);
 
-    // Set initial sizes for main splitter (60% top, 40% bottom)
-    m_mainVerticalSplitter->setStretchFactor(0, 3);
-    m_mainVerticalSplitter->setStretchFactor(1, 2);
+    // 5. FLEXIBLE RESIZING & ALLOCATION (Kdenlive ratios)
+    // Horizontal: Give Bin 25% width (1 share), Monitors 75% width (3 shares)
+    m_topHorizontalSplitter->setStretchFactor(0, 1);
+    m_topHorizontalSplitter->setStretchFactor(1, 3);
 
-    // Initialize existing widgets for functionality (hidden but connected)
-    m_projectBinWidget = new ProjectBinWidget(this);
-    m_projectBinWidget->hide();
-    m_clipMonitor = new MonitorWidget("Clip Preview", this);
-    m_clipMonitor->hide();
-    m_projectMonitor = new MonitorWidget("Project Timeline Preview", this);
-    m_projectMonitor->hide();
-    m_timelineWidget = new TimelineWidget(this);
-    m_timelineWidget->setProject(m_project);
-    m_timelineWidget->hide();
-    connect(m_timelineWidget, &TimelineWidget::seekRequested, this, [this](double seconds) {
-        m_mediaPlayer->setPosition(static_cast<qint64>(seconds * 1000));
-    });
+    // Vertical: Upper Deck gets 65% height (13 shares), Timeline gets 35% height (7 shares)
+    m_mainVerticalSplitter->setStretchFactor(0, 13);
+    m_mainVerticalSplitter->setStretchFactor(1, 7);
 
-    connect(m_mediaPlayer, &QMediaPlayer::positionChanged, this, [this](qint64 position) {
-        double seconds = static_cast<double>(position) / 1000.0;
-        m_timelineWidget->setPosition(seconds);
-    });
-    m_effectStack = new EffectStackWidget(this);
-    m_effectStack->setProject(m_project);
-    m_effectStack->hide();
+    // Set handles to collapsible = false so elements can never snap shut to 0px accidentally
+    m_topHorizontalSplitter->setChildrenCollapsible(false);
+    m_mainVerticalSplitter->setChildrenCollapsible(false);
 
-    // Connect video player to project monitor for playback
-    // Use the project monitor's video widget as the main video player
-    m_videoPlayerWidget = m_projectMonitor->getVideoWidget();
-
-    // Event connections
-    connect(m_projectBinWidget, &ProjectBinWidget::clipAdded, this, &MainWindow::onBinClipAdded);
-    connect(m_projectBinWidget, &ProjectBinWidget::clipSelected, this, &MainWindow::onBinClipSelected);
-    connect(m_projectBinWidget, &ProjectBinWidget::clipDoubleClicked, this, &MainWindow::onBinClipDoubleClicked);
-
-    connect(m_timelineWidget, &TimelineWidget::clipSelected, this, &MainWindow::onTimelineClipSelected);
-    connect(m_timelineWidget, &TimelineWidget::playheadChanged, this, &MainWindow::onTimelinePlayheadChanged);
-    connect(m_timelineWidget, &TimelineWidget::seekRequested, this, [this](double seconds) {
-        m_mediaPlayer->setPosition(static_cast<qint64>(seconds * 1000));
-    });
-    connect(m_effectStack, &EffectStackWidget::effectChanged, this, &MainWindow::onEffectChanged);
-
-    // Connect QTreeWidget selection to existing functionality
-    connect(m_projectBinTree, &QTreeWidget::itemDoubleClicked, this, [this](QTreeWidgetItem* item) {
-        if (item) {
-            QString clipId = item->data(0, Qt::UserRole).toString();
-            MediaClip* clip = m_project->findMediaClip(clipId);
-            if (clip) {
-                onBinClipDoubleClicked(*clip);
-            }
-        }
-    });
-
-    // Set accept drops
-    setAcceptDrops(true);
-
-// Initialize new UI elements
-timecodeLabel = new QLabel("00:00:00 / 00:00:00", this);
-timecodeLabel->setAlignment(Qt::AlignCenter);
-timecodeLabel->setStyleSheet("QLabel { background-color: #252525; color: #d2d2d2; border: 1px solid #1a1a1a; padding: 4px; }");
-
-commandPreviewEdit = new QLineEdit(this);
-commandPreviewEdit->setReadOnly(true);
-commandPreviewEdit->setStyleSheet("QLineEdit { background-color: #1a1a1a; color: #d2d2d2; border: 1px solid #1a1a1a; padding: 4px; }");
-
-historyListWidget = new QListWidget(this);
-historyListWidget->setSelectionMode(QAbstractItemView::NoSelection);
-historyListWidget->setStyleSheet("QListWidget { background-color: #252525; color: #d2d2d2; border: 1px solid #1a1a1a; }");
-
-// Add new UI elements to the layout
-m_topHorizontalSplitter->addWidget(timecodeLabel);
-m_topHorizontalSplitter->addWidget(commandPreviewEdit);
-m_mainVerticalSplitter->addWidget(historyListWidget);
-
-    // Connect signals to update the command preview
-    connect(formatComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &MainWindow::updateCommandPreview);
-    connect(m_timelineWidget, &TimelineWidget::inPointChanged, this, &MainWindow::updateCommandPreview);
-    connect(m_timelineWidget, &TimelineWidget::outPointChanged, this, &MainWindow::updateCommandPreview);
-    connect(m_timelineWidget, &TimelineWidget::playheadChanged, this, &MainWindow::updateCommandPreview);
-
-    // Connect media player signals to update timecode
-    connect(m_mediaPlayer, &QMediaPlayer::positionChanged, this, [this](qint64 position) {
-        int posSec = static_cast<int>(position / 1000);
-        int durSec = static_cast<int>(m_mediaPlayer->duration() / 1000);
-        QString timeText = QString("%1:%2:%3 / %4:%5:%6")
-                           .arg(posSec / 3600, 2, 10, QChar('0'))
-                           .arg((posSec % 3600) / 60, 2, 10, QChar('0'))
-                           .arg(posSec % 60, 2, 10, QChar('0'))
-                           .arg(durSec / 3600, 2, 10, QChar('0'))
-                           .arg((durSec % 3600) / 60, 2, 10, QChar('0'))
-                           .arg(durSec % 60, 2, 10, QChar('0'));
-        timecodeLabel->setText(timeText);
-    });
-    connect(m_mediaPlayer, &QMediaPlayer::durationChanged, this, [this](qint64 duration) {
-        int posSec = static_cast<int>(m_mediaPlayer->position() / 1000);
-        int durSec = static_cast<int>(duration / 1000);
-        QString timeText = QString("%1:%2:%3 / %4:%5:%6")
-                           .arg(posSec / 3600, 2, 10, QChar('0'))
-                           .arg((posSec % 3600) / 60, 2, 10, QChar('0'))
-                           .arg(posSec % 60, 2, 10, QChar('0'))
-                           .arg(durSec / 3600, 2, 10, QChar('0'))
-                           .arg((durSec % 3600) / 60, 2, 10, QChar('0'))
-                           .arg(durSec % 60, 2, 10, QChar('0'));
-        timecodeLabel->setText(timeText);
-    });
-
-    // Ensure TimelineWidget signals are properly connected
-    connect(m_timelineWidget, &TimelineWidget::inPointChanged, this, &MainWindow::updateCommandPreview);
-    connect(m_timelineWidget, &TimelineWidget::outPointChanged, this, &MainWindow::updateCommandPreview);
-
-    // Verify TimelineWidget signals are properly defined
-    Q_ASSERT_X(m_timelineWidget->metaObject()->indexOfSignal("inPointChanged()") != -1,
-               "TimelineWidget", "inPointChanged signal not found");
-    Q_ASSERT_X(m_timelineWidget->metaObject()->indexOfSignal("outPointChanged()") != -1,
-               "TimelineWidget", "outPointChanged signal not found");
+    // 6. FORCE REFRESH VISIBILITY
+    m_projectBinWidget->show();
+    monitorTabs->show();
+    m_timelineWidget->show();
 }
+
 void MainWindow::dragEnterEvent(QDragEnterEvent* event) {
     if (event->mimeData()->hasUrls()) {
         event->acceptProposedAction();
