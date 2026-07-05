@@ -20,13 +20,9 @@ events:
     names:
       - "uname"
     candidate_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -34,19 +30,10 @@ events:
       - "/usr/bin/vendor_perl/"
       - "/usr/bin/core_perl/"
     searched_directories:
-      - "/home/rain/bin/uname"
-      - "/home/rain/.local/bin/uname"
       - "/usr/local/bin/uname"
     found: "/usr/bin/uname"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -62,7 +49,7 @@ events:
       - "/usr/share/cmake/Modules/CMakeDetermineSystem.cmake:212 (message)"
       - "CMakeLists.txt:2 (project)"
     message: |
-      The system is: Linux - 7.0.14-arch1-1 - x86_64
+      The system is: Linux - 7.1.2-arch3-1 - x86_64
   -
     kind: "find-v1"
     backtrace:
@@ -84,13 +71,9 @@ events:
       - "ninja"
       - "samu"
     candidate_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -98,12 +81,6 @@ events:
       - "/usr/bin/vendor_perl/"
       - "/usr/bin/core_perl/"
     searched_directories:
-      - "/home/rain/bin/ninja-build"
-      - "/home/rain/bin/ninja"
-      - "/home/rain/bin/samu"
-      - "/home/rain/.local/bin/ninja-build"
-      - "/home/rain/.local/bin/ninja"
-      - "/home/rain/.local/bin/samu"
       - "/usr/local/bin/ninja-build"
       - "/usr/local/bin/ninja"
       - "/usr/local/bin/samu"
@@ -111,78 +88,6 @@ events:
     found: "/usr/bin/ninja"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/local/sbin"
-        - "/var/lib/flatpak/exports/bin"
-        - "/usr/lib/jvm/default/bin"
-        - "/usr/bin/site_perl"
-        - "/usr/bin/vendor_perl"
-        - "/usr/bin/core_perl"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "/usr/share/cmake/Modules/CMakeDetermineCompiler.cmake:73 (find_program)"
-      - "/usr/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:69 (_cmake_find_compiler)"
-      - "CMakeLists.txt:2 (project)"
-    mode: "program"
-    variable: "CMAKE_CXX_COMPILER"
-    description: "CXX compiler"
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "c++"
-      - "CC"
-      - "g++"
-      - "aCC"
-      - "cl"
-      - "bcc"
-      - "xlC"
-      - "icpx"
-      - "icx"
-      - "clang++"
-    candidate_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
-      - "/usr/local/bin/"
-      - "/usr/bin/"
-      - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
-      - "/usr/local/sbin/"
-      - "/var/lib/flatpak/exports/bin/"
-      - "/usr/lib/jvm/default/bin/"
-      - "/usr/bin/site_perl/"
-      - "/usr/bin/vendor_perl/"
-      - "/usr/bin/core_perl/"
-    searched_directories:
-      - "/home/rain/bin/c++"
-      - "/home/rain/.local/bin/c++"
-      - "/usr/local/bin/c++"
-    found: "/usr/bin/c++"
-    search_context:
-      ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -219,13 +124,6 @@ events:
     found: "/usr/share/cmake/Modules/CMakeCXXCompilerId.cpp.in"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -244,7 +142,7 @@ events:
       - "CMakeLists.txt:2 (project)"
     message: |
       Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
-      Compiler: /usr/bin/c++ 
+      Compiler: /usr/bin/g++ 
       Build flags: 
       Id flags:  
       
@@ -278,12 +176,8 @@ events:
       - "ar"
     candidate_directories:
       - "/usr/bin/"
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -293,13 +187,6 @@ events:
     found: "/usr/bin/ar"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -330,12 +217,8 @@ events:
       - "ranlib"
     candidate_directories:
       - "/usr/bin/"
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -345,13 +228,6 @@ events:
     found: "/usr/bin/ranlib"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -382,12 +258,8 @@ events:
       - "strip"
     candidate_directories:
       - "/usr/bin/"
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -397,13 +269,6 @@ events:
     found: "/usr/bin/strip"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -434,12 +299,8 @@ events:
       - "ld"
     candidate_directories:
       - "/usr/bin/"
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -449,13 +310,6 @@ events:
     found: "/usr/bin/ld"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -486,12 +340,8 @@ events:
       - "nm"
     candidate_directories:
       - "/usr/bin/"
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -501,13 +351,6 @@ events:
     found: "/usr/bin/nm"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -538,12 +381,8 @@ events:
       - "objdump"
     candidate_directories:
       - "/usr/bin/"
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -553,13 +392,6 @@ events:
     found: "/usr/bin/objdump"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -590,12 +422,8 @@ events:
       - "objcopy"
     candidate_directories:
       - "/usr/bin/"
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -605,13 +433,6 @@ events:
     found: "/usr/bin/objcopy"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -642,12 +463,8 @@ events:
       - "readelf"
     candidate_directories:
       - "/usr/bin/"
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -657,13 +474,6 @@ events:
     found: "/usr/bin/readelf"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -694,12 +504,8 @@ events:
       - "dlltool"
     candidate_directories:
       - "/usr/bin/"
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -708,12 +514,8 @@ events:
       - "/usr/bin/core_perl/"
     searched_directories:
       - "/usr/bin/dlltool"
-      - "/home/rain/bin/dlltool"
-      - "/home/rain/.local/bin/dlltool"
       - "/usr/local/bin/dlltool"
       - "/bin/dlltool"
-      - "/usr/sbin/dlltool"
-      - "/sbin/dlltool"
       - "/usr/local/sbin/dlltool"
       - "/var/lib/flatpak/exports/bin/dlltool"
       - "/usr/lib/jvm/default/bin/dlltool"
@@ -723,13 +525,6 @@ events:
     found: false
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -760,12 +555,8 @@ events:
       - "addr2line"
     candidate_directories:
       - "/usr/bin/"
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -775,13 +566,6 @@ events:
     found: "/usr/bin/addr2line"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -812,12 +596,8 @@ events:
       - "tapi"
     candidate_directories:
       - "/usr/bin/"
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -826,12 +606,8 @@ events:
       - "/usr/bin/core_perl/"
     searched_directories:
       - "/usr/bin/tapi"
-      - "/home/rain/bin/tapi"
-      - "/home/rain/.local/bin/tapi"
       - "/usr/local/bin/tapi"
       - "/bin/tapi"
-      - "/usr/sbin/tapi"
-      - "/sbin/tapi"
       - "/usr/local/sbin/tapi"
       - "/var/lib/flatpak/exports/bin/tapi"
       - "/usr/lib/jvm/default/bin/tapi"
@@ -841,13 +617,6 @@ events:
     found: false
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -881,12 +650,8 @@ events:
       - "gcc-ar"
     candidate_directories:
       - "/usr/bin/"
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -895,12 +660,8 @@ events:
       - "/usr/bin/core_perl/"
     searched_directories:
       - "/usr/bin/gcc-ar-16.1"
-      - "/home/rain/bin/gcc-ar-16.1"
-      - "/home/rain/.local/bin/gcc-ar-16.1"
       - "/usr/local/bin/gcc-ar-16.1"
       - "/bin/gcc-ar-16.1"
-      - "/usr/sbin/gcc-ar-16.1"
-      - "/sbin/gcc-ar-16.1"
       - "/usr/local/sbin/gcc-ar-16.1"
       - "/var/lib/flatpak/exports/bin/gcc-ar-16.1"
       - "/usr/lib/jvm/default/bin/gcc-ar-16.1"
@@ -908,12 +669,8 @@ events:
       - "/usr/bin/vendor_perl/gcc-ar-16.1"
       - "/usr/bin/core_perl/gcc-ar-16.1"
       - "/usr/bin/gcc-ar-16"
-      - "/home/rain/bin/gcc-ar-16"
-      - "/home/rain/.local/bin/gcc-ar-16"
       - "/usr/local/bin/gcc-ar-16"
       - "/bin/gcc-ar-16"
-      - "/usr/sbin/gcc-ar-16"
-      - "/sbin/gcc-ar-16"
       - "/usr/local/sbin/gcc-ar-16"
       - "/var/lib/flatpak/exports/bin/gcc-ar-16"
       - "/usr/lib/jvm/default/bin/gcc-ar-16"
@@ -921,12 +678,8 @@ events:
       - "/usr/bin/vendor_perl/gcc-ar-16"
       - "/usr/bin/core_perl/gcc-ar-16"
       - "/usr/bin/gcc-ar16"
-      - "/home/rain/bin/gcc-ar16"
-      - "/home/rain/.local/bin/gcc-ar16"
       - "/usr/local/bin/gcc-ar16"
       - "/bin/gcc-ar16"
-      - "/usr/sbin/gcc-ar16"
-      - "/sbin/gcc-ar16"
       - "/usr/local/sbin/gcc-ar16"
       - "/var/lib/flatpak/exports/bin/gcc-ar16"
       - "/usr/lib/jvm/default/bin/gcc-ar16"
@@ -936,13 +689,6 @@ events:
     found: "/usr/bin/gcc-ar"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -976,12 +722,8 @@ events:
       - "gcc-ranlib"
     candidate_directories:
       - "/usr/bin/"
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -990,12 +732,8 @@ events:
       - "/usr/bin/core_perl/"
     searched_directories:
       - "/usr/bin/gcc-ranlib-16.1"
-      - "/home/rain/bin/gcc-ranlib-16.1"
-      - "/home/rain/.local/bin/gcc-ranlib-16.1"
       - "/usr/local/bin/gcc-ranlib-16.1"
       - "/bin/gcc-ranlib-16.1"
-      - "/usr/sbin/gcc-ranlib-16.1"
-      - "/sbin/gcc-ranlib-16.1"
       - "/usr/local/sbin/gcc-ranlib-16.1"
       - "/var/lib/flatpak/exports/bin/gcc-ranlib-16.1"
       - "/usr/lib/jvm/default/bin/gcc-ranlib-16.1"
@@ -1003,12 +741,8 @@ events:
       - "/usr/bin/vendor_perl/gcc-ranlib-16.1"
       - "/usr/bin/core_perl/gcc-ranlib-16.1"
       - "/usr/bin/gcc-ranlib-16"
-      - "/home/rain/bin/gcc-ranlib-16"
-      - "/home/rain/.local/bin/gcc-ranlib-16"
       - "/usr/local/bin/gcc-ranlib-16"
       - "/bin/gcc-ranlib-16"
-      - "/usr/sbin/gcc-ranlib-16"
-      - "/sbin/gcc-ranlib-16"
       - "/usr/local/sbin/gcc-ranlib-16"
       - "/var/lib/flatpak/exports/bin/gcc-ranlib-16"
       - "/usr/lib/jvm/default/bin/gcc-ranlib-16"
@@ -1016,12 +750,8 @@ events:
       - "/usr/bin/vendor_perl/gcc-ranlib-16"
       - "/usr/bin/core_perl/gcc-ranlib-16"
       - "/usr/bin/gcc-ranlib16"
-      - "/home/rain/bin/gcc-ranlib16"
-      - "/home/rain/.local/bin/gcc-ranlib16"
       - "/usr/local/bin/gcc-ranlib16"
       - "/bin/gcc-ranlib16"
-      - "/usr/sbin/gcc-ranlib16"
-      - "/sbin/gcc-ranlib16"
       - "/usr/local/sbin/gcc-ranlib16"
       - "/var/lib/flatpak/exports/bin/gcc-ranlib16"
       - "/usr/lib/jvm/default/bin/gcc-ranlib16"
@@ -1031,13 +761,6 @@ events:
     found: "/usr/bin/gcc-ranlib"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -1056,8 +779,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-1MHnbt"
-      binary: "/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-1MHnbt"
+      source: "/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-LoHQ4a"
+      binary: "/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-LoHQ4a"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -1068,19 +791,19 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-1MHnbt'
+        Change Dir: '/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-LoHQ4a'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_7558c
-        [1/2] /usr/bin/c++   -v -o CMakeFiles/cmTC_7558c.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        Run Build Command(s): /usr/bin/ninja -v cmTC_46697
+        [1/2] /usr/bin/g++   -v -o CMakeFiles/cmTC_46697.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
         Using built-in specs.
-        COLLECT_GCC=/usr/bin/c++
+        COLLECT_GCC=/usr/bin/g++
         Target: x86_64-pc-linux-gnu
         Configured with: ../gcc/configure --enable-languages=ada,c,c++,d,fortran,go,lto,m2,objc,obj-c++,rust,cobol --enable-bootstrap --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://gitlab.archlinux.org/archlinux/packaging/packages/gcc/-/issues --with-build-config=bootstrap-lto --with-gcc-major-version-only --with-linker-hash-style=gnu --with-system-zlib --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-libstdcxx-backtrace --enable-link-serialization=1 --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-fixincludes --disable-libssp --disable-libstdcxx-pch --disable-werror
         Thread model: posix
         Supported LTO compression algorithms: zlib zstd
         gcc version 16.1.1 20260625 (GCC) 
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_7558c.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_7558c.dir/'
-         /usr/lib/gcc/x86_64-pc-linux-gnu/16/cc1plus -quiet -v -D_GNU_SOURCE /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_7558c.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -o /tmp/ccFUayYo.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_46697.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_46697.dir/'
+         /usr/lib/gcc/x86_64-pc-linux-gnu/16/cc1plus -quiet -v -D_GNU_SOURCE /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_46697.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -o /tmp/ccLwDpEh.s
         GNU C++20 (GCC) version 16.1.1 20260625 (x86_64-pc-linux-gnu)
         	compiled by GNU C version 16.1.1 20260625, GMP version 6.3.0, MPFR version 4.2.2, MPC version 1.4.1, isl version isl-0.27-GMP
         
@@ -1097,15 +820,15 @@ events:
          /usr/include
         End of search list.
         Compiler executable checksum: eebb5417e63e71e95a0ed6f18f204264
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_7558c.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_7558c.dir/'
-         as -v --64 -o CMakeFiles/cmTC_7558c.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccFUayYo.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_46697.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_46697.dir/'
+         as -v --64 -o CMakeFiles/cmTC_46697.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccLwDpEh.s
         GNU assembler version 2.46.1 (x86_64-pc-linux-gnu) using BFD version (GNU Binutils) 2.46.1
         COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_7558c.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_7558c.dir/CMakeCXXCompilerABI.cpp.'
-        [2/2] : && /usr/bin/c++  -v -Wl,-v CMakeFiles/cmTC_7558c.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_7558c   && :
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_46697.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_46697.dir/CMakeCXXCompilerABI.cpp.'
+        [2/2] : && /usr/bin/g++  -v -Wl,-v CMakeFiles/cmTC_46697.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_46697   && :
         Using built-in specs.
-        COLLECT_GCC=/usr/bin/c++
+        COLLECT_GCC=/usr/bin/g++
         COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper
         Target: x86_64-pc-linux-gnu
         Configured with: ../gcc/configure --enable-languages=ada,c,c++,d,fortran,go,lto,m2,objc,obj-c++,rust,cobol --enable-bootstrap --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://gitlab.archlinux.org/archlinux/packaging/packages/gcc/-/issues --with-build-config=bootstrap-lto --with-gcc-major-version-only --with-linker-hash-style=gnu --with-system-zlib --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-libstdcxx-backtrace --enable-link-serialization=1 --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-fixincludes --disable-libssp --disable-libstdcxx-pch --disable-werror
@@ -1114,12 +837,12 @@ events:
         gcc version 16.1.1 20260625 (GCC) 
         COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_7558c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_7558c.'
-         /usr/lib/gcc/x86_64-pc-linux-gnu/16/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/16/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper -plugin-opt=-fresolution=/tmp/cccMqt1I.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_7558c /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/16 -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_7558c.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -latomic_asneeded -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_46697' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_46697.'
+         /usr/lib/gcc/x86_64-pc-linux-gnu/16/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/16/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccx5I74O.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_46697 /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/16 -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_46697.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -latomic_asneeded -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o
         collect2 version 16.1.1 20260625
-        /usr/bin/ld -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/16/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper -plugin-opt=-fresolution=/tmp/cccMqt1I.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_7558c /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/16 -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_7558c.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -latomic_asneeded -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o
+        /usr/bin/ld -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/16/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccx5I74O.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_46697 /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/16 -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_46697.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -latomic_asneeded -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o
         GNU ld (GNU Binutils) 2.46.1
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_7558c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_7558c.'
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_46697' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_46697.'
         
       exitCode: 0
   -
@@ -1158,19 +881,19 @@ events:
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-1MHnbt']
+        ignore line: [Change Dir: '/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-LoHQ4a']
         ignore line: []
-        ignore line: [Run Build Command(s): /usr/bin/ninja -v cmTC_7558c]
-        ignore line: [[1/2] /usr/bin/c++   -v -o CMakeFiles/cmTC_7558c.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Run Build Command(s): /usr/bin/ninja -v cmTC_46697]
+        ignore line: [[1/2] /usr/bin/g++   -v -o CMakeFiles/cmTC_46697.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [Using built-in specs.]
-        ignore line: [COLLECT_GCC=/usr/bin/c++]
+        ignore line: [COLLECT_GCC=/usr/bin/g++]
         ignore line: [Target: x86_64-pc-linux-gnu]
         ignore line: [Configured with: ../gcc/configure --enable-languages=ada c c++ d fortran go lto m2 objc obj-c++ rust cobol --enable-bootstrap --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://gitlab.archlinux.org/archlinux/packaging/packages/gcc/-/issues --with-build-config=bootstrap-lto --with-gcc-major-version-only --with-linker-hash-style=gnu --with-system-zlib --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-libstdcxx-backtrace --enable-link-serialization=1 --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-fixincludes --disable-libssp --disable-libstdcxx-pch --disable-werror]
         ignore line: [Thread model: posix]
         ignore line: [Supported LTO compression algorithms: zlib zstd]
         ignore line: [gcc version 16.1.1 20260625 (GCC) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_7558c.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_7558c.dir/']
-        ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/16/cc1plus -quiet -v -D_GNU_SOURCE /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_7558c.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -o /tmp/ccFUayYo.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_46697.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_46697.dir/']
+        ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/16/cc1plus -quiet -v -D_GNU_SOURCE /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_46697.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -o /tmp/ccLwDpEh.s]
         ignore line: [GNU C++20 (GCC) version 16.1.1 20260625 (x86_64-pc-linux-gnu)]
         ignore line: [	compiled by GNU C version 16.1.1 20260625  GMP version 6.3.0  MPFR version 4.2.2  MPC version 1.4.1  isl version isl-0.27-GMP]
         ignore line: []
@@ -1187,15 +910,15 @@ events:
         ignore line: [ /usr/include]
         ignore line: [End of search list.]
         ignore line: [Compiler executable checksum: eebb5417e63e71e95a0ed6f18f204264]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_7558c.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_7558c.dir/']
-        ignore line: [ as -v --64 -o CMakeFiles/cmTC_7558c.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccFUayYo.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_46697.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_46697.dir/']
+        ignore line: [ as -v --64 -o CMakeFiles/cmTC_46697.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccLwDpEh.s]
         ignore line: [GNU assembler version 2.46.1 (x86_64-pc-linux-gnu) using BFD version (GNU Binutils) 2.46.1]
         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_7558c.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_7558c.dir/CMakeCXXCompilerABI.cpp.']
-        ignore line: [[2/2] : && /usr/bin/c++  -v -Wl -v CMakeFiles/cmTC_7558c.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_7558c   && :]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_46697.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_46697.dir/CMakeCXXCompilerABI.cpp.']
+        ignore line: [[2/2] : && /usr/bin/g++  -v -Wl -v CMakeFiles/cmTC_46697.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_46697   && :]
         ignore line: [Using built-in specs.]
-        ignore line: [COLLECT_GCC=/usr/bin/c++]
+        ignore line: [COLLECT_GCC=/usr/bin/g++]
         ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper]
         ignore line: [Target: x86_64-pc-linux-gnu]
         ignore line: [Configured with: ../gcc/configure --enable-languages=ada c c++ d fortran go lto m2 objc obj-c++ rust cobol --enable-bootstrap --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://gitlab.archlinux.org/archlinux/packaging/packages/gcc/-/issues --with-build-config=bootstrap-lto --with-gcc-major-version-only --with-linker-hash-style=gnu --with-system-zlib --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-libstdcxx-backtrace --enable-link-serialization=1 --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-fixincludes --disable-libssp --disable-libstdcxx-pch --disable-werror]
@@ -1204,13 +927,13 @@ events:
         ignore line: [gcc version 16.1.1 20260625 (GCC) ]
         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_7558c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_7558c.']
-        link line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/16/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/16/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper -plugin-opt=-fresolution=/tmp/cccMqt1I.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_7558c /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/16 -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_7558c.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -latomic_asneeded -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_46697' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_46697.']
+        link line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/16/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/16/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccx5I74O.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_46697 /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/16 -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_46697.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -latomic_asneeded -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o]
           arg [/usr/lib/gcc/x86_64-pc-linux-gnu/16/collect2] ==> ignore
           arg [-plugin] ==> ignore
           arg [/usr/lib/gcc/x86_64-pc-linux-gnu/16/liblto_plugin.so] ==> ignore
           arg [-plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/tmp/cccMqt1I.res] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccx5I74O.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-latomic_asneeded] ==> ignore
@@ -1226,7 +949,7 @@ events:
           arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
           arg [-pie] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_7558c] ==> ignore
+          arg [cmTC_46697] ==> ignore
           arg [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o]
           arg [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o]
           arg [/usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o]
@@ -1238,7 +961,7 @@ events:
           arg [-L/lib] ==> dir [/lib]
           arg [-L/usr/lib] ==> dir [/usr/lib]
           arg [-v] ==> ignore
-          arg [CMakeFiles/cmTC_7558c.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [CMakeFiles/cmTC_46697.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
           arg [-lstdc++] ==> lib [stdc++]
           arg [-lm] ==> lib [m]
           arg [-lgcc_s] ==> lib [gcc_s]
@@ -1250,7 +973,7 @@ events:
           arg [/usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o]
           arg [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o]
         ignore line: [collect2 version 16.1.1 20260625]
-        ignore line: [/usr/bin/ld -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/16/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper -plugin-opt=-fresolution=/tmp/cccMqt1I.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_7558c /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/16 -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_7558c.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -latomic_asneeded -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o]
+        ignore line: [/usr/bin/ld -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/16/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccx5I74O.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_46697 /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/16 -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_46697.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -latomic_asneeded -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o]
         linker tool for 'CXX': /usr/bin/ld
         collapse obj [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o] ==> [/usr/lib/Scrt1.o]
         collapse obj [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o] ==> [/usr/lib/crti.o]
@@ -1292,8 +1015,8 @@ events:
       - "/usr/lib/cmake/Qt6/Qt6Config.cmake:202 (include)"
       - "CMakeLists.txt:14 (find_package)"
     directories:
-      source: "/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-IF8LYj"
-      binary: "/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-IF8LYj"
+      source: "/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-oR3WZX"
+      binary: "/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-oR3WZX"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -1304,11 +1027,11 @@ events:
       variable: "CMAKE_HAVE_LIBC_PTHREAD"
       cached: true
       stdout: |
-        Change Dir: '/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-IF8LYj'
+        Change Dir: '/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-oR3WZX'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_6ff84
-        [1/2] /usr/bin/c++ -DCMAKE_HAVE_LIBC_PTHREAD  -std=c++20 -o CMakeFiles/cmTC_6ff84.dir/src.cxx.o -c /home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-IF8LYj/src.cxx
-        [2/2] : && /usr/bin/c++   CMakeFiles/cmTC_6ff84.dir/src.cxx.o -o cmTC_6ff84   && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_22cee
+        [1/2] /usr/bin/g++ -DCMAKE_HAVE_LIBC_PTHREAD  -std=c++20 -o CMakeFiles/cmTC_22cee.dir/src.cxx.o -c /home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-oR3WZX/src.cxx
+        [2/2] : && /usr/bin/g++   CMakeFiles/cmTC_22cee.dir/src.cxx.o -o cmTC_22cee   && :
         
       exitCode: 0
   -
@@ -1325,8 +1048,8 @@ events:
       - "/usr/lib/cmake/Qt6/Qt6Config.cmake:263 (find_package)"
       - "CMakeLists.txt:14 (find_package)"
     directories:
-      source: "/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-w4jI5U"
-      binary: "/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-w4jI5U"
+      source: "/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-JQGgmg"
+      binary: "/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-JQGgmg"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -1337,11 +1060,11 @@ events:
       variable: "HAVE_STDATOMIC"
       cached: true
       stdout: |
-        Change Dir: '/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-w4jI5U'
+        Change Dir: '/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-JQGgmg'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_2a5c9
-        [1/2] /usr/bin/c++ -DHAVE_STDATOMIC  -std=c++20 -o CMakeFiles/cmTC_2a5c9.dir/src.cxx.o -c /home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-w4jI5U/src.cxx
-        [2/2] : && /usr/bin/c++   CMakeFiles/cmTC_2a5c9.dir/src.cxx.o -o cmTC_2a5c9   && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_f9b4b
+        [1/2] /usr/bin/g++ -DHAVE_STDATOMIC  -std=c++20 -o CMakeFiles/cmTC_f9b4b.dir/src.cxx.o -c /home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-JQGgmg/src.cxx
+        [2/2] : && /usr/bin/g++   CMakeFiles/cmTC_f9b4b.dir/src.cxx.o -o cmTC_f9b4b   && :
         
       exitCode: 0
   -
@@ -1419,54 +1142,6 @@ events:
         mode: "cps"
         reason: "no_exist"
       -
-        path: "/home/rain/Qt6CoreToolsConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/qt6coretools-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/lib/cps/Qt6CoreTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/lib/cps/qt6coretools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/share/cps/Qt6CoreTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/share/cps/qt6coretools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/Qt6CoreToolsConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/qt6coretools-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/lib/cps/Qt6CoreTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/lib/cps/qt6coretools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/share/cps/Qt6CoreTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/share/cps/qt6coretools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
         path: "/usr/local/Qt6CoreToolsConfig.cmake"
         mode: "config"
         reason: "no_exist"
@@ -1520,13 +1195,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -1660,13 +1328,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -1712,13 +1373,9 @@ events:
     names:
       - "GL/gl.h"
     candidate_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -1741,13 +1398,9 @@ events:
       - "/usr/openwin/share/include/"
       - "/opt/graphics/OpenGL/include/"
     searched_directories:
-      - "/home/rain/bin/GL/gl.h"
-      - "/home/rain/.local/bin/GL/gl.h"
       - "/usr/local/bin/GL/gl.h"
       - "/usr/bin/GL/gl.h"
       - "/bin/GL/gl.h"
-      - "/usr/sbin/GL/gl.h"
-      - "/sbin/GL/gl.h"
       - "/usr/local/sbin/GL/gl.h"
       - "/var/lib/flatpak/exports/bin/GL/gl.h"
       - "/usr/lib/jvm/default/bin/GL/gl.h"
@@ -1759,13 +1412,6 @@ events:
     found: "/usr/include/"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -1813,13 +1459,9 @@ events:
     names:
       - "GL/glx.h"
     candidate_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -1839,13 +1481,9 @@ events:
       - "/opt/"
       - "/usr/include/X11/"
     searched_directories:
-      - "/home/rain/bin/GL/glx.h"
-      - "/home/rain/.local/bin/GL/glx.h"
       - "/usr/local/bin/GL/glx.h"
       - "/usr/bin/GL/glx.h"
       - "/bin/GL/glx.h"
-      - "/usr/sbin/GL/glx.h"
-      - "/sbin/GL/glx.h"
       - "/usr/local/sbin/GL/glx.h"
       - "/var/lib/flatpak/exports/bin/GL/glx.h"
       - "/usr/lib/jvm/default/bin/GL/glx.h"
@@ -1857,13 +1495,6 @@ events:
     found: "/usr/include/"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -1911,13 +1542,9 @@ events:
     names:
       - "EGL/egl.h"
     candidate_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -1937,13 +1564,9 @@ events:
       - "/opt/"
       - "/usr/include/X11/"
     searched_directories:
-      - "/home/rain/bin/EGL/egl.h"
-      - "/home/rain/.local/bin/EGL/egl.h"
       - "/usr/local/bin/EGL/egl.h"
       - "/usr/bin/EGL/egl.h"
       - "/bin/EGL/egl.h"
-      - "/usr/sbin/EGL/egl.h"
-      - "/sbin/EGL/egl.h"
       - "/usr/local/sbin/EGL/egl.h"
       - "/var/lib/flatpak/exports/bin/EGL/egl.h"
       - "/usr/lib/jvm/default/bin/EGL/egl.h"
@@ -1955,13 +1578,6 @@ events:
     found: "/usr/include/"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -2009,13 +1625,9 @@ events:
     names:
       - "GLES2/gl2.h"
     candidate_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -2035,13 +1647,9 @@ events:
       - "/opt/"
       - "/usr/include/X11/"
     searched_directories:
-      - "/home/rain/bin/GLES2/gl2.h"
-      - "/home/rain/.local/bin/GLES2/gl2.h"
       - "/usr/local/bin/GLES2/gl2.h"
       - "/usr/bin/GLES2/gl2.h"
       - "/bin/GLES2/gl2.h"
-      - "/usr/sbin/GLES2/gl2.h"
-      - "/sbin/GLES2/gl2.h"
       - "/usr/local/sbin/GLES2/gl2.h"
       - "/var/lib/flatpak/exports/bin/GLES2/gl2.h"
       - "/usr/lib/jvm/default/bin/GLES2/gl2.h"
@@ -2053,13 +1661,6 @@ events:
     found: "/usr/include/"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -2107,13 +1708,9 @@ events:
     names:
       - "GLES3/gl3.h"
     candidate_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -2133,13 +1730,9 @@ events:
       - "/opt/"
       - "/usr/include/X11/"
     searched_directories:
-      - "/home/rain/bin/GLES3/gl3.h"
-      - "/home/rain/.local/bin/GLES3/gl3.h"
       - "/usr/local/bin/GLES3/gl3.h"
       - "/usr/bin/GLES3/gl3.h"
       - "/bin/GLES3/gl3.h"
-      - "/usr/sbin/GLES3/gl3.h"
-      - "/sbin/GLES3/gl3.h"
       - "/usr/local/sbin/GLES3/gl3.h"
       - "/var/lib/flatpak/exports/bin/GLES3/gl3.h"
       - "/usr/lib/jvm/default/bin/GLES3/gl3.h"
@@ -2151,13 +1744,6 @@ events:
     found: "/usr/include/"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -2205,13 +1791,9 @@ events:
     names:
       - "GL/xmesa.h"
     candidate_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -2234,13 +1816,9 @@ events:
       - "/usr/openwin/share/include/"
       - "/opt/graphics/OpenGL/include/"
     searched_directories:
-      - "/home/rain/bin/GL/xmesa.h"
-      - "/home/rain/.local/bin/GL/xmesa.h"
       - "/usr/local/bin/GL/xmesa.h"
       - "/usr/bin/GL/xmesa.h"
       - "/bin/GL/xmesa.h"
-      - "/usr/sbin/GL/xmesa.h"
-      - "/sbin/GL/xmesa.h"
       - "/usr/local/sbin/GL/xmesa.h"
       - "/var/lib/flatpak/exports/bin/GL/xmesa.h"
       - "/usr/lib/jvm/default/bin/GL/xmesa.h"
@@ -2265,13 +1843,6 @@ events:
     found: false
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -2319,13 +1890,9 @@ events:
     names:
       - "GL/glu.h"
     candidate_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -2345,13 +1912,9 @@ events:
       - "/opt/"
       - "/usr/include/X11/"
     searched_directories:
-      - "/home/rain/bin/GL/glu.h"
-      - "/home/rain/.local/bin/GL/glu.h"
       - "/usr/local/bin/GL/glu.h"
       - "/usr/bin/GL/glu.h"
       - "/bin/GL/glu.h"
-      - "/usr/sbin/GL/glu.h"
-      - "/sbin/GL/glu.h"
       - "/usr/local/sbin/GL/glu.h"
       - "/var/lib/flatpak/exports/bin/GL/glu.h"
       - "/usr/lib/jvm/default/bin/GL/glu.h"
@@ -2363,13 +1926,6 @@ events:
     found: "/usr/include/"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -2417,13 +1973,9 @@ events:
     names:
       - "OpenGL"
     candidate_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -2443,13 +1995,9 @@ events:
       - "/opt/"
       - "/usr/lib/X11/"
     searched_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -2461,13 +2009,6 @@ events:
     found: "/usr/lib/libOpenGL.so"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -2515,20 +2056,12 @@ events:
     names:
       - "GLX"
     candidate_directories:
-      - "/home/rain/bin/libglvnd/"
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/libglvnd/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/libglvnd/"
       - "/usr/local/bin/"
       - "/usr/bin/libglvnd/"
       - "/usr/bin/"
       - "/bin/libglvnd/"
       - "/bin/"
-      - "/usr/sbin/libglvnd/"
-      - "/usr/sbin/"
-      - "/sbin/libglvnd/"
-      - "/sbin/"
       - "/usr/local/sbin/libglvnd/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/libglvnd/"
@@ -2566,20 +2099,12 @@ events:
       - "/usr/lib/X11/libglvnd/"
       - "/usr/lib/X11/"
     searched_directories:
-      - "/home/rain/bin/libglvnd/"
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/libglvnd/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/libglvnd/"
       - "/usr/local/bin/"
       - "/usr/bin/libglvnd/"
       - "/usr/bin/"
       - "/bin/libglvnd/"
       - "/bin/"
-      - "/usr/sbin/libglvnd/"
-      - "/usr/sbin/"
-      - "/sbin/libglvnd/"
-      - "/sbin/"
       - "/usr/local/sbin/libglvnd/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/libglvnd/"
@@ -2600,13 +2125,6 @@ events:
     found: "/usr/lib/libGLX.so"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -2654,20 +2172,12 @@ events:
     names:
       - "EGL"
     candidate_directories:
-      - "/home/rain/bin/libglvnd/"
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/libglvnd/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/libglvnd/"
       - "/usr/local/bin/"
       - "/usr/bin/libglvnd/"
       - "/usr/bin/"
       - "/bin/libglvnd/"
       - "/bin/"
-      - "/usr/sbin/libglvnd/"
-      - "/usr/sbin/"
-      - "/sbin/libglvnd/"
-      - "/sbin/"
       - "/usr/local/sbin/libglvnd/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/libglvnd/"
@@ -2705,20 +2215,12 @@ events:
       - "/usr/lib/X11/libglvnd/"
       - "/usr/lib/X11/"
     searched_directories:
-      - "/home/rain/bin/libglvnd/"
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/libglvnd/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/libglvnd/"
       - "/usr/local/bin/"
       - "/usr/bin/libglvnd/"
       - "/usr/bin/"
       - "/bin/libglvnd/"
       - "/bin/"
-      - "/usr/sbin/libglvnd/"
-      - "/usr/sbin/"
-      - "/sbin/libglvnd/"
-      - "/sbin/"
       - "/usr/local/sbin/libglvnd/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/libglvnd/"
@@ -2739,13 +2241,6 @@ events:
     found: "/usr/lib/libEGL.so"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -2793,13 +2288,9 @@ events:
     names:
       - "GLESv2"
     candidate_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -2819,13 +2310,9 @@ events:
       - "/opt/"
       - "/usr/lib/X11/"
     searched_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -2837,13 +2324,6 @@ events:
     found: "/usr/lib/libGLESv2.so"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -2892,13 +2372,9 @@ events:
       - "GLESv3"
       - "GLESv2"
     candidate_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -2918,13 +2394,9 @@ events:
       - "/opt/"
       - "/usr/lib/X11/"
     searched_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -2943,13 +2415,9 @@ events:
       - "/opt/lib/"
       - "/opt/"
       - "/usr/lib/X11/"
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -2961,13 +2429,6 @@ events:
     found: "/usr/lib/libGLESv2.so"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -3016,13 +2477,9 @@ events:
       - "GLU"
       - "MesaGLU"
     candidate_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -3045,13 +2502,9 @@ events:
       - "/usr/openwin/lib/"
       - "/usr/shlib/"
     searched_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -3063,13 +2516,6 @@ events:
     found: "/usr/lib/libGLU.so"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -3115,13 +2561,9 @@ events:
     names:
       - "vulkan/vulkan.h"
     candidate_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -3141,13 +2583,9 @@ events:
       - "/opt/"
       - "/usr/include/X11/"
     searched_directories:
-      - "/home/rain/bin/vulkan/vulkan.h"
-      - "/home/rain/.local/bin/vulkan/vulkan.h"
       - "/usr/local/bin/vulkan/vulkan.h"
       - "/usr/bin/vulkan/vulkan.h"
       - "/bin/vulkan/vulkan.h"
-      - "/usr/sbin/vulkan/vulkan.h"
-      - "/sbin/vulkan/vulkan.h"
       - "/usr/local/sbin/vulkan/vulkan.h"
       - "/var/lib/flatpak/exports/bin/vulkan/vulkan.h"
       - "/usr/lib/jvm/default/bin/vulkan/vulkan.h"
@@ -3169,13 +2607,6 @@ events:
     found: false
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -3221,13 +2652,9 @@ events:
     names:
       - "vulkan"
     candidate_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -3247,13 +2674,9 @@ events:
       - "/opt/"
       - "/usr/lib/X11/"
     searched_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -3265,13 +2688,6 @@ events:
     found: "/usr/lib/libvulkan.so"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -3317,13 +2733,9 @@ events:
     names:
       - "glslc"
     candidate_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -3348,19 +2760,10 @@ events:
       - "/opt/sbin/"
       - "/opt/"
     searched_directories:
-      - "/home/rain/bin/glslc"
-      - "/home/rain/.local/bin/glslc"
       - "/usr/local/bin/glslc"
     found: "/usr/bin/glslc"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -3404,13 +2807,9 @@ events:
     names:
       - "glslangValidator"
     candidate_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -3435,19 +2834,10 @@ events:
       - "/opt/sbin/"
       - "/opt/"
     searched_directories:
-      - "/home/rain/bin/glslangValidator"
-      - "/home/rain/.local/bin/glslangValidator"
       - "/usr/local/bin/glslangValidator"
     found: "/usr/bin/glslangValidator"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -3542,54 +2932,6 @@ events:
         mode: "cps"
         reason: "no_exist"
       -
-        path: "/home/rain/Qt6GuiToolsConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/qt6guitools-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/lib/cps/Qt6GuiTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/lib/cps/qt6guitools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/share/cps/Qt6GuiTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/share/cps/qt6guitools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/Qt6GuiToolsConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/qt6guitools-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/lib/cps/Qt6GuiTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/lib/cps/qt6guitools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/share/cps/Qt6GuiTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/share/cps/qt6guitools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
         path: "/usr/local/Qt6GuiToolsConfig.cmake"
         mode: "config"
         reason: "no_exist"
@@ -3643,13 +2985,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -3749,54 +3084,6 @@ events:
         mode: "cps"
         reason: "no_exist"
       -
-        path: "/home/rain/Qt6DBusToolsConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/qt6dbustools-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/lib/cps/Qt6DBusTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/lib/cps/qt6dbustools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/share/cps/Qt6DBusTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/share/cps/qt6dbustools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/Qt6DBusToolsConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/qt6dbustools-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/lib/cps/Qt6DBusTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/lib/cps/qt6dbustools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/share/cps/Qt6DBusTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/share/cps/qt6dbustools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
         path: "/usr/local/Qt6DBusToolsConfig.cmake"
         mode: "config"
         reason: "no_exist"
@@ -3850,13 +3137,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -3982,13 +3262,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -4106,13 +3379,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -4207,54 +3473,6 @@ events:
         mode: "cps"
         reason: "no_exist"
       -
-        path: "/home/rain/Qt6WidgetsToolsConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/qt6widgetstools-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/lib/cps/Qt6WidgetsTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/lib/cps/qt6widgetstools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/share/cps/Qt6WidgetsTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/share/cps/qt6widgetstools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/Qt6WidgetsToolsConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/qt6widgetstools-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/lib/cps/Qt6WidgetsTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/lib/cps/qt6widgetstools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/share/cps/Qt6WidgetsTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/share/cps/qt6widgetstools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
         path: "/usr/local/Qt6WidgetsToolsConfig.cmake"
         mode: "config"
         reason: "no_exist"
@@ -4308,13 +3526,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -4432,13 +3643,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -4548,13 +3752,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -4688,13 +3885,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -4836,13 +4026,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -4952,13 +4135,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -5056,54 +4232,6 @@ events:
         mode: "cps"
         reason: "no_exist"
       -
-        path: "/home/rain/Qt6QmlToolsConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/qt6qmltools-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/lib/cps/Qt6QmlTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/lib/cps/qt6qmltools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/share/cps/Qt6QmlTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/share/cps/qt6qmltools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/Qt6QmlToolsConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/qt6qmltools-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/lib/cps/Qt6QmlTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/lib/cps/qt6qmltools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/share/cps/Qt6QmlTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/share/cps/qt6qmltools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
         path: "/usr/local/Qt6QmlToolsConfig.cmake"
         mode: "config"
         reason: "no_exist"
@@ -5157,13 +4285,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -5258,54 +4379,6 @@ events:
         mode: "cps"
         reason: "no_exist"
       -
-        path: "/home/rain/Qt6QuickToolsConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/qt6quicktools-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/lib/cps/Qt6QuickTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/lib/cps/qt6quicktools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/share/cps/Qt6QuickTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/share/cps/qt6quicktools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/Qt6QuickToolsConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/qt6quicktools-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/lib/cps/Qt6QuickTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/lib/cps/qt6quicktools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/share/cps/Qt6QuickTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/share/cps/qt6quicktools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
         path: "/usr/local/Qt6QuickToolsConfig.cmake"
         mode: "config"
         reason: "no_exist"
@@ -5359,13 +4432,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -5480,13 +4546,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -5579,54 +4638,6 @@ events:
         reason: "no_exist"
       -
         path: "/home/rain/Programming/ffgui/build/CMakeFiles/pkgRedirects/share/cps/qt6qmlcompilerplusprivatetools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/Qt6QmlCompilerPlusPrivateToolsConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/qt6qmlcompilerplusprivatetools-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/lib/cps/Qt6QmlCompilerPlusPrivateTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/lib/cps/qt6qmlcompilerplusprivatetools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/share/cps/Qt6QmlCompilerPlusPrivateTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/share/cps/qt6qmlcompilerplusprivatetools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/Qt6QmlCompilerPlusPrivateToolsConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/qt6qmlcompilerplusprivatetools-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/lib/cps/Qt6QmlCompilerPlusPrivateTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/lib/cps/qt6qmlcompilerplusprivatetools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/share/cps/Qt6QmlCompilerPlusPrivateTools.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/share/cps/qt6qmlcompilerplusprivatetools.cps"
         mode: "cps"
         reason: "no_exist"
       -
@@ -5848,13 +4859,6 @@ events:
     found: null
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -6172,13 +5176,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -6296,13 +5293,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -6425,13 +5415,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -6549,13 +5532,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -6681,13 +5657,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -7229,13 +6198,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -7345,13 +6307,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -7469,13 +6424,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -7577,13 +6525,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -7685,13 +6626,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -7819,54 +6753,6 @@ events:
         reason: "no_exist"
       -
         path: "/home/rain/Programming/ffgui/build/CMakeFiles/pkgRedirects/share/cps/qt6.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/Qt6Config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/qt6-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/lib/cps/Qt6.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/lib/cps/qt6.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/share/cps/Qt6.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/share/cps/qt6.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/Qt6Config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/qt6-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/lib/cps/Qt6.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/lib/cps/qt6.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/share/cps/Qt6.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/rain/.local/share/cps/qt6.cps"
         mode: "cps"
         reason: "no_exist"
       -
@@ -9451,13 +8337,6 @@ events:
       version: "6.11.1"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -9501,13 +8380,9 @@ events:
       - "pkg-config"
       - "pkgconf"
     candidate_directories:
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -9532,22 +8407,11 @@ events:
       - "/opt/sbin/"
       - "/opt/"
     searched_directories:
-      - "/home/rain/bin/pkg-config"
-      - "/home/rain/bin/pkgconf"
-      - "/home/rain/.local/bin/pkg-config"
-      - "/home/rain/.local/bin/pkgconf"
       - "/usr/local/bin/pkg-config"
       - "/usr/local/bin/pkgconf"
     found: "/usr/bin/pkg-config"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -9593,13 +8457,6 @@ events:
     found: "/usr/lib/libavdevice.so"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -9647,13 +8504,6 @@ events:
     found: "/usr/lib/libavfilter.so"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -9701,13 +8551,6 @@ events:
     found: "/usr/lib/libavformat.so"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -9755,13 +8598,6 @@ events:
     found: "/usr/lib/libavcodec.so"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -9809,13 +8645,6 @@ events:
     found: "/usr/lib/libswscale.so"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -9863,13 +8692,6 @@ events:
     found: "/usr/lib/libswresample.so"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -9917,13 +8739,6 @@ events:
     found: "/usr/lib/libavutil.so"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -9953,8 +8768,8 @@ events:
       - "CMakeLists.txt:34 (find_package)"
     description: "Detecting CXX OpenMP compiler info"
     directories:
-      source: "/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-sZFQNO"
-      binary: "/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-sZFQNO"
+      source: "/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-4PUl0T"
+      binary: "/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-4PUl0T"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -9965,13 +8780,13 @@ events:
       variable: "OpenMP_COMPILE_RESULT_CXX_fopenmp"
       cached: true
       stdout: |
-        Change Dir: '/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-sZFQNO'
+        Change Dir: '/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-4PUl0T'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_00f66
-        [1/2] /usr/bin/c++   -fopenmp -std=c++20 -o CMakeFiles/cmTC_00f66.dir/OpenMPTryFlag.cpp.o -c /home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-sZFQNO/OpenMPTryFlag.cpp
-        [2/2] : && /usr/bin/c++ -fopenmp -v CMakeFiles/cmTC_00f66.dir/OpenMPTryFlag.cpp.o -o cmTC_00f66   && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_5cef3
+        [1/2] /usr/bin/g++   -fopenmp -std=c++20 -o CMakeFiles/cmTC_5cef3.dir/OpenMPTryFlag.cpp.o -c /home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-4PUl0T/OpenMPTryFlag.cpp
+        [2/2] : && /usr/bin/g++ -fopenmp -v CMakeFiles/cmTC_5cef3.dir/OpenMPTryFlag.cpp.o -o cmTC_5cef3   && :
         Using built-in specs.
-        COLLECT_GCC=/usr/bin/c++
+        COLLECT_GCC=/usr/bin/g++
         COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper
         Target: x86_64-pc-linux-gnu
         Configured with: ../gcc/configure --enable-languages=ada,c,c++,d,fortran,go,lto,m2,objc,obj-c++,rust,cobol --enable-bootstrap --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://gitlab.archlinux.org/archlinux/packaging/packages/gcc/-/issues --with-build-config=bootstrap-lto --with-gcc-major-version-only --with-linker-hash-style=gnu --with-system-zlib --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-libstdcxx-backtrace --enable-link-serialization=1 --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-fixincludes --disable-libssp --disable-libstdcxx-pch --disable-werror
@@ -9981,9 +8796,9 @@ events:
         COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../:/lib/:/usr/lib/
         Reading specs from /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libgomp.spec
-        COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_00f66' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'cmTC_00f66.'
-         /usr/lib/gcc/x86_64-pc-linux-gnu/16/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/16/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper -plugin-opt=-fresolution=/tmp/cceH2goZ.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_00f66 /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/16 -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../.. -L/lib -L/usr/lib CMakeFiles/cmTC_00f66.dir/OpenMPTryFlag.cpp.o -lstdc++ -lm -lgomp -lgcc_s -lgcc -latomic_asneeded -lpthread -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o
-        COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_00f66' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'cmTC_00f66.'
+        COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_5cef3' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'cmTC_5cef3.'
+         /usr/lib/gcc/x86_64-pc-linux-gnu/16/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/16/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccmoBs54.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_5cef3 /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/16 -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../.. -L/lib -L/usr/lib CMakeFiles/cmTC_5cef3.dir/OpenMPTryFlag.cpp.o -lstdc++ -lm -lgomp -lgcc_s -lgcc -latomic_asneeded -lpthread -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o
+        COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_5cef3' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'cmTC_5cef3.'
         
       exitCode: 0
   -
@@ -9995,13 +8810,13 @@ events:
     message: |
       Parsed CXX OpenMP implicit link information from above output:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
-        ignore line: [Change Dir: '/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-sZFQNO']
+        ignore line: [Change Dir: '/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-4PUl0T']
         ignore line: []
-        ignore line: [Run Build Command(s): /usr/bin/ninja -v cmTC_00f66]
-        ignore line: [[1/2] /usr/bin/c++   -fopenmp -std=c++20 -o CMakeFiles/cmTC_00f66.dir/OpenMPTryFlag.cpp.o -c /home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-sZFQNO/OpenMPTryFlag.cpp]
-        ignore line: [[2/2] : && /usr/bin/c++ -fopenmp -v CMakeFiles/cmTC_00f66.dir/OpenMPTryFlag.cpp.o -o cmTC_00f66   && :]
+        ignore line: [Run Build Command(s): /usr/bin/ninja -v cmTC_5cef3]
+        ignore line: [[1/2] /usr/bin/g++   -fopenmp -std=c++20 -o CMakeFiles/cmTC_5cef3.dir/OpenMPTryFlag.cpp.o -c /home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-4PUl0T/OpenMPTryFlag.cpp]
+        ignore line: [[2/2] : && /usr/bin/g++ -fopenmp -v CMakeFiles/cmTC_5cef3.dir/OpenMPTryFlag.cpp.o -o cmTC_5cef3   && :]
         ignore line: [Using built-in specs.]
-        ignore line: [COLLECT_GCC=/usr/bin/c++]
+        ignore line: [COLLECT_GCC=/usr/bin/g++]
         ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper]
         ignore line: [Target: x86_64-pc-linux-gnu]
         ignore line: [Configured with: ../gcc/configure --enable-languages=ada c c++ d fortran go lto m2 objc obj-c++ rust cobol --enable-bootstrap --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://gitlab.archlinux.org/archlinux/packaging/packages/gcc/-/issues --with-build-config=bootstrap-lto --with-gcc-major-version-only --with-linker-hash-style=gnu --with-system-zlib --enable-cet=auto --enable-checking=release --enable-clocale=gnu --enable-default-pie --enable-default-ssp --enable-gnu-indirect-function --enable-gnu-unique-object --enable-libstdcxx-backtrace --enable-link-serialization=1 --enable-linker-build-id --enable-lto --enable-multilib --enable-plugin --enable-shared --enable-threads=posix --disable-fixincludes --disable-libssp --disable-libstdcxx-pch --disable-werror]
@@ -10011,13 +8826,13 @@ events:
         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/16/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../:/lib/:/usr/lib/]
         ignore line: [Reading specs from /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libgomp.spec]
-        ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_00f66' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'cmTC_00f66.']
-        link line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/16/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/16/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper -plugin-opt=-fresolution=/tmp/cceH2goZ.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_00f66 /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/16 -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../.. -L/lib -L/usr/lib CMakeFiles/cmTC_00f66.dir/OpenMPTryFlag.cpp.o -lstdc++ -lm -lgomp -lgcc_s -lgcc -latomic_asneeded -lpthread -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-fopenmp' '-v' '-o' 'cmTC_5cef3' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-pthread' '-dumpdir' 'cmTC_5cef3.']
+        link line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/16/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/16/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccmoBs54.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_5cef3 /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/16 -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../.. -L/lib -L/usr/lib CMakeFiles/cmTC_5cef3.dir/OpenMPTryFlag.cpp.o -lstdc++ -lm -lgomp -lgcc_s -lgcc -latomic_asneeded -lpthread -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crtn.o]
           arg [/usr/lib/gcc/x86_64-pc-linux-gnu/16/collect2] ==> ignore
           arg [-plugin] ==> ignore
           arg [/usr/lib/gcc/x86_64-pc-linux-gnu/16/liblto_plugin.so] ==> ignore
           arg [-plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/16/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/tmp/cceH2goZ.res] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccmoBs54.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-latomic_asneeded] ==> ignore
@@ -10034,7 +8849,7 @@ events:
           arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
           arg [-pie] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_00f66] ==> ignore
+          arg [cmTC_5cef3] ==> ignore
           arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/16] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/16]
           arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib]
           arg [-L/lib/../lib] ==> dir [/lib/../lib]
@@ -10042,7 +8857,7 @@ events:
           arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../..] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../..]
           arg [-L/lib] ==> dir [/lib]
           arg [-L/usr/lib] ==> dir [/usr/lib]
-          arg [CMakeFiles/cmTC_00f66.dir/OpenMPTryFlag.cpp.o] ==> ignore
+          arg [CMakeFiles/cmTC_5cef3.dir/OpenMPTryFlag.cpp.o] ==> ignore
           arg [-lstdc++] ==> lib [stdc++]
           arg [-lm] ==> lib [m]
           arg [-lgomp] ==> lib [gomp]
@@ -10089,13 +8904,9 @@ events:
       - "/usr/lib/gcc/x86_64-pc-linux-gnu/16/"
       - "/usr/lib/"
       - "/lib/"
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -10119,13 +8930,6 @@ events:
     found: "/usr/lib/libgomp.so"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -10170,13 +8974,9 @@ events:
       - "/usr/lib/gcc/x86_64-pc-linux-gnu/16/"
       - "/usr/lib/"
       - "/lib/"
-      - "/home/rain/bin/"
-      - "/home/rain/.local/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
-      - "/usr/sbin/"
-      - "/sbin/"
       - "/usr/local/sbin/"
       - "/var/lib/flatpak/exports/bin/"
       - "/usr/lib/jvm/default/bin/"
@@ -10200,13 +9000,6 @@ events:
     found: "/usr/lib/libpthread.a"
     search_context:
       ENV{PATH}:
-        - "/home/rain/bin"
-        - "/home/rain/.local/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
         - "/usr/local/bin"
         - "/usr/bin"
         - "/bin"
@@ -10236,8 +9029,8 @@ events:
       - "CMakeLists.txt:34 (find_package)"
     description: "Detecting CXX OpenMP version"
     directories:
-      source: "/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-2iy0Rs"
-      binary: "/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-2iy0Rs"
+      source: "/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-pGPf5c"
+      binary: "/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-pGPf5c"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -10248,11 +9041,11 @@ events:
       variable: "OpenMP_SPECTEST_CXX_"
       cached: true
       stdout: |
-        Change Dir: '/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-2iy0Rs'
+        Change Dir: '/home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-pGPf5c'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_53d68
-        [1/2] /usr/bin/c++   -fopenmp -std=c++20 -o CMakeFiles/cmTC_53d68.dir/OpenMPCheckVersion.cpp.o -c /home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-2iy0Rs/OpenMPCheckVersion.cpp
-        [2/2] : && /usr/bin/c++ -fopenmp  CMakeFiles/cmTC_53d68.dir/OpenMPCheckVersion.cpp.o -o cmTC_53d68   && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_dad9d
+        [1/2] /usr/bin/g++   -fopenmp -std=c++20 -o CMakeFiles/cmTC_dad9d.dir/OpenMPCheckVersion.cpp.o -c /home/rain/Programming/ffgui/build/CMakeFiles/CMakeScratch/TryCompile-pGPf5c/OpenMPCheckVersion.cpp
+        [2/2] : && /usr/bin/g++ -fopenmp  CMakeFiles/cmTC_dad9d.dir/OpenMPCheckVersion.cpp.o -o cmTC_dad9d   && :
         
       exitCode: 0
 ...

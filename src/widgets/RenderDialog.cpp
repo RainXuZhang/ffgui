@@ -1,305 +1,253 @@
 #include "RenderDialog.h"
+#include "../core/ProjectModel.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QFormLayout>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QComboBox>
+#include <QSpinBox>
+#include <QDoubleSpinBox>
+#include <QCheckBox>
 #include <QFileDialog>
 #include <QMessageBox>
-#include <QFileInfo>
-#include <QDir>
-#include <QDebug>
-#include <QRegularExpression>
-#include <QCheckBox>
+#include <QProcess>
+#include <QProgressBar>
+#include <QTextEdit>
+#include <QTimer>
 
-RenderDialog::RenderDialog(Project* project, QWidget* parent)
+RenderDialog::RenderDialog(QWidget* parent)
     : QDialog(parent)
-    , m_project(project)
 {
-    setWindowTitle("Render / Export Project");
-    setMinimumSize(500, 400);
-    setStyleSheet("background-color: #252525; color: #d2d2d2;");
+    setWindowTitle("Render Project");
+    setMinimumSize(600, 400);
 
     auto* mainLayout = new QVBoxLayout(this);
-    mainLayout->setContentsMargins(10, 10, 10, 10);
-    mainLayout->setSpacing(10);
 
-    auto* formLayout = new QFormLayout();
-    formLayout->setSpacing(8);
-
-    // Output Path
-    auto* pathLayout = new QHBoxLayout();
+    // Output settings
+    auto* outputLayout = new QFormLayout();
     m_outputPathEdit = new QLineEdit(this);
-    m_outputPathEdit->setText(QDir::homePath() + "/rendered_output.mp4");
-    m_outputPathEdit->setStyleSheet("QLineEdit { background-color: #1e1e1e; border: 1px solid #444444; padding: 4px; color: white; }");
-    
-    auto* browseBtn = new QPushButton("Browse...", this);
-    browseBtn->setStyleSheet("QPushButton { background-color: #3e3e3e; padding: 4px 10px; }");
-    connect(browseBtn, &QPushButton::clicked, this, &RenderDialog::onBrowseClicked);
-    
-    pathLayout->addWidget(m_outputPathEdit);
-    pathLayout->addWidget(browseBtn);
-    formLayout->addRow("Output File:", pathLayout);
+    m_outputPathEdit->setPlaceholderText("Output file path");
+    auto* browseButton = new QPushButton("Browse", this);
+    connect(browseButton, &QPushButton::clicked, this, &RenderDialog::onBrowseOutputClicked);
 
-    // Profile / Format Selection (Converting feature)
+    auto* formatLayout = new QHBoxLayout();
     m_formatCombo = new QComboBox(this);
-    m_formatCombo->addItem("MP4 (H.264 / AAC) - Highly Compatible", "mp4");
-    m_formatCombo->addItem("MKV (Matroska HEVC / AAC) - High Quality", "mkv");
-    m_formatCombo->addItem("WebM (VP9 / Opus) - Web Optimized", "webm");
-    m_formatCombo->addItem("GIF (Animated Image)", "gif");
-    m_formatCombo->addItem("MP3 (Audio Only)", "mp3");
-    m_formatCombo->setStyleSheet("QComboBox { background-color: #333333; color: white; padding: 4px; }");
-    formLayout->addRow("Render Format:", m_formatCombo);
+    m_formatCombo->addItems({"MP4", "MKV", "MOV", "AVI"});
+    m_formatCombo->setCurrentText("MP4");
 
-    // Resolution selection
-    m_resolutionCombo = new QComboBox(this);
-    m_resolutionCombo->addItem("Source Resolution (Original)", "source");
-    m_resolutionCombo->addItem("Full HD 1080p (1920x1080)", "1920x1080");
-    m_resolutionCombo->addItem("HD 720p (1280x720)", "1280x720");
-    m_resolutionCombo->addItem("SD 480p (854x480)", "854x480");
-    m_resolutionCombo->setStyleSheet("QComboBox { background-color: #333333; color: white; padding: 4px; }");
-    formLayout->addRow("Resolution:", m_resolutionCombo);
+    formatLayout->addWidget(m_formatCombo);
+    formatLayout->addStretch();
 
-    // Quality/Bitrate profile
-    m_bitrateCombo = new QComboBox(this);
-    m_bitrateCombo->addItem("High Quality (default)", "high");
-    m_bitrateCombo->addItem("Medium Quality (smaller size)", "medium");
-    m_bitrateCombo->addItem("Low Quality (very small size)", "low");
-    m_bitrateCombo->setStyleSheet("QComboBox { background-color: #333333; color: white; padding: 4px; }");
-    formLayout->addRow("Video Bitrate:", m_bitrateCombo);
+    outputLayout->addRow("Output Path:", m_outputPathEdit);
+    outputLayout->addRow("Format:", formatLayout);
+    outputLayout->addRow(browseButton);
 
-    // Add CFR Checkbox
-    m_cfrCheckBox = new QCheckBox("Force Constant Frame Rate (CFR)", this);
-    m_cfrCheckBox->setStyleSheet("QCheckBox { background-color: #333333; color: white; padding: 4px; }");
-    m_cfrCheckBox->setChecked(true); // Default to checked for safer re-encodes
-    formLayout->addRow("Options:", m_cfrCheckBox);
+    // Video settings
+    auto* videoLayout = new QFormLayout();
+    m_videoCodecCombo = new QComboBox(this);
+    m_videoCodecCombo->addItems({"libx264", "libx265", "h264_nvenc", "h264_amf"});
+    m_videoCodecCombo->setCurrentText("libx264");
 
-    mainLayout->addLayout(formLayout);
+    m_bitrateSpin = new QSpinBox(this);
+    m_bitrateSpin->setRange(500, 100000);
+    m_bitrateSpin->setValue(5000);
+    m_bitrateSpin->setSuffix(" kbps");
 
-    // Progress Bar
+    m_fpsSpin = new QDoubleSpinBox(this);
+    m_fpsSpin->setRange(10, 120);
+    m_fpsSpin->setValue(30);
+    m_fpsSpin->setSuffix(" fps");
+
+    videoLayout->addRow("Video Codec:", m_videoCodecCombo);
+    videoLayout->addRow("Bitrate:", m_bitrateSpin);
+    videoLayout->addRow("FPS:", m_fpsSpin);
+
+    // Audio settings
+    auto* audioLayout = new QFormLayout();
+    m_audioCodecCombo = new QComboBox(this);
+    m_audioCodecCombo->addItems({"aac", "libmp3lame", "libopus", "libvorbis"});
+    m_audioCodecCombo->setCurrentText("aac");
+
+    m_audioBitrateSpin = new QSpinBox(this);
+    m_audioBitrateSpin->setRange(32, 320);
+    m_audioBitrateSpin->setValue(128);
+    m_audioBitrateSpin->setSuffix(" kbps");
+
+    audioLayout->addRow("Audio Codec:", m_audioCodecCombo);
+    audioLayout->addRow("Audio Bitrate:", m_audioBitrateSpin);
+
+    // Advanced settings
+    m_advancedCheck = new QCheckBox("Show Advanced Settings", this);
+    connect(m_advancedCheck, &QCheckBox::toggled, this, &RenderDialog::onAdvancedToggled);
+
+    m_advancedWidget = new QWidget(this);
+    m_advancedWidget->setVisible(false);
+    auto* advancedLayout = new QFormLayout(m_advancedWidget);
+
+    m_customArgsEdit = new QLineEdit(this);
+    m_customArgsEdit->setPlaceholderText("Additional FFmpeg arguments");
+
+    advancedLayout->addRow("Custom Arguments:", m_customArgsEdit);
+
+    // Progress and output
     m_progressBar = new QProgressBar(this);
     m_progressBar->setRange(0, 100);
     m_progressBar->setValue(0);
-    m_progressBar->setStyleSheet(
-        "QProgressBar {"
-        "    background-color: #1e1e1e;"
-        "    border: 1px solid #444444;"
-        "    text-align: center;"
-        "    color: white;"
-        "    border-radius: 4px;"
-        "    height: 20px;"
-        "}"
-        "QProgressBar::chunk {"
-        "    background-color: #2a82da;"
-        "    border-radius: 3px;"
-        "}"
-    );
-    mainLayout->addWidget(m_progressBar);
 
-    // Logger
-    m_logOutput = new QTextEdit(this);
-    m_logOutput->setReadOnly(true);
-    m_logOutput->setStyleSheet("QTextEdit { background-color: #151515; border: 1px solid #333333; font-family: monospace; font-size: 10px; color: #a0a0a0; }");
-    mainLayout->addWidget(m_logOutput, 1);
+    m_outputText = new QTextEdit(this);
+    m_outputText->setReadOnly(true);
 
-    // Dialog Buttons
-    auto* btnLayout = new QHBoxLayout();
+    // Buttons
+    auto* buttonLayout = new QHBoxLayout();
     m_renderButton = new QPushButton("Render", this);
-    m_renderButton->setStyleSheet("QPushButton { background-color: #2a82da; color: white; font-weight: bold; padding: 6px 15px; }");
+    m_renderButton->setStyleSheet("QPushButton { padding: 6px 12px; font-weight: bold; }");
     connect(m_renderButton, &QPushButton::clicked, this, &RenderDialog::onRenderClicked);
 
-    m_cancelButton = new QPushButton("Close", this);
-    m_cancelButton->setStyleSheet("QPushButton { background-color: #3e3e3e; padding: 6px 15px; }");
-    connect(m_cancelButton, &QPushButton::clicked, this, &RenderDialog::onCancelClicked);
+    m_cancelButton = new QPushButton("Cancel", this);
+    connect(m_cancelButton, &QPushButton::clicked, this, &RenderDialog::reject);
 
-    btnLayout->addStretch();
-    btnLayout->addWidget(m_renderButton);
-    btnLayout->addWidget(m_cancelButton);
-    mainLayout->addLayout(btnLayout);
+    buttonLayout->addStretch();
+    buttonLayout->addWidget(m_cancelButton);
+    buttonLayout->addWidget(m_renderButton);
+
+    // Assemble layout
+    mainLayout->addLayout(outputLayout);
+    mainLayout->addLayout(videoLayout);
+    mainLayout->addLayout(audioLayout);
+    mainLayout->addWidget(m_advancedCheck);
+    mainLayout->addWidget(m_advancedWidget);
+    mainLayout->addWidget(m_progressBar);
+    mainLayout->addWidget(m_outputText);
+    mainLayout->addLayout(buttonLayout);
+
+    // FFmpeg process
+    m_ffmpegProcess = new QProcess(this);
+    connect(m_ffmpegProcess, &QProcess::readyReadStandardOutput, this, &RenderDialog::onProcessOutput);
+    connect(m_ffmpegProcess, &QProcess::readyReadStandardError, this, &RenderDialog::onProcessError);
+    connect(m_ffmpegProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
+            this, &RenderDialog::onProcessFinished);
 }
 
-RenderDialog::~RenderDialog() {
-    if (m_process) {
-        m_process->kill();
-        delete m_process;
+void RenderDialog::onBrowseOutputClicked() {
+    QString filePath = QFileDialog::getSaveFileName(
+        this,
+        "Save Rendered File",
+        "",
+        "MP4 Files (*.mp4);;MKV Files (*.mkv);;MOV Files (*.mov);;AVI Files (*.avi)"
+    );
+
+    if (!filePath.isEmpty()) {
+        m_outputPathEdit->setText(filePath);
     }
 }
 
-void RenderDialog::onBrowseClicked() {
-    QString ext = m_formatCombo->currentData().toString();
-    QString filter = QString("%1 Files (*.%1)").arg(ext.toUpper());
-    if (ext == "mp3") filter = "Audio Files (*.mp3)";
-    
-    QString path = QFileDialog::getSaveFileName(this, "Select Render Destination", m_outputPathEdit->text(), filter);
-    if (!path.isEmpty()) {
-        m_outputPathEdit->setText(path);
-    }
-}
-
-void RenderDialog::setOutputFilePath(const QString& path) {
-    m_outputPathEdit->setText(path);
-}
-
-QString RenderDialog::getOutputFilePath() const {
-    return m_outputPathEdit->text();
-}
-
-void RenderDialog::onCancelClicked() {
-    if (m_process && m_process->state() == QProcess::Running) {
-        if (QMessageBox::question(this, "Cancel Render", "Are you sure you want to stop the render process?") == QMessageBox::Yes) {
-            m_process->kill();
-            m_logOutput->append("\n*** Render Cancelled by User ***\n");
-            m_renderButton->setEnabled(true);
-            m_cancelButton->setText("Close");
-        }
-    } else {
-        reject();
-    }
+void RenderDialog::onAdvancedToggled(bool checked) {
+    m_advancedWidget->setVisible(checked);
 }
 
 void RenderDialog::onRenderClicked() {
-    m_renderButton->setEnabled(false);
-    m_cancelButton->setText("Cancel");
-    m_logOutput->clear();
-    m_progressBar->setValue(0);
-
-    QString program;
-    QStringList arguments;
-    buildFFmpegCommand(program, arguments);
-
-    m_logOutput->append("Executing Command:\nffmpeg " + arguments.join(" ") + "\n\n");
-
-    m_process = new QProcess(this);
-    m_process->setProcessChannelMode(QProcess::MergedChannels);
-    connect(m_process, &QProcess::readyRead, this, &RenderDialog::onProcessReadyRead);
-    connect(m_process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &RenderDialog::onProcessFinished);
-
-    m_process->start(program, arguments);
-}
-
-void RenderDialog::buildFFmpegCommand(QString& program, QStringList& arguments) {
-    program = "ffmpeg";
-
-    // Gather all active clips in chronological order on the timeline
-    QList<TimelineClip> sortedClips;
-    for (const auto& track : m_project->tracks) {
-        for (const auto& clip : track.clips) {
-            sortedClips.append(clip);
-        }
-    }
-
-    // Sort by timelineIn
-    std::sort(sortedClips.begin(), sortedClips.end(), [](const TimelineClip& a, const TimelineClip& b) {
-        return a.timelineIn < b.timelineIn;
-    });
-
-    if (sortedClips.isEmpty()) {
-        QMessageBox::warning(this, "Error", "The timeline is empty. Place clips on tracks before rendering.");
-        m_renderButton->setEnabled(true);
-        m_cancelButton->setText("Close");
+    if (m_outputPathEdit->text().isEmpty()) {
+        QMessageBox::warning(this, "Error", "Please specify an output path");
         return;
     }
 
-    // Calculate total render duration
-    m_totalDuration = 0.0;
-    for (const auto& clip : sortedClips) {
-        m_totalDuration = qMax(m_totalDuration, clip.timelineOut);
+    // Build FFmpeg command
+    QStringList args;
+    args << "-y"; // Overwrite output file
+
+    // Add input files with trimming
+    for (const auto& item : m_project->projectSequence) {
+        args << "-ss" << QString::number(item.inPoint);
+        args << "-to" << QString::number(item.outPoint);
+        args << "-i" << item.assetPath;
     }
 
-    // Define Inputs
-    // We add inputs sequentially
-    for (const auto& clip : sortedClips) {
-        MediaClip* mc = m_project->findMediaClip(clip.mediaClipId);
-        if (mc) {
-            arguments << "-ss" << QString::number(clip.sourceIn)
-                      << "-t" << QString::number(clip.duration)
-                      << "-i" << mc->filePath;
-        }
-    }
-
-    // Filter complex setup
-    // We'll generate standard chains to apply trimming, crop, and drawtext, then concatenate
+    // Build filter complex for concatenation and text overlays
     QString filterComplex;
-    QString concatInputsVideo;
-    QString concatInputsAudio;
+    QStringList videoStreams;
+    QStringList audioStreams;
 
-    for (int i = 0; i < sortedClips.size(); ++i) {
-        const auto& clip = sortedClips[i];
-        QString lastVideoLabel = QString("%1:v").arg(i);
-        QString lastAudioLabel = QString("%1:a").arg(i);
+    for (int i = 0; i < m_project->projectSequence.size(); ++i) {
+        const auto& item = m_project->projectSequence[i];
 
-        // Apply crop if available
-        for (const auto& fx : clip.effects) {
-            if (!fx.enabled) continue;
-            
-            if (fx.type == "crop") {
-                int left = fx.params["left"].toInt();
-                int top = fx.params["top"].toInt();
-                int right = fx.params["right"].toInt();
-                int bottom = fx.params["bottom"].toInt();
-
-                QString cropLabel = QString("[v_crop_%1]").arg(i);
-                filterComplex += QString("[%2]crop=iw*(1-(%3+%4)/100.0):ih*(1-(%5+%6)/100.0):iw*%3/100.0:ih*%5/100.0%1;")
-                                 .arg(cropLabel)
-                                 .arg(lastVideoLabel)
-                                 .arg(left).arg(right).arg(top).arg(bottom);
-                lastVideoLabel = cropLabel;
-            } else if (fx.type == "text") {
-                QString text = fx.params["text"].toString();
-                int size = fx.params["size"].toInt();
-                QString color = fx.params["color"].toString();
-                int x = fx.params["x"].toInt();
-                int y = fx.params["y"].toInt();
-
-                // Find a standard font path on Linux
-                QString fontPath = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf";
-                if (!QFileInfo::exists(fontPath)) {
-                    fontPath = "/usr/share/fonts/liberation/LiberationSans-Bold.ttf";
-                }
-
-                QString textLabel = QString("[v_text_%1]").arg(i);
-                filterComplex += QString("[%2]drawtext=fontfile='%3':text='%4':fontsize=%5:fontcolor='%6':x=%7:y=%8%1;")
-                                 .arg(textLabel)
-                                 .arg(lastVideoLabel)
-                                 .arg(fontPath)
-                                 .arg(text)
-                                 .arg(size)
-                                 .arg(color)
-                                 .arg(x)
-                                 .arg(y);
-                lastVideoLabel = textLabel;
-            }
+        // Video stream
+        QString videoStream = QString("[%1:v]").arg(i);
+        if (!item.overlayText.isEmpty()) {
+            videoStream = QString("[%1:v]drawtext=text='%2':fontcolor=white:fontsize=36:x=50:y=50[v%3]")
+                .arg(i)
+                .arg(item.overlayText)
+                .arg(i);
         }
+        videoStreams << videoStream;
 
-        concatInputsVideo += lastVideoLabel;
-        concatInputsAudio += lastAudioLabel;
+        // Audio stream
+        audioStreams << QString("[%1:a]").arg(i);
     }
 
-    // Append concat filters
-    int nClips = sortedClips.size();
-    filterComplex += QString("%1%2concat=n=%3:v=1:a=1[outv][outa]")
-                         .arg(concatInputsVideo)
-                         .arg(concatInputsAudio)
-                         .arg(nClips);
+    // Concatenate video streams
+    filterComplex = videoStreams.join("") + QString("concat=n=%1:v=1[vout]").arg(m_project->projectSequence.size());
 
-    arguments << "-filter_complex" << filterComplex
-              << "-map" << "[outv]"
-              << "-map" << "[outa]";
+    // Concatenate audio streams
+    filterComplex += ";" + audioStreams.join("") + QString("concat=n=%1:a=1[aout]").arg(m_project->projectSequence.size());
 
-    // Output options depending on the format chosen
-    QString ext = m_formatCombo->currentData().toString();
-    QString res = m_resolutionCombo->currentData().toString();
-    QString bitrate = m_bitrateCombo->currentData().toString();
+    args << "-filter_complex" << filterComplex;
+    args << "-map" << "[vout]";
+    args << "-map" << "[aout]";
 
-    // Scale resolution if selected
-    if (res != "source") {
-        // Find outv and scale it
-        // We can append scale filter to maps or filter complex
-        // Let's modify filter complex: replace [outv] with scale filter
-        arguments.removeAll("-map");
-        arguments.removeAll("[outv]");
-        arguments.removeAll("[outa]");
-        
-        filterComplex.replace("[outv]", "[outv_pre]");
-        filterComplex += QString(";[outv_pre]scale=%1[outv]").arg(res.replace('x', ':'));
+    // Video settings
+    args << "-c:v" << m_videoCodecCombo->currentText();
+    args << "-b:v" << QString("%1k").arg(m_bitrateSpin->value());
+    args << "-r" << QString::number(m_fpsSpin->value());
+
+    // Audio settings
+    args << "-c:a" << m_audioCodecCombo->currentText();
+    args << "-b:a" << QString("%1k").arg(m_audioBitrateSpin->value());
+
+    // Custom arguments
+    if (m_advancedCheck->isChecked() && !m_customArgsEdit->text().isEmpty()) {
+        args << m_customArgsEdit->text().split(" ");
+    }
+
+    // Output file
+    args << m_outputPathEdit->text();
+
+    // Start process
+    m_outputText->clear();
+    m_progressBar->setValue(0);
+    m_renderButton->setEnabled(false);
+    m_cancelButton->setEnabled(true);
+
+    m_ffmpegProcess->start("ffmpeg", args);
+}
+
+void RenderDialog::onProcessOutput() {
+    QString output = m_ffmpegProcess->readAllStandardOutput();
+    m_outputText->append(output);
+
+    // Parse progress (simplified example)
+    if (output.contains("frame=")) {
+        int progress = output.section("frame=", 1, 1).section(" ", 0, 0).toInt();
+        m_progressBar->setValue(progress);
+    }
+}
+
+void RenderDialog::onProcessError() {
+    QString error = m_ffmpegProcess->readAllStandardError();
+    m_outputText->append("<span style='color:red;'>" + error + "</span>");
+}
+
+void RenderDialog::onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus) {
+    m_renderButton->setEnabled(true);
+    m_cancelButton->setEnabled(false);
+
+    if (exitCode == 0 && exitStatus == QProcess::NormalExit) {
+        m_outputText->append("<span style='color:green;'>Render completed successfully!</span>");
+        m_progressBar->setValue(100);
+    } else {
+        m_outputText->append("<span style='color:red;'>Render failed!</span>");
+    }
+}
         
         arguments << "-filter_complex" << filterComplex
                   << "-map" << "[outv]"

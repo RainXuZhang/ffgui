@@ -8,6 +8,7 @@
 #include <QMimeData>
 #include <QIcon>
 #include <QPixmap>
+#include <QDropEvent>
 
 ProjectBinWidget::ProjectBinWidget(QWidget* parent)
     : QWidget(parent)
@@ -29,8 +30,22 @@ ProjectBinWidget::ProjectBinWidget(QWidget* parent)
     m_removeButton->setStyleSheet("QPushButton { padding: 4px 8px; }");
     connect(m_removeButton, &QPushButton::clicked, this, &ProjectBinWidget::onRemoveClipClicked);
 
+    m_addToTimelineButton = new QPushButton(QIcon::fromTheme("list-add"), "Add to Timeline", this);
+    m_addToTimelineButton->setEnabled(false);
+    m_addToTimelineButton->setStyleSheet("QPushButton { padding: 4px 8px; }");
+    connect(m_addToTimelineButton, &QPushButton::clicked, this, [this]() {
+        auto* item = m_listWidget->currentItem();
+        if (item) {
+            QString id = item->data(Qt::UserRole).toString();
+            if (m_clips.contains(id)) {
+                emit addToTimelineRequested(m_clips[id]);
+            }
+        }
+    });
+
     toolbarLayout->addWidget(m_addButton);
     toolbarLayout->addWidget(m_removeButton);
+    toolbarLayout->addWidget(m_addToTimelineButton);
     toolbarLayout->addStretch();
     mainLayout->addLayout(toolbarLayout);
 
@@ -39,20 +54,21 @@ ProjectBinWidget::ProjectBinWidget(QWidget* parent)
     m_listWidget->setIconSize(QSize(120, 68));
     m_listWidget->setDragEnabled(true);
     m_listWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+    m_listWidget->setAcceptDrops(true);
     m_listWidget->setStyleSheet(
         "QListWidget {"
         "    background-color: #1e1e1e;"
         "    border: 1px solid #333333;"
         "    color: #d2d2d2;"
-        "}"
-        "QListWidget::item {"
-        "    border-bottom: 1px solid #2a2a2a;"
-        "    padding: 6px;"
-        "}"
-        "QListWidget::item:selected {"
-        "    background-color: #2a82da;"
-        "    color: white;"
-        "}"
+    "}"
+    "QListWidget::item {"
+    "    border-bottom: 1px solid #2a2a2a;"
+    "    padding: 6px;"
+    "}"
+    "QListWidget::item:selected {"
+    "    background-color: #2a82da;"
+    "    color: white;"
+    "}"
     );
 
     connect(m_listWidget, &QListWidget::itemDoubleClicked, this, &ProjectBinWidget::onItemDoubleClicked);
@@ -63,7 +79,7 @@ ProjectBinWidget::ProjectBinWidget(QWidget* parent)
 
 void ProjectBinWidget::addClip(const MediaClip& clip) {
     if (m_clips.contains(clip.id)) return;
-    
+
     m_clips[clip.id] = clip;
 
     auto* item = new QListWidgetItem(m_listWidget);
@@ -78,11 +94,11 @@ void ProjectBinWidget::addClip(const MediaClip& clip) {
                        .arg(clip.width)
                        .arg(clip.height)
                        .arg(QString::number(clip.fps, 'f', 2));
-    
+
     // Set text layout
     auto* label = new QLabel(text);
     label->setStyleSheet("color: #d2d2d2;");
-    
+
     // Icon thumbnail
     if (!clip.thumbnailPath.isEmpty() && QFile::exists(clip.thumbnailPath)) {
         item->setIcon(QIcon(clip.thumbnailPath));
@@ -95,7 +111,7 @@ void ProjectBinWidget::addClip(const MediaClip& clip) {
     item->setToolTip(clip.filePath);
 
     m_listWidget->addItem(item);
-    
+
     emit clipAdded(clip);
 }
 
@@ -103,6 +119,7 @@ void ProjectBinWidget::clear() {
     m_listWidget->clear();
     m_clips.clear();
     m_removeButton->setEnabled(false);
+    m_addToTimelineButton->setEnabled(false);
 }
 
 void ProjectBinWidget::onAddClipClicked() {
@@ -145,11 +162,56 @@ void ProjectBinWidget::onItemSelectionChanged() {
     auto* item = m_listWidget->currentItem();
     if (item) {
         m_removeButton->setEnabled(true);
+        m_addToTimelineButton->setEnabled(true);
         QString id = item->data(Qt::UserRole).toString();
         if (m_clips.contains(id)) {
             emit clipSelected(m_clips[id]);
         }
     } else {
         m_removeButton->setEnabled(false);
+        m_addToTimelineButton->setEnabled(false);
     }
+}
+
+void ProjectBinWidget::dropEvent(QDropEvent* event) {
+    if (event->mimeData()->hasUrls()) {
+        QList<QUrl> urls = event->mimeData()->urls();
+        for (const QUrl& url : urls) {
+            QString filePath = url.toLocalFile();
+            if (!filePath.isEmpty()) {
+                MediaAsset asset;
+                asset.filePath = filePath;
+                asset.fileName = QFileInfo(filePath).fileName();
+
+                // Get duration using FFmpegProbe
+                MediaClip clip;
+                if (FFmpegProbe::probeFile(filePath, clip)) {
+                    asset.duration = clip.duration;
+                } else {
+                    asset.duration = 0.0;
+                }
+
+                QString id = QUuid::createUuid().toString();
+                m_binAssets[id] = asset;
+
+                auto* item = new QListWidgetItem(m_listWidget);
+                item->setData(Qt::UserRole, id);
+                item->setText(asset.fileName + QString(" [%1s]").arg(QString::number(asset.duration, 'f', 1)));
+                item->setToolTip(asset.filePath);
+            }
+        }
+    }
+    event->acceptProposedAction();
+}
+
+void ProjectBinWidget::addToSequence(const MediaClip& clip) {
+    SequenceItem item;
+    item.assetPath = clip.filePath;
+    item.inPoint = 0.0;
+    item.outPoint = clip.duration;
+    item.overlayText = "";
+    item.sequenceOrder = m_projectSequence.size();
+
+    m_projectSequence.append(item);
+    emit sequenceUpdated();
 }

@@ -4,46 +4,52 @@
 #include <QDialog>
 #include <QLineEdit>
 #include <QComboBox>
+#include <QSpinBox>
+#include <QDoubleSpinBox>
+#include <QCheckBox>
 #include <QProgressBar>
+#include <QTextEdit>
 #include <QPushButton>
 #include <QProcess>
-#include <QTextEdit>
-#include <QCheckBox>
-#include "../core/ProjectModel.h"
+
+class Project;
 
 class RenderDialog : public QDialog {
     Q_OBJECT
 
 public:
-    explicit RenderDialog(Project* project, QWidget* parent = nullptr);
-    ~RenderDialog() override;
+    explicit RenderDialog(QWidget* parent = nullptr);
+    void setProject(Project* project) { m_project = project; }
 
-public slots:
-    void onBrowseClicked();
+private slots:
+    void onBrowseOutputClicked();
+    void onAdvancedToggled(bool checked);
     void onRenderClicked();
-    void onCancelClicked();
-    void onProcessReadyRead();
-    void onProcessFinished(int exitCode, QProcess::ExitStatus status);
+    void onProcessOutput();
+    void onProcessError();
+    void onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
-public:
-    void buildFFmpegCommand(QString& program, QStringList& arguments);
-    void parseProgress(const QString& line);
-    void setOutputFilePath(const QString& path);
-    QString getOutputFilePath() const;
+private:
+    Project* m_project = nullptr;
 
-    Project* m_project;
-    QProcess* m_process = nullptr;
-    double m_totalDuration = 0.0;
-
+    // UI elements
     QLineEdit* m_outputPathEdit;
     QComboBox* m_formatCombo;
-    QComboBox* m_resolutionCombo;
-    QComboBox* m_bitrateCombo;
+    QComboBox* m_videoCodecCombo;
+    QSpinBox* m_bitrateSpin;
+    QDoubleSpinBox* m_fpsSpin;
+    QComboBox* m_audioCodecCombo;
+    QSpinBox* m_audioBitrateSpin;
+    QCheckBox* m_advancedCheck;
+    QWidget* m_advancedWidget;
+    QLineEdit* m_customArgsEdit;
     QProgressBar* m_progressBar;
+    QTextEdit* m_outputText;
     QPushButton* m_renderButton;
     QPushButton* m_cancelButton;
-    QTextEdit* m_logOutput;
-    QCheckBox* m_cfrCheckBox = nullptr;
+
+    // Process
+    QProcess* m_ffmpegProcess;
 };
 
 #endif // RENDERDIALOG_H

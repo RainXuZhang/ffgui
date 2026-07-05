@@ -1,6 +1,3 @@
-#ifndef PROJECTMODEL_H
-#define PROJECTMODEL_H
-
 #include <QString>
 #include <QList>
 #include <QVariantMap>
@@ -33,7 +30,7 @@ struct TimelineClip {
     double sourceIn = 0.0; // In-point in source file (seconds)
     double duration = 0.0; // Duration of this segment (seconds)
     QList<ClipEffect> effects;
-    
+
     double timelineDuration() const { return duration; }
 };
 
@@ -46,21 +43,30 @@ struct TimelineTrack {
     QList<TimelineClip> clips;
 };
 
+struct SequenceItem {
+    QString assetPath;
+    double inPoint;
+    double outPoint;
+    QString overlayText; // For titles/captions
+    int sequenceOrder;
+};
+
 class Project {
 public:
     QString filePath;
     QList<MediaClip> mediaClips;
     QList<TimelineTrack> tracks;
+    QList<SequenceItem> projectSequence;
     double duration = 300.0; // Default timeline length: 5 mins
     double currentPlayhead = 0.0; // In seconds
-    
+
     MediaClip* findMediaClip(const QString& id) {
         for (auto& clip : mediaClips) {
             if (clip.id == id) return &clip;
         }
         return nullptr;
     }
-    
+
     TimelineClip* findTimelineClip(const QString& id, int* trackIndexOut = nullptr) {
         for (int i = 0; i < tracks.size(); ++i) {
             for (auto& clip : tracks[i].clips) {
@@ -73,5 +79,3 @@ public:
         return nullptr;
     }
 };
-
-#endif // PROJECTMODEL_H
