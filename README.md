@@ -27,7 +27,7 @@ FFGui is a powerful GUI application for video editing and processing.
 
 3. Run CMake to configure the project:
    ```bash
-   cmake -G Ninja ..
+   cmake -G Ninja .
    ```
 
 4. Build the project:
