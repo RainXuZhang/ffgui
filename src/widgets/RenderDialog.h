@@ -8,6 +8,7 @@
 #include <QPushButton>
 #include <QProcess>
 #include <QTextEdit>
+#include <QCheckBox>
 #include "../core/ProjectModel.h"
 
 class RenderDialog : public QDialog {
@@ -17,16 +18,18 @@ public:
     explicit RenderDialog(Project* project, QWidget* parent = nullptr);
     ~RenderDialog() override;
 
-private slots:
+public slots:
     void onBrowseClicked();
     void onRenderClicked();
     void onCancelClicked();
     void onProcessReadyRead();
     void onProcessFinished(int exitCode, QProcess::ExitStatus status);
 
-private:
+public:
     void buildFFmpegCommand(QString& program, QStringList& arguments);
     void parseProgress(const QString& line);
+    void setOutputFilePath(const QString& path);
+    QString getOutputFilePath() const;
 
     Project* m_project;
     QProcess* m_process = nullptr;
@@ -40,6 +43,7 @@ private:
     QPushButton* m_renderButton;
     QPushButton* m_cancelButton;
     QTextEdit* m_logOutput;
+    QCheckBox* m_cfrCheckBox = nullptr;
 };
 
 #endif // RENDERDIALOG_H

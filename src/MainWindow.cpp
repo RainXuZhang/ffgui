@@ -28,6 +28,7 @@
 #include <QMimeData>
 #include <QDragEnterEvent>
 #include <QDropEvent>
+#include <QDesktopServices>
 #include "widgets/TimelineWidget.h"
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
@@ -499,18 +500,23 @@ void MainWindow::setupSplitterLayout() {
     // Set accept drops
     setAcceptDrops(true);
 
-    // Initialize new UI elements
-    timecodeLabel = new QLabel("00:00:00 / 00:00:00", this);
-    timecodeLabel->setAlignment(Qt::AlignCenter);
-    timecodeLabel->setStyleSheet("QLabel { background-color: #252525; color: #d2d2d2; border: 1px solid #1a1a1a; padding: 4px; }");
+// Initialize new UI elements
+timecodeLabel = new QLabel("00:00:00 / 00:00:00", this);
+timecodeLabel->setAlignment(Qt::AlignCenter);
+timecodeLabel->setStyleSheet("QLabel { background-color: #252525; color: #d2d2d2; border: 1px solid #1a1a1a; padding: 4px; }");
 
-    commandPreviewEdit = new QLineEdit(this);
-    commandPreviewEdit->setReadOnly(true);
-    commandPreviewEdit->setStyleSheet("QLineEdit { background-color: #1a1a1a; color: #d2d2d2; border: 1px solid #1a1a1a; padding: 4px; }");
+commandPreviewEdit = new QLineEdit(this);
+commandPreviewEdit->setReadOnly(true);
+commandPreviewEdit->setStyleSheet("QLineEdit { background-color: #1a1a1a; color: #d2d2d2; border: 1px solid #1a1a1a; padding: 4px; }");
 
-    // Add new UI elements to the layout
-    m_topHorizontalSplitter->addWidget(timecodeLabel);
-    m_topHorizontalSplitter->addWidget(commandPreviewEdit);
+historyListWidget = new QListWidget(this);
+historyListWidget->setSelectionMode(QAbstractItemView::NoSelection);
+historyListWidget->setStyleSheet("QListWidget { background-color: #252525; color: #d2d2d2; border: 1px solid #1a1a1a; }");
+
+// Add new UI elements to the layout
+m_topHorizontalSplitter->addWidget(timecodeLabel);
+m_topHorizontalSplitter->addWidget(commandPreviewEdit);
+m_mainVerticalSplitter->addWidget(historyListWidget);
 
     // Connect signals to update the command preview
     connect(formatComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &MainWindow::updateCommandPreview);
@@ -809,9 +815,32 @@ void MainWindow::onRenderProject() {
     // Update command preview
     updateCommandPreview();
 
-    // Show render dialog
-    RenderDialog dialog(m_project, this);
-    dialog.exec();
+    // Show file save dialog
+    QString outputFilePath = QFileDialog::getSaveFileName(
+        this,
+        tr("Save Rendered Video"),
+        QFileInfo(m_currentInputFilePath).baseName() + "_rendered",
+        tr("Video Files (*.mp4 *.mkv *.avi)")
+    );
+
+    if (!outputFilePath.isEmpty()) {
+        // Create and store render dialog
+        m_renderDialog = new RenderDialog(m_project, this);
+        m_renderDialog->setOutputFilePath(outputFilePath);
+
+        // Connect the dialog's finished signal to a slot that will handle the result
+        connect(m_renderDialog, &QDialog::finished, this, [this](int result) {
+            if (result == QDialog::Accepted) {
+                // Handle successful render
+                handleFFmpegFinished(0);
+            } else {
+                // Handle render cancellation or failure
+                handleFFmpegFinished(1);
+            }
+        });
+
+        m_renderDialog->exec();
+    }
 }
 
 void MainWindow::onBinClipAdded(const MediaClip& clip) {
@@ -946,6 +975,26 @@ void MainWindow::handleFFmpegFinished(int exitCode) {
         progressBar->setValue(100);
         progressBar->setStyleSheet(""); // Reset to default look
         QMessageBox::information(this, "Success", "Video processing completed successfully!");
+
+        // Add log entry to history list
+        QString timestamp = QDateTime::currentDateTime().toString("hh:mm:ss");
+        QString outputFile = m_renderDialog->getOutputFilePath(); // Assuming RenderDialog has a method to get the output file path
+        QString logEntry = QString("[%1] Exported: %2").arg(timestamp, QFileInfo(outputFile).fileName());
+
+        QListWidgetItem* item = new QListWidgetItem(logEntry);
+        item->setToolTip(outputFile); // Store full path in tooltip for user convenience
+        historyListWidget->addItem(item);
+
+// Connect double-click handler to open the file or folder
+connect(historyListWidget, &QListWidget::itemDoubleClicked, this, [this](QListWidgetItem* item) {
+    QString filePath = item->toolTip();
+    QFileInfo fileInfo(filePath);
+    if (fileInfo.exists()) {
+        QDesktopServices::openUrl(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
+    } else {
+        QMessageBox::warning(this, "File Not Found", "The file could not be found at the specified location.");
+    }
+});
     }
 
     if (ffmpegProcess) {
@@ -979,6 +1028,7 @@ void MainWindow::openVideoFile() {
     );
 
     if (!filePath.isEmpty()) {
+        m_currentInputFilePath = QFileInfo(filePath).absoluteFilePath();
         m_mediaPlayer->setSource(QUrl::fromLocalFile(filePath));
         m_mediaPlayer->play();
         statusBar()->showMessage("Playing: " + QFileInfo(filePath).fileName());

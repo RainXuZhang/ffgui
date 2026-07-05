@@ -12,7 +12,7 @@
 
 # =============================================================================
 # Project: FFGui
-# Configurations: Debug
+# Configurations: 
 # =============================================================================
 
 #############################################
@@ -20,11 +20,6 @@
 
 ninja_required_version = 1.5
 
-
-#############################################
-# Set configuration variable for custom commands.
-
-CONFIGURATION = Debug
 # =============================================================================
 # Include auxiliary files.
 
@@ -49,104 +44,114 @@ cmake_ninja_workdir = /home/rain/Programming/ffgui/build/
 
 build cmake_object_order_depends_target_FFGui: phony || FFGui_autogen FFGui_autogen/mocs_compilation.cpp FFGui_autogen/timestamp FFGui_autogen_timestamp_deps
 
-build CMakeFiles/FFGui.dir/FFGui_autogen/mocs_compilation.cpp.o: CXX_COMPILER__FFGui_unscanned_Debug /home/rain/Programming/ffgui/build/FFGui_autogen/mocs_compilation.cpp || cmake_object_order_depends_target_FFGui
-  CONFIG = Debug
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_SVGWIDGETS_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB
+build CMakeFiles/FFGui.dir/FFGui_autogen/mocs_compilation.cpp.o: CXX_COMPILER__FFGui_unscanned_ /home/rain/Programming/ffgui/build/FFGui_autogen/mocs_compilation.cpp || cmake_object_order_depends_target_FFGui
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_SVGWIDGETS_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/FFGui.dir/FFGui_autogen/mocs_compilation.cpp.o.d
-  FLAGS = -g -std=c++20 -mno-direct-extern-access -fopenmp
+  FLAGS = -std=c++20 -mno-direct-extern-access -fopenmp
   INCLUDES = -I/home/rain/Programming/ffgui/build/FFGui_autogen/include -I/home/rain/Programming/ffgui/src -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtMultimedia -isystem /usr/include/qt6/QtNetwork -isystem /usr/include/qt6/QtMultimediaWidgets -isystem /usr/include/qt6/QtQuick -isystem /usr/include/qt6/QtQml -isystem /usr/include/qt6/QtQmlIntegration -isystem /usr/include/qt6/QtOpenGL -isystem /usr/include/qt6/QtQuickWidgets -isystem /usr/include/qt6/QtSvg -isystem /usr/include/qt6/QtSvgWidgets -isystem /usr/include/qt6/QtOpenGLWidgets
   OBJECT_DIR = CMakeFiles/FFGui.dir
   OBJECT_FILE_DIR = CMakeFiles/FFGui.dir/FFGui_autogen
+  TARGET_COMPILE_PDB = CMakeFiles/FFGui.dir/
+  TARGET_PDB = FFGui.pdb
   TARGET_SUPPORT_DIR = CMakeFiles/FFGui.dir
 
-build CMakeFiles/FFGui.dir/src/MainWindow.cpp.o: CXX_COMPILER__FFGui_unscanned_Debug /home/rain/Programming/ffgui/src/MainWindow.cpp || cmake_object_order_depends_target_FFGui
-  CONFIG = Debug
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_SVGWIDGETS_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB
+build CMakeFiles/FFGui.dir/src/MainWindow.cpp.o: CXX_COMPILER__FFGui_unscanned_ /home/rain/Programming/ffgui/src/MainWindow.cpp || cmake_object_order_depends_target_FFGui
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_SVGWIDGETS_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/FFGui.dir/src/MainWindow.cpp.o.d
-  FLAGS = -g -std=c++20 -mno-direct-extern-access -fopenmp
+  FLAGS = -std=c++20 -mno-direct-extern-access -fopenmp
   INCLUDES = -I/home/rain/Programming/ffgui/build/FFGui_autogen/include -I/home/rain/Programming/ffgui/src -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtMultimedia -isystem /usr/include/qt6/QtNetwork -isystem /usr/include/qt6/QtMultimediaWidgets -isystem /usr/include/qt6/QtQuick -isystem /usr/include/qt6/QtQml -isystem /usr/include/qt6/QtQmlIntegration -isystem /usr/include/qt6/QtOpenGL -isystem /usr/include/qt6/QtQuickWidgets -isystem /usr/include/qt6/QtSvg -isystem /usr/include/qt6/QtSvgWidgets -isystem /usr/include/qt6/QtOpenGLWidgets
   OBJECT_DIR = CMakeFiles/FFGui.dir
   OBJECT_FILE_DIR = CMakeFiles/FFGui.dir/src
+  TARGET_COMPILE_PDB = CMakeFiles/FFGui.dir/
+  TARGET_PDB = FFGui.pdb
   TARGET_SUPPORT_DIR = CMakeFiles/FFGui.dir
 
-build CMakeFiles/FFGui.dir/src/core/FFGuiApplication.cpp.o: CXX_COMPILER__FFGui_unscanned_Debug /home/rain/Programming/ffgui/src/core/FFGuiApplication.cpp || cmake_object_order_depends_target_FFGui
-  CONFIG = Debug
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_SVGWIDGETS_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB
+build CMakeFiles/FFGui.dir/src/core/FFGuiApplication.cpp.o: CXX_COMPILER__FFGui_unscanned_ /home/rain/Programming/ffgui/src/core/FFGuiApplication.cpp || cmake_object_order_depends_target_FFGui
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_SVGWIDGETS_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/FFGui.dir/src/core/FFGuiApplication.cpp.o.d
-  FLAGS = -g -std=c++20 -mno-direct-extern-access -fopenmp
+  FLAGS = -std=c++20 -mno-direct-extern-access -fopenmp
   INCLUDES = -I/home/rain/Programming/ffgui/build/FFGui_autogen/include -I/home/rain/Programming/ffgui/src -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtMultimedia -isystem /usr/include/qt6/QtNetwork -isystem /usr/include/qt6/QtMultimediaWidgets -isystem /usr/include/qt6/QtQuick -isystem /usr/include/qt6/QtQml -isystem /usr/include/qt6/QtQmlIntegration -isystem /usr/include/qt6/QtOpenGL -isystem /usr/include/qt6/QtQuickWidgets -isystem /usr/include/qt6/QtSvg -isystem /usr/include/qt6/QtSvgWidgets -isystem /usr/include/qt6/QtOpenGLWidgets
   OBJECT_DIR = CMakeFiles/FFGui.dir
   OBJECT_FILE_DIR = CMakeFiles/FFGui.dir/src/core
+  TARGET_COMPILE_PDB = CMakeFiles/FFGui.dir/
+  TARGET_PDB = FFGui.pdb
   TARGET_SUPPORT_DIR = CMakeFiles/FFGui.dir
 
-build CMakeFiles/FFGui.dir/src/core/FFmpegProbe.cpp.o: CXX_COMPILER__FFGui_unscanned_Debug /home/rain/Programming/ffgui/src/core/FFmpegProbe.cpp || cmake_object_order_depends_target_FFGui
-  CONFIG = Debug
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_SVGWIDGETS_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB
+build CMakeFiles/FFGui.dir/src/core/FFmpegProbe.cpp.o: CXX_COMPILER__FFGui_unscanned_ /home/rain/Programming/ffgui/src/core/FFmpegProbe.cpp || cmake_object_order_depends_target_FFGui
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_SVGWIDGETS_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/FFGui.dir/src/core/FFmpegProbe.cpp.o.d
-  FLAGS = -g -std=c++20 -mno-direct-extern-access -fopenmp
+  FLAGS = -std=c++20 -mno-direct-extern-access -fopenmp
   INCLUDES = -I/home/rain/Programming/ffgui/build/FFGui_autogen/include -I/home/rain/Programming/ffgui/src -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtMultimedia -isystem /usr/include/qt6/QtNetwork -isystem /usr/include/qt6/QtMultimediaWidgets -isystem /usr/include/qt6/QtQuick -isystem /usr/include/qt6/QtQml -isystem /usr/include/qt6/QtQmlIntegration -isystem /usr/include/qt6/QtOpenGL -isystem /usr/include/qt6/QtQuickWidgets -isystem /usr/include/qt6/QtSvg -isystem /usr/include/qt6/QtSvgWidgets -isystem /usr/include/qt6/QtOpenGLWidgets
   OBJECT_DIR = CMakeFiles/FFGui.dir
   OBJECT_FILE_DIR = CMakeFiles/FFGui.dir/src/core
+  TARGET_COMPILE_PDB = CMakeFiles/FFGui.dir/
+  TARGET_PDB = FFGui.pdb
   TARGET_SUPPORT_DIR = CMakeFiles/FFGui.dir
 
-build CMakeFiles/FFGui.dir/src/main.cpp.o: CXX_COMPILER__FFGui_unscanned_Debug /home/rain/Programming/ffgui/src/main.cpp || cmake_object_order_depends_target_FFGui
-  CONFIG = Debug
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_SVGWIDGETS_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB
+build CMakeFiles/FFGui.dir/src/main.cpp.o: CXX_COMPILER__FFGui_unscanned_ /home/rain/Programming/ffgui/src/main.cpp || cmake_object_order_depends_target_FFGui
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_SVGWIDGETS_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/FFGui.dir/src/main.cpp.o.d
-  FLAGS = -g -std=c++20 -mno-direct-extern-access -fopenmp
+  FLAGS = -std=c++20 -mno-direct-extern-access -fopenmp
   INCLUDES = -I/home/rain/Programming/ffgui/build/FFGui_autogen/include -I/home/rain/Programming/ffgui/src -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtMultimedia -isystem /usr/include/qt6/QtNetwork -isystem /usr/include/qt6/QtMultimediaWidgets -isystem /usr/include/qt6/QtQuick -isystem /usr/include/qt6/QtQml -isystem /usr/include/qt6/QtQmlIntegration -isystem /usr/include/qt6/QtOpenGL -isystem /usr/include/qt6/QtQuickWidgets -isystem /usr/include/qt6/QtSvg -isystem /usr/include/qt6/QtSvgWidgets -isystem /usr/include/qt6/QtOpenGLWidgets
   OBJECT_DIR = CMakeFiles/FFGui.dir
   OBJECT_FILE_DIR = CMakeFiles/FFGui.dir/src
+  TARGET_COMPILE_PDB = CMakeFiles/FFGui.dir/
+  TARGET_PDB = FFGui.pdb
   TARGET_SUPPORT_DIR = CMakeFiles/FFGui.dir
 
-build CMakeFiles/FFGui.dir/src/widgets/EffectStackWidget.cpp.o: CXX_COMPILER__FFGui_unscanned_Debug /home/rain/Programming/ffgui/src/widgets/EffectStackWidget.cpp || cmake_object_order_depends_target_FFGui
-  CONFIG = Debug
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_SVGWIDGETS_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB
+build CMakeFiles/FFGui.dir/src/widgets/EffectStackWidget.cpp.o: CXX_COMPILER__FFGui_unscanned_ /home/rain/Programming/ffgui/src/widgets/EffectStackWidget.cpp || cmake_object_order_depends_target_FFGui
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_SVGWIDGETS_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/FFGui.dir/src/widgets/EffectStackWidget.cpp.o.d
-  FLAGS = -g -std=c++20 -mno-direct-extern-access -fopenmp
+  FLAGS = -std=c++20 -mno-direct-extern-access -fopenmp
   INCLUDES = -I/home/rain/Programming/ffgui/build/FFGui_autogen/include -I/home/rain/Programming/ffgui/src -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtMultimedia -isystem /usr/include/qt6/QtNetwork -isystem /usr/include/qt6/QtMultimediaWidgets -isystem /usr/include/qt6/QtQuick -isystem /usr/include/qt6/QtQml -isystem /usr/include/qt6/QtQmlIntegration -isystem /usr/include/qt6/QtOpenGL -isystem /usr/include/qt6/QtQuickWidgets -isystem /usr/include/qt6/QtSvg -isystem /usr/include/qt6/QtSvgWidgets -isystem /usr/include/qt6/QtOpenGLWidgets
   OBJECT_DIR = CMakeFiles/FFGui.dir
   OBJECT_FILE_DIR = CMakeFiles/FFGui.dir/src/widgets
+  TARGET_COMPILE_PDB = CMakeFiles/FFGui.dir/
+  TARGET_PDB = FFGui.pdb
   TARGET_SUPPORT_DIR = CMakeFiles/FFGui.dir
 
-build CMakeFiles/FFGui.dir/src/widgets/MonitorWidget.cpp.o: CXX_COMPILER__FFGui_unscanned_Debug /home/rain/Programming/ffgui/src/widgets/MonitorWidget.cpp || cmake_object_order_depends_target_FFGui
-  CONFIG = Debug
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_SVGWIDGETS_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB
+build CMakeFiles/FFGui.dir/src/widgets/MonitorWidget.cpp.o: CXX_COMPILER__FFGui_unscanned_ /home/rain/Programming/ffgui/src/widgets/MonitorWidget.cpp || cmake_object_order_depends_target_FFGui
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_SVGWIDGETS_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/FFGui.dir/src/widgets/MonitorWidget.cpp.o.d
-  FLAGS = -g -std=c++20 -mno-direct-extern-access -fopenmp
+  FLAGS = -std=c++20 -mno-direct-extern-access -fopenmp
   INCLUDES = -I/home/rain/Programming/ffgui/build/FFGui_autogen/include -I/home/rain/Programming/ffgui/src -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtMultimedia -isystem /usr/include/qt6/QtNetwork -isystem /usr/include/qt6/QtMultimediaWidgets -isystem /usr/include/qt6/QtQuick -isystem /usr/include/qt6/QtQml -isystem /usr/include/qt6/QtQmlIntegration -isystem /usr/include/qt6/QtOpenGL -isystem /usr/include/qt6/QtQuickWidgets -isystem /usr/include/qt6/QtSvg -isystem /usr/include/qt6/QtSvgWidgets -isystem /usr/include/qt6/QtOpenGLWidgets
   OBJECT_DIR = CMakeFiles/FFGui.dir
   OBJECT_FILE_DIR = CMakeFiles/FFGui.dir/src/widgets
+  TARGET_COMPILE_PDB = CMakeFiles/FFGui.dir/
+  TARGET_PDB = FFGui.pdb
   TARGET_SUPPORT_DIR = CMakeFiles/FFGui.dir
 
-build CMakeFiles/FFGui.dir/src/widgets/ProjectBinWidget.cpp.o: CXX_COMPILER__FFGui_unscanned_Debug /home/rain/Programming/ffgui/src/widgets/ProjectBinWidget.cpp || cmake_object_order_depends_target_FFGui
-  CONFIG = Debug
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_SVGWIDGETS_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB
+build CMakeFiles/FFGui.dir/src/widgets/ProjectBinWidget.cpp.o: CXX_COMPILER__FFGui_unscanned_ /home/rain/Programming/ffgui/src/widgets/ProjectBinWidget.cpp || cmake_object_order_depends_target_FFGui
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_SVGWIDGETS_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/FFGui.dir/src/widgets/ProjectBinWidget.cpp.o.d
-  FLAGS = -g -std=c++20 -mno-direct-extern-access -fopenmp
+  FLAGS = -std=c++20 -mno-direct-extern-access -fopenmp
   INCLUDES = -I/home/rain/Programming/ffgui/build/FFGui_autogen/include -I/home/rain/Programming/ffgui/src -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtMultimedia -isystem /usr/include/qt6/QtNetwork -isystem /usr/include/qt6/QtMultimediaWidgets -isystem /usr/include/qt6/QtQuick -isystem /usr/include/qt6/QtQml -isystem /usr/include/qt6/QtQmlIntegration -isystem /usr/include/qt6/QtOpenGL -isystem /usr/include/qt6/QtQuickWidgets -isystem /usr/include/qt6/QtSvg -isystem /usr/include/qt6/QtSvgWidgets -isystem /usr/include/qt6/QtOpenGLWidgets
   OBJECT_DIR = CMakeFiles/FFGui.dir
   OBJECT_FILE_DIR = CMakeFiles/FFGui.dir/src/widgets
+  TARGET_COMPILE_PDB = CMakeFiles/FFGui.dir/
+  TARGET_PDB = FFGui.pdb
   TARGET_SUPPORT_DIR = CMakeFiles/FFGui.dir
 
-build CMakeFiles/FFGui.dir/src/widgets/RenderDialog.cpp.o: CXX_COMPILER__FFGui_unscanned_Debug /home/rain/Programming/ffgui/src/widgets/RenderDialog.cpp || cmake_object_order_depends_target_FFGui
-  CONFIG = Debug
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_SVGWIDGETS_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB
+build CMakeFiles/FFGui.dir/src/widgets/RenderDialog.cpp.o: CXX_COMPILER__FFGui_unscanned_ /home/rain/Programming/ffgui/src/widgets/RenderDialog.cpp || cmake_object_order_depends_target_FFGui
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_SVGWIDGETS_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/FFGui.dir/src/widgets/RenderDialog.cpp.o.d
-  FLAGS = -g -std=c++20 -mno-direct-extern-access -fopenmp
+  FLAGS = -std=c++20 -mno-direct-extern-access -fopenmp
   INCLUDES = -I/home/rain/Programming/ffgui/build/FFGui_autogen/include -I/home/rain/Programming/ffgui/src -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtMultimedia -isystem /usr/include/qt6/QtNetwork -isystem /usr/include/qt6/QtMultimediaWidgets -isystem /usr/include/qt6/QtQuick -isystem /usr/include/qt6/QtQml -isystem /usr/include/qt6/QtQmlIntegration -isystem /usr/include/qt6/QtOpenGL -isystem /usr/include/qt6/QtQuickWidgets -isystem /usr/include/qt6/QtSvg -isystem /usr/include/qt6/QtSvgWidgets -isystem /usr/include/qt6/QtOpenGLWidgets
   OBJECT_DIR = CMakeFiles/FFGui.dir
   OBJECT_FILE_DIR = CMakeFiles/FFGui.dir/src/widgets
+  TARGET_COMPILE_PDB = CMakeFiles/FFGui.dir/
+  TARGET_PDB = FFGui.pdb
   TARGET_SUPPORT_DIR = CMakeFiles/FFGui.dir
 
-build CMakeFiles/FFGui.dir/src/widgets/TimelineWidget.cpp.o: CXX_COMPILER__FFGui_unscanned_Debug /home/rain/Programming/ffgui/src/widgets/TimelineWidget.cpp || cmake_object_order_depends_target_FFGui
-  CONFIG = Debug
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_SVGWIDGETS_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB
+build CMakeFiles/FFGui.dir/src/widgets/TimelineWidget.cpp.o: CXX_COMPILER__FFGui_unscanned_ /home/rain/Programming/ffgui/src/widgets/TimelineWidget.cpp || cmake_object_order_depends_target_FFGui
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_QMLINTEGRATION_LIB -DQT_QML_LIB -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_SVGWIDGETS_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/FFGui.dir/src/widgets/TimelineWidget.cpp.o.d
-  FLAGS = -g -std=c++20 -mno-direct-extern-access -fopenmp
+  FLAGS = -std=c++20 -mno-direct-extern-access -fopenmp
   INCLUDES = -I/home/rain/Programming/ffgui/build/FFGui_autogen/include -I/home/rain/Programming/ffgui/src -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtMultimedia -isystem /usr/include/qt6/QtNetwork -isystem /usr/include/qt6/QtMultimediaWidgets -isystem /usr/include/qt6/QtQuick -isystem /usr/include/qt6/QtQml -isystem /usr/include/qt6/QtQmlIntegration -isystem /usr/include/qt6/QtOpenGL -isystem /usr/include/qt6/QtQuickWidgets -isystem /usr/include/qt6/QtSvg -isystem /usr/include/qt6/QtSvgWidgets -isystem /usr/include/qt6/QtOpenGLWidgets
   OBJECT_DIR = CMakeFiles/FFGui.dir
   OBJECT_FILE_DIR = CMakeFiles/FFGui.dir/src/widgets
+  TARGET_COMPILE_PDB = CMakeFiles/FFGui.dir/
+  TARGET_PDB = FFGui.pdb
   TARGET_SUPPORT_DIR = CMakeFiles/FFGui.dir
 
 
@@ -157,17 +162,16 @@ build CMakeFiles/FFGui.dir/src/widgets/TimelineWidget.cpp.o: CXX_COMPILER__FFGui
 #############################################
 # Link the executable FFGui
 
-build FFGui: CXX_EXECUTABLE_LINKER__FFGui_Debug CMakeFiles/FFGui.dir/FFGui_autogen/mocs_compilation.cpp.o CMakeFiles/FFGui.dir/src/MainWindow.cpp.o CMakeFiles/FFGui.dir/src/core/FFGuiApplication.cpp.o CMakeFiles/FFGui.dir/src/core/FFmpegProbe.cpp.o CMakeFiles/FFGui.dir/src/main.cpp.o CMakeFiles/FFGui.dir/src/widgets/EffectStackWidget.cpp.o CMakeFiles/FFGui.dir/src/widgets/MonitorWidget.cpp.o CMakeFiles/FFGui.dir/src/widgets/ProjectBinWidget.cpp.o CMakeFiles/FFGui.dir/src/widgets/RenderDialog.cpp.o CMakeFiles/FFGui.dir/src/widgets/TimelineWidget.cpp.o | /usr/lib/libQt6MultimediaWidgets.so.6.11.1 /usr/lib/libQt6QuickWidgets.so.6.11.1 /usr/lib/libQt6SvgWidgets.so.6.11.1 /usr/lib/libQt6OpenGLWidgets.so.6.11.1 /usr/lib/libOpenGL.so /usr/lib/libGLX.so /usr/lib/libGLU.so /usr/lib/libQt6Multimedia.so.6.11.1 /usr/lib/libQt6Quick.so.6.11.1 /usr/lib/libQt6Qml.so.6.11.1 /usr/lib/libQt6Network.so.6.11.1 /usr/lib/libQt6Svg.so.6.11.1 /usr/lib/libQt6Widgets.so.6.11.1 /usr/lib/libQt6OpenGL.so.6.11.1 /usr/lib/libQt6Gui.so.6.11.1 /usr/lib/libGLX.so /usr/lib/libOpenGL.so /usr/lib/libQt6Core.so.6.11.1 /usr/lib/libgomp.so /usr/lib/libpthread.a || FFGui_autogen FFGui_autogen_timestamp_deps
-  CONFIG = Debug
+build FFGui: CXX_EXECUTABLE_LINKER__FFGui_ CMakeFiles/FFGui.dir/FFGui_autogen/mocs_compilation.cpp.o CMakeFiles/FFGui.dir/src/MainWindow.cpp.o CMakeFiles/FFGui.dir/src/core/FFGuiApplication.cpp.o CMakeFiles/FFGui.dir/src/core/FFmpegProbe.cpp.o CMakeFiles/FFGui.dir/src/main.cpp.o CMakeFiles/FFGui.dir/src/widgets/EffectStackWidget.cpp.o CMakeFiles/FFGui.dir/src/widgets/MonitorWidget.cpp.o CMakeFiles/FFGui.dir/src/widgets/ProjectBinWidget.cpp.o CMakeFiles/FFGui.dir/src/widgets/RenderDialog.cpp.o CMakeFiles/FFGui.dir/src/widgets/TimelineWidget.cpp.o | /usr/lib/libQt6MultimediaWidgets.so.6.11.1 /usr/lib/libQt6QuickWidgets.so.6.11.1 /usr/lib/libQt6SvgWidgets.so.6.11.1 /usr/lib/libQt6OpenGLWidgets.so.6.11.1 /usr/lib/libOpenGL.so /usr/lib/libGLX.so /usr/lib/libGLU.so /usr/lib/libQt6Multimedia.so.6.11.1 /usr/lib/libQt6Quick.so.6.11.1 /usr/lib/libQt6Qml.so.6.11.1 /usr/lib/libQt6Network.so.6.11.1 /usr/lib/libQt6Svg.so.6.11.1 /usr/lib/libQt6Widgets.so.6.11.1 /usr/lib/libQt6OpenGL.so.6.11.1 /usr/lib/libQt6Gui.so.6.11.1 /usr/lib/libGLX.so /usr/lib/libOpenGL.so /usr/lib/libQt6Core.so.6.11.1 /usr/lib/libgomp.so /usr/lib/libpthread.a || FFGui_autogen FFGui_autogen_timestamp_deps
   DEP_FILE = CMakeFiles/FFGui.dir/link.d
-  FLAGS = -g
   LINK_FLAGS = -Wl,--dependency-file=CMakeFiles/FFGui.dir/link.d
   LINK_LIBRARIES = /usr/lib/libQt6MultimediaWidgets.so.6.11.1  /usr/lib/libQt6QuickWidgets.so.6.11.1  /usr/lib/libQt6SvgWidgets.so.6.11.1  /usr/lib/libQt6OpenGLWidgets.so.6.11.1  -lavdevice  -lavfilter  -lavformat  -lavcodec  -lswscale  -lswresample  -lavutil  /usr/lib/libOpenGL.so  /usr/lib/libGLX.so  /usr/lib/libGLU.so  /usr/lib/libQt6Multimedia.so.6.11.1  /usr/lib/libQt6Quick.so.6.11.1  /usr/lib/libQt6Qml.so.6.11.1  /usr/lib/libQt6Network.so.6.11.1  /usr/lib/libQt6Svg.so.6.11.1  /usr/lib/libQt6Widgets.so.6.11.1  /usr/lib/libQt6OpenGL.so.6.11.1  /usr/lib/libQt6Gui.so.6.11.1  /usr/lib/libGLX.so  /usr/lib/libOpenGL.so  /usr/lib/libQt6Core.so.6.11.1  /usr/lib/libgomp.so  /usr/lib/libpthread.a
   OBJECT_DIR = CMakeFiles/FFGui.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = CMakeFiles/FFGui.dir/
   TARGET_FILE = FFGui
-  TARGET_PDB = FFGui.dbg
+  TARGET_PDB = FFGui.pdb
   TARGET_SUPPORT_DIR = CMakeFiles/FFGui.dir
 
 
@@ -253,7 +257,7 @@ build FFGui_autogen: phony CMakeFiles/FFGui_autogen FFGui_autogen/timestamp FFGu
 # Custom command for FFGui_autogen/timestamp
 
 build FFGui_autogen/timestamp FFGui_autogen/mocs_compilation.cpp | ${cmake_ninja_workdir}FFGui_autogen/timestamp ${cmake_ninja_workdir}FFGui_autogen/mocs_compilation.cpp: CUSTOM_COMMAND /usr/lib/qt6/moc /usr/lib/qt6/uic || FFGui_autogen_timestamp_deps
-  COMMAND = cd /home/rain/Programming/ffgui/build && /usr/bin/cmake -E cmake_autogen /home/rain/Programming/ffgui/build/CMakeFiles/FFGui_autogen.dir/AutogenInfo.json Debug && /usr/bin/cmake -E touch /home/rain/Programming/ffgui/build/FFGui_autogen/timestamp && /usr/bin/cmake -E cmake_transform_depfile Ninja gccdepfile /home/rain/Programming/ffgui /home/rain/Programming/ffgui /home/rain/Programming/ffgui/build /home/rain/Programming/ffgui/build /home/rain/Programming/ffgui/build/FFGui_autogen/deps /home/rain/Programming/ffgui/build/CMakeFiles/d/a565f1f7cd10db67b831dee8f1b996e32a81c6c02a01a037b4299d2e2893393b.d
+  COMMAND = cd /home/rain/Programming/ffgui/build && /usr/bin/cmake -E cmake_autogen /home/rain/Programming/ffgui/build/CMakeFiles/FFGui_autogen.dir/AutogenInfo.json "" && /usr/bin/cmake -E touch /home/rain/Programming/ffgui/build/FFGui_autogen/timestamp && /usr/bin/cmake -E cmake_transform_depfile Ninja gccdepfile /home/rain/Programming/ffgui /home/rain/Programming/ffgui /home/rain/Programming/ffgui/build /home/rain/Programming/ffgui/build /home/rain/Programming/ffgui/build/FFGui_autogen/deps /home/rain/Programming/ffgui/build/CMakeFiles/d/a565f1f7cd10db67b831dee8f1b996e32a81c6c02a01a037b4299d2e2893393b.d
   DESC = Automatic MOC and UIC for target FFGui
   depfile = CMakeFiles/d/a565f1f7cd10db67b831dee8f1b996e32a81c6c02a01a037b4299d2e2893393b.d
   deps = gcc
@@ -286,7 +290,6 @@ build all: phony FFGui
 # Clean additional files.
 
 build CMakeFiles/clean.additional: CLEAN_ADDITIONAL
-  CONFIG = Debug
 
 
 #############################################

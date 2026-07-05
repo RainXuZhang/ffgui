@@ -8,6 +8,7 @@
 #include <QDir>
 #include <QDebug>
 #include <QRegularExpression>
+#include <QCheckBox>
 
 RenderDialog::RenderDialog(Project* project, QWidget* parent)
     : QDialog(parent)
@@ -64,6 +65,12 @@ RenderDialog::RenderDialog(Project* project, QWidget* parent)
     m_bitrateCombo->addItem("Low Quality (very small size)", "low");
     m_bitrateCombo->setStyleSheet("QComboBox { background-color: #333333; color: white; padding: 4px; }");
     formLayout->addRow("Video Bitrate:", m_bitrateCombo);
+
+    // Add CFR Checkbox
+    m_cfrCheckBox = new QCheckBox("Force Constant Frame Rate (CFR)", this);
+    m_cfrCheckBox->setStyleSheet("QCheckBox { background-color: #333333; color: white; padding: 4px; }");
+    m_cfrCheckBox->setChecked(true); // Default to checked for safer re-encodes
+    formLayout->addRow("Options:", m_cfrCheckBox);
 
     mainLayout->addLayout(formLayout);
 
@@ -125,6 +132,14 @@ void RenderDialog::onBrowseClicked() {
     if (!path.isEmpty()) {
         m_outputPathEdit->setText(path);
     }
+}
+
+void RenderDialog::setOutputFilePath(const QString& path) {
+    m_outputPathEdit->setText(path);
+}
+
+QString RenderDialog::getOutputFilePath() const {
+    return m_outputPathEdit->text();
 }
 
 void RenderDialog::onCancelClicked() {
@@ -322,6 +337,11 @@ void RenderDialog::buildFFmpegCommand(QString& program, QStringList& arguments) 
         if (bitrate == "high") arguments << "-q:a" << "2";
         else if (bitrate == "medium") arguments << "-q:a" << "5";
         else arguments << "-q:a" << "7";
+    }
+
+    // Add CFR flag if re-encoding and CFR checkbox is checked
+    if (m_cfrCheckBox->isChecked() && ext != "gif" && ext != "mp3") {
+        arguments << "-fps_mode" << "cfr";
     }
 
     arguments << "-y" << m_outputPathEdit->text();

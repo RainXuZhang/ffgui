@@ -20,6 +20,7 @@
 #include "widgets/RenderDialog.h"
 #include <QLabel>
 #include <QLineEdit>
+#include <QListWidget>
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
@@ -61,6 +62,7 @@ private:
     void setupFormatComboBox();
     void updateCommandPreview();
     Project* m_project = nullptr;
+    QString m_currentInputFilePath;
 
     // New UI elements
     QLabel* timecodeLabel = nullptr;
@@ -99,6 +101,8 @@ private:
     // Progress bar and cut duration
     QProgressBar* progressBar = nullptr;
     double totalCutDurationSeconds = 0.0;
+    QListWidget* historyListWidget = nullptr;
+    RenderDialog* m_renderDialog = nullptr;
 };
 
 #endif // MAINWINDOW_H

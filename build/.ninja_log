@@ -1,0 +1,12 @@
+# ninja log v7
+1	787	1783227866370441996	FFGui_autogen/timestamp	a613a5a6e304518a
+1	787	1783227866370441996	FFGui_autogen/mocs_compilation.cpp	a613a5a6e304518a
+1	787	1783227866370441996	/home/rain/Programming/ffgui/build/FFGui_autogen/timestamp	a613a5a6e304518a
+1	787	1783227866370441996	/home/rain/Programming/ffgui/build/FFGui_autogen/mocs_compilation.cpp	a613a5a6e304518a
+789	9271	1783227866385565258	CMakeFiles/FFGui.dir/src/core/FFGuiApplication.cpp.o	c527bfab2e4c4363
+789	10224	1783227866385739303	CMakeFiles/FFGui.dir/src/core/FFmpegProbe.cpp.o	77607861faf3a64c
+790	10941	1783227866385935827	CMakeFiles/FFGui.dir/src/main.cpp.o	722a6786acd39587
+790	11060	1783227866386243130	CMakeFiles/FFGui.dir/src/widgets/MonitorWidget.cpp.o	a73b6b2664b1b712
+790	11466	1783227866386087810	CMakeFiles/FFGui.dir/src/widgets/EffectStackWidget.cpp.o	d254b38589477e3
+793	11878	1783227866388065435	CMakeFiles/FFGui.dir/src/widgets/ProjectBinWidget.cpp.o	466d6b7ce29627f
+789	12295	1783227866385133830	CMakeFiles/FFGui.dir/FFGui_autogen/mocs_compilation.cpp.o	6bcb7ddf5f8d9e73
