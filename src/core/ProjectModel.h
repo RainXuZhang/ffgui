@@ -1,3 +1,5 @@
+#pragma once
+#include <QCoreApplication>
 #include <QString>
 #include <QList>
 #include <QVariantMap>
