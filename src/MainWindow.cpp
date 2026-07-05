@@ -333,23 +333,44 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
             }
             event->accept();
             break;
-        case Qt::Key_Left:
-            {
-                qint64 currentPos = m_mediaPlayer->position();
-                qint64 newPos = qMax(currentPos - 5000, 0LL);
-                m_mediaPlayer->setPosition(newPos);
-                event->accept();
-            }
-            break;
-        case Qt::Key_Right:
-            {
-                qint64 currentPos = m_mediaPlayer->position();
-                qint64 totalDuration = m_mediaPlayer->duration();
-                qint64 newPos = qMin(currentPos + 5000, totalDuration);
-                m_mediaPlayer->setPosition(newPos);
-                event->accept();
-            }
-            break;
+case Qt::Key_Left:
+{
+    if (event->modifiers() & Qt::ControlModifier) {
+        qint64 currentPos = m_mediaPlayer->position();
+        qint64 newPos = qMax(currentPos - 5000, 0LL);
+        m_mediaPlayer->setPosition(newPos);
+        event->accept();
+    } else if (event->modifiers() & Qt::ShiftModifier) {
+        m_mediaPlayer->setPosition(static_cast<qint64>(m_timelineWidget->getInPointSeconds() * 1000));
+        event->accept();
+    } else {
+        qint64 currentPos = m_mediaPlayer->position();
+        qint64 newPos = qMax(currentPos - 33, 0LL);
+        m_mediaPlayer->setPosition(newPos);
+        event->accept();
+    }
+}
+break;
+case Qt::Key_Right:
+{
+    if (event->modifiers() & Qt::ControlModifier) {
+        qint64 currentPos = m_mediaPlayer->position();
+        qint64 totalDuration = m_mediaPlayer->duration();
+        qint64 newPos = qMin(currentPos + 5000, totalDuration);
+        m_mediaPlayer->setPosition(newPos);
+        event->accept();
+    } else if (event->modifiers() & Qt::ShiftModifier) {
+        m_mediaPlayer->setPosition(static_cast<qint64>(m_timelineWidget->getOutPointSeconds() * 1000));
+        event->accept();
+    } else {
+        qint64 currentPos = m_mediaPlayer->position();
+        qint64 totalDuration = m_mediaPlayer->duration();
+        qint64 newPos = qMin(currentPos + 33, totalDuration);
+        m_mediaPlayer->setPosition(newPos);
+        event->accept();
+    }
+}
+break;
         default:
             QMainWindow::keyPressEvent(event);
     }
@@ -998,31 +1019,35 @@ void MainWindow::updateCommandPreview() {
     arguments << "-y"; // Overwrite output file if it exists
 
     // Add in and out points if they are valid
-    if (inPoint >= 0) {
-        arguments << "-ss" << QString::number(inPoint);
-    }
-    if (outPoint >= 0) {
-        arguments << "-to" << QString::number(outPoint);
+    if (inPoint >= 0.0 && outPoint > inPoint) {
+        arguments << "-ss" << QString::number(inPoint, 'f', 2);
+        arguments << "-to" << QString::number(outPoint, 'f', 2);
     }
 
-    // Add input file (placeholder - in a real implementation, this would be the actual input file)
+    // Add input file
     arguments << "-i" << "input.mp4";
 
     // Add format-specific arguments
     if (format == "copy") {
         arguments << "-c" << "copy";
     } else if (format == "mp4_h264") {
-        arguments << "-c:v" << "libx264" << "-c:a" << "aac";
+        arguments << "-c:v" << "libx264";
+        arguments << "-c:a" << "aac";
+        arguments << "-crf" << "23";
+        arguments << "-preset" << "medium";
     } else if (format == "webm_vp9") {
-        arguments << "-c:v" << "libvpx-vp9" << "-c:a" << "libopus";
+        arguments << "-c:v" << "libvpx-vp9";
+        arguments << "-c:a" << "libopus";
+        arguments << "-b:v" << "1M";
+        arguments << "-crf" << "30";
     }
 
-    // Add output file (placeholder - in a real implementation, this would be the actual output file)
-    arguments << "output." + (format == "copy" ? "mp4" : (format == "mp4_h264" ? "mp4" : "webm"));
+    // Add output file
+    arguments << "output." + (format == "copy" ? "mp4" : format);
 
-    // Join the arguments into a single string
-    QString previewText = "ffmpeg " + arguments.join(" ");
+    // Join arguments into a single string
+    QString command = "ffmpeg " + arguments.join(" ");
 
-    // Set the text in the command preview edit
-    commandPreviewEdit->setText(previewText);
+    // Set the command preview text
+    commandPreviewEdit->setText(command);
 }

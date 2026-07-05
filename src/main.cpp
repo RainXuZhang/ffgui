@@ -47,9 +47,42 @@ int main(int argc, char *argv[])
     // Apply Kdenlive-like dark theme
     app.applyDarkTheme();
 
-    // Create and show main window
-    MainWindow mainWindow;
-    
+// Create and show main window
+MainWindow mainWindow;
+
+// Apply dark theme stylesheet
+QString darkStyleSheet = R"(
+    QMainWindow, QDialog {
+        background-color: #1e1e2e;
+    }
+
+    QLineEdit, QComboBox, QTextEdit {
+        background-color: #11111b;
+        color: #cdd6f4;
+        border-radius: 4px;
+    }
+
+    QPushButton {
+        background-color: #313244;
+        color: #cdd6f4;
+        border-radius: 4px;
+    }
+
+    QPushButton:hover, QPushButton:pressed {
+        background-color: #89b4fa;
+    }
+
+    QProgressBar {
+        background-color: #11111b;
+        border-radius: 4px;
+    }
+
+    QProgressBar::chunk {
+        background-color: #89b4fa;
+        border-radius: 4px;
+    }
+)";
+mainWindow.setStyleSheet(darkStyleSheet);
     // Handle command line arguments
     if (parser.isSet(projectOption)) {
         mainWindow.openProject(parser.value(projectOption));

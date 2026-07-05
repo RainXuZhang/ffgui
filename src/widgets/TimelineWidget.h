@@ -15,9 +15,9 @@ double inPointSeconds = 0.0;
 double outPointSeconds = 0.0;
 void setDuration(double seconds);
 double getInPointSeconds() const { return inPointSeconds; }
-void setInPointSeconds(double seconds) { inPointSeconds = seconds; }
+void setInPointSeconds(double seconds) { inPointSeconds = seconds; emit inPointChanged(); }
 double getOutPointSeconds() const { return outPointSeconds; }
-void setOutPointSeconds(double seconds) { outPointSeconds = seconds; }
+void setOutPointSeconds(double seconds) { outPointSeconds = seconds; emit outPointChanged(); }
 double getSelectedDuration() const { return outPointSeconds - inPointSeconds; }
 
 public:
@@ -30,6 +30,8 @@ signals:
     void seekRequested(double seconds);
     void clipSelected(const QString& clipId);
     void playheadChanged(double seconds);
+    void inPointChanged();
+    void outPointChanged();
 
 protected:
     void paintEvent(QPaintEvent* event) override;

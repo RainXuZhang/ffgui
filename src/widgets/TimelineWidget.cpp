@@ -36,33 +36,33 @@ void TimelineWidget::paintEvent(QPaintEvent* event) {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
 
-    // Draw timeline background
-    painter.fillRect(rect(), QColor(40, 40, 40));
+// Draw timeline background
+painter.fillRect(rect(), QColor(30, 30, 46));
 
-    // Draw playhead
+// Draw playhead
+if (totalDurationSeconds > 0) {
+    int playheadX = static_cast<int>((m_currentPosition / totalDurationSeconds) * width());
+    painter.setPen(QPen(QColor(137, 180, 250), 2));
+    painter.drawLine(playheadX, 0, playheadX, height());
+}
+
+// Draw time markers
+painter.setPen(QPen(QColor(205, 214, 244)));
+for (int i = 0; i <= 10; ++i) {
+    int x = i * width() / 10;
+    painter.drawLine(x, height() - 10, x, height());
     if (totalDurationSeconds > 0) {
-        int playheadX = static_cast<int>((m_currentPosition / totalDurationSeconds) * width());
-        painter.setPen(QPen(Qt::red, 2));
-        painter.drawLine(playheadX, 0, playheadX, height());
+        double time = (i * totalDurationSeconds) / 10;
+        painter.drawText(x, height() - 20, QString::number(time, 'f', 1) + "s");
     }
+}
 
-    // Draw time markers
-    painter.setPen(QPen(Qt::white));
-    for (int i = 0; i <= 10; ++i) {
-        int x = i * width() / 10;
-        painter.drawLine(x, height() - 10, x, height());
-        if (totalDurationSeconds > 0) {
-            double time = (i * totalDurationSeconds) / 10;
-            painter.drawText(x, height() - 20, QString::number(time, 'f', 1) + "s");
-        }
-    }
-
-    // Draw selection highlight
-    if (totalDurationSeconds > 0 && inPointSeconds < outPointSeconds) {
-        int inX = static_cast<int>((inPointSeconds / totalDurationSeconds) * width());
-        int outX = static_cast<int>((outPointSeconds / totalDurationSeconds) * width());
-        painter.fillRect(inX, 0, outX - inX, height(), QColor(0, 150, 255, 50));
-    }
+// Draw selection highlight
+if (totalDurationSeconds > 0 && inPointSeconds < outPointSeconds) {
+    int inX = static_cast<int>((inPointSeconds / totalDurationSeconds) * width());
+    int outX = static_cast<int>((outPointSeconds / totalDurationSeconds) * width());
+    painter.fillRect(inX, 0, outX - inX, height(), QColor(137, 180, 250, 50));
+}
 }
 
 void TimelineWidget::mousePressEvent(QMouseEvent* event) {
