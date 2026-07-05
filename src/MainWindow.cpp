@@ -1,6 +1,7 @@
 #include "MainWindow.h"
 #include "widgets/RenderDialog.h"
 #include "core/FFmpegProbe.h"
+#include "widgets/TimelineWidget.h"
 #include <QMenuBar>
 #include <QToolBar>
 #include <QStatusBar>
@@ -23,7 +24,11 @@
 #include <QAudioOutput>
 #include <QUrl>
 #include <QKeyEvent>
-
+#include <QProgressBar>
+#include <QMimeData>
+#include <QDragEnterEvent>
+#include <QDropEvent>
+#include "widgets/TimelineWidget.h"
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
 {
@@ -472,8 +477,62 @@ void MainWindow::setupSplitterLayout() {
 
     // Set accept drops
     setAcceptDrops(true);
-}
 
+    // Initialize new UI elements
+    timecodeLabel = new QLabel("00:00:00 / 00:00:00", this);
+    timecodeLabel->setAlignment(Qt::AlignCenter);
+    timecodeLabel->setStyleSheet("QLabel { background-color: #252525; color: #d2d2d2; border: 1px solid #1a1a1a; padding: 4px; }");
+
+    commandPreviewEdit = new QLineEdit(this);
+    commandPreviewEdit->setReadOnly(true);
+    commandPreviewEdit->setStyleSheet("QLineEdit { background-color: #1a1a1a; color: #d2d2d2; border: 1px solid #1a1a1a; padding: 4px; }");
+
+    // Add new UI elements to the layout
+    m_topHorizontalSplitter->addWidget(timecodeLabel);
+    m_topHorizontalSplitter->addWidget(commandPreviewEdit);
+
+    // Connect signals to update the command preview
+    connect(formatComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &MainWindow::updateCommandPreview);
+    connect(m_timelineWidget, &TimelineWidget::inPointChanged, this, &MainWindow::updateCommandPreview);
+    connect(m_timelineWidget, &TimelineWidget::outPointChanged, this, &MainWindow::updateCommandPreview);
+    connect(m_timelineWidget, &TimelineWidget::playheadChanged, this, &MainWindow::updateCommandPreview);
+
+    // Connect media player signals to update timecode
+    connect(m_mediaPlayer, &QMediaPlayer::positionChanged, this, [this](qint64 position) {
+        int posSec = static_cast<int>(position / 1000);
+        int durSec = static_cast<int>(m_mediaPlayer->duration() / 1000);
+        QString timeText = QString("%1:%2:%3 / %4:%5:%6")
+                           .arg(posSec / 3600, 2, 10, QChar('0'))
+                           .arg((posSec % 3600) / 60, 2, 10, QChar('0'))
+                           .arg(posSec % 60, 2, 10, QChar('0'))
+                           .arg(durSec / 3600, 2, 10, QChar('0'))
+                           .arg((durSec % 3600) / 60, 2, 10, QChar('0'))
+                           .arg(durSec % 60, 2, 10, QChar('0'));
+        timecodeLabel->setText(timeText);
+    });
+    connect(m_mediaPlayer, &QMediaPlayer::durationChanged, this, [this](qint64 duration) {
+        int posSec = static_cast<int>(m_mediaPlayer->position() / 1000);
+        int durSec = static_cast<int>(duration / 1000);
+        QString timeText = QString("%1:%2:%3 / %4:%5:%6")
+                           .arg(posSec / 3600, 2, 10, QChar('0'))
+                           .arg((posSec % 3600) / 60, 2, 10, QChar('0'))
+                           .arg(posSec % 60, 2, 10, QChar('0'))
+                           .arg(durSec / 3600, 2, 10, QChar('0'))
+                           .arg((durSec % 3600) / 60, 2, 10, QChar('0'))
+                           .arg(durSec % 60, 2, 10, QChar('0'));
+        timecodeLabel->setText(timeText);
+    });
+
+    // Ensure TimelineWidget signals are properly connected
+    connect(m_timelineWidget, &TimelineWidget::inPointChanged, this, &MainWindow::updateCommandPreview);
+    connect(m_timelineWidget, &TimelineWidget::outPointChanged, this, &MainWindow::updateCommandPreview);
+
+    // Verify TimelineWidget signals are properly defined
+    Q_ASSERT_X(m_timelineWidget->metaObject()->indexOfSignal("inPointChanged()") != -1,
+               "TimelineWidget", "inPointChanged signal not found");
+    Q_ASSERT_X(m_timelineWidget->metaObject()->indexOfSignal("outPointChanged()") != -1,
+               "TimelineWidget", "outPointChanged signal not found");
+}
 void MainWindow::dragEnterEvent(QDragEnterEvent* event) {
     if (event->mimeData()->hasUrls()) {
         event->acceptProposedAction();
@@ -726,17 +785,8 @@ void MainWindow::onRenderProject() {
     // Reset progress bar
     progressBar->setValue(0);
 
-    // Package up asynchronous argument list
-    QStringList arguments;
-    arguments << "-y" // Overwrite output file if it exists
-              << "-ss" << QString::number(m_timelineWidget->getInPointSeconds()) // Start time
-              << "-to" << QString::number(m_timelineWidget->getOutPointSeconds()) // End time
-              << "-i" << "input.mp4" // Input file path
-              << "-c" << "copy"
-              << "output.mp4"; // Output file path
-
-    // Start FFmpeg process
-    ffmpegProcess->start("ffmpeg", arguments);
+    // Update command preview
+    updateCommandPreview();
 
     // Show render dialog
     RenderDialog dialog(m_project, this);
@@ -828,6 +878,9 @@ void MainWindow::updatePlayPauseButton() {
         // Update your button icon or text to show "Play"
         m_playPauseButton->setIcon(QIcon(":/icons/play.png"));
     }
+
+    // Update command preview
+    updateCommandPreview();
 }
 
 void MainWindow::handleFFmpegOutput() {
@@ -923,4 +976,53 @@ void MainWindow::setupFormatComboBox() {
     toolbar->setMovable(false);
     toolbar->setStyleSheet("QToolBar { background-color: #252525; border-bottom: 1px solid #1a1a1a; spacing: 4px; }");
     toolbar->addWidget(formatComboBox);
+
+    // Initialize progress bar
+    progressBar = new QProgressBar(this);
+    progressBar->setRange(0, 100);
+    progressBar->setValue(0);
+    progressBar->setStyleSheet("QProgressBar { background-color: #252525; color: #d2d2d2; border: 1px solid #1a1a1a; } QProgressBar::chunk { background-color: #2a82da; }");
+    toolbar->addWidget(progressBar);
+}
+
+void MainWindow::updateCommandPreview() {
+    // Get the current format
+    QString format = formatComboBox->currentData().toString();
+
+    // Get the current in and out points
+    double inPoint = m_timelineWidget->getInPointSeconds();
+    double outPoint = m_timelineWidget->getOutPointSeconds();
+
+    // Build the command arguments
+    QStringList arguments;
+    arguments << "-y"; // Overwrite output file if it exists
+
+    // Add in and out points if they are valid
+    if (inPoint >= 0) {
+        arguments << "-ss" << QString::number(inPoint);
+    }
+    if (outPoint >= 0) {
+        arguments << "-to" << QString::number(outPoint);
+    }
+
+    // Add input file (placeholder - in a real implementation, this would be the actual input file)
+    arguments << "-i" << "input.mp4";
+
+    // Add format-specific arguments
+    if (format == "copy") {
+        arguments << "-c" << "copy";
+    } else if (format == "mp4_h264") {
+        arguments << "-c:v" << "libx264" << "-c:a" << "aac";
+    } else if (format == "webm_vp9") {
+        arguments << "-c:v" << "libvpx-vp9" << "-c:a" << "libopus";
+    }
+
+    // Add output file (placeholder - in a real implementation, this would be the actual output file)
+    arguments << "output." + (format == "copy" ? "mp4" : (format == "mp4_h264" ? "mp4" : "webm"));
+
+    // Join the arguments into a single string
+    QString previewText = "ffmpeg " + arguments.join(" ");
+
+    // Set the text in the command preview edit
+    commandPreviewEdit->setText(previewText);
 }

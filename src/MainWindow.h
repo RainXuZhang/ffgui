@@ -18,7 +18,8 @@
 #include "widgets/TimelineWidget.h"
 #include "widgets/EffectStackWidget.h"
 #include "widgets/RenderDialog.h"
-
+#include <QLabel>
+#include <QLineEdit>
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
@@ -58,8 +59,12 @@ private:
     void setupMenuBar();
     void setupTheme();
     void setupFormatComboBox();
+    void updateCommandPreview();
     Project* m_project = nullptr;
 
+    // New UI elements
+    QLabel* timecodeLabel = nullptr;
+    QLineEdit* commandPreviewEdit = nullptr;
     // Layout - Nested QSplitter
     QSplitter* m_mainVerticalSplitter = nullptr;
     QSplitter* m_topHorizontalSplitter = nullptr;
