@@ -187,3 +187,8 @@ void TimelineWidget::mouseReleaseEvent(QMouseEvent* event) {
     Q_UNUSED(event);
     m_draggingPlayhead = false;
 }
+
+void TimelineWidget::setPosition(double seconds) {
+    m_playheadPos = seconds;
+    update();
+}

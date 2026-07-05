@@ -20,10 +20,13 @@ public:
     void setDuration(double seconds);
     void setPixelsPerSecond(double pps);
     void setTrackCount(int count);
-    
+
     // Project integration
     void setProject(Project* project);
     void updateTimeline();
+
+    // Set the current position of the playhead
+    void setPosition(double seconds);
 
 signals:
     void clipSelected(const QString& clipId);
@@ -50,13 +53,13 @@ private:
     int m_rulerHeight = 30;              // Height of the time ruler area
     int m_trackHeight = 60;              // Height of each track
     int m_headerWidth = 120;             // Width of track header area (left side)
-    
+
     // Project data
     Project* m_project = nullptr;
-    
+
     // Playhead position
     double m_playheadPos = 0.0;
-    
+
     // Mouse interaction
     bool m_draggingPlayhead = false;
     int m_lastMouseX = 0;

@@ -375,6 +375,11 @@ m_timelineWidget->hide();
 connect(m_timelineWidget, &TimelineWidget::seekRequested, this, [this](double seconds) {
     m_mediaPlayer->setPosition(static_cast<qint64>(seconds * 1000));
 });
+
+connect(m_mediaPlayer, &QMediaPlayer::positionChanged, this, [this](qint64 position) {
+    double seconds = static_cast<double>(position) / 1000.0;
+    m_timelineWidget->setPosition(seconds);
+});
 m_effectStack = new EffectStackWidget(this);
     m_effectStack->setProject(m_project);
     m_effectStack->hide();
