@@ -10,6 +10,7 @@
 #include <QVideoWidget>
 #include <QMediaPlayer>
 #include <QAudioOutput>
+#include <QPushButton>
 #include "core/ProjectModel.h"
 #include "widgets/ProjectBinWidget.h"
 #include "widgets/MonitorWidget.h"
@@ -42,6 +43,9 @@ private slots:
     void onTimelinePlayheadChanged(double seconds);
     void onEffectChanged();
 
+    // Play/Pause button functionality
+    void updatePlayPauseButton();
+
 private:
     void createMenusAndToolbars();
     void setupSplitterLayout();
@@ -69,7 +73,9 @@ private:
     // Multimedia objects
     QMediaPlayer* m_mediaPlayer = nullptr;
     QAudioOutput* m_audioOutput = nullptr;
+
+    // Play/Pause button
+    QPushButton* m_playPauseButton = nullptr;
 };
 
 #endif // MAINWINDOW_H
-

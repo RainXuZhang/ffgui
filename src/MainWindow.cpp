@@ -376,6 +376,26 @@ void MainWindow::setupSplitterLayout() {
     m_audioOutput = new QAudioOutput(this);
     m_mediaPlayer->setAudioOutput(m_audioOutput);
     m_mediaPlayer->setVideoOutput(m_videoPlayerWidget);
+    connect(m_mediaPlayer, &QMediaPlayer::playbackStateChanged, this, &MainWindow::updatePlayPauseButton);
+
+    // Initialize play/pause button
+    m_playPauseButton = new QPushButton(this);
+    m_playPauseButton->setIcon(QIcon(":/icons/play.png"));
+    m_playPauseButton->setToolTip("Play/Pause");
+    m_playPauseButton->setFixedSize(32, 32);
+    connect(m_playPauseButton, &QPushButton::clicked, this, [this]() {
+        if (m_mediaPlayer->playbackState() == QMediaPlayer::PlayingState) {
+            m_mediaPlayer->pause();
+        } else {
+            m_mediaPlayer->play();
+        }
+    });
+
+    // Add play/pause button to the toolbar
+    auto* toolbar = addToolBar("Main Toolbar");
+    toolbar->setMovable(false);
+    toolbar->setStyleSheet("QToolBar { background-color: #252525; border-bottom: 1px solid #1a1a1a; spacing: 4px; }");
+    toolbar->addWidget(m_playPauseButton);
 
     // Set initial sizes for top splitter (30% left, 70% right)
     m_topHorizontalSplitter->setStretchFactor(0, 1);
@@ -743,6 +763,18 @@ void MainWindow::onTimelinePlayheadChanged(double seconds) {
 
 void MainWindow::onEffectChanged() {
     m_timelineWidget->update();
+}
+
+void MainWindow::updatePlayPauseButton() {
+    // Check if the current state is playing
+    // (Qt6 uses QMediaPlayer::PlaybackState::PlayingState, Qt5 uses QMediaPlayer::PlayingState)
+    if (m_mediaPlayer->playbackState() == QMediaPlayer::PlayingState) {
+        // Update your button icon or text to show "Pause"
+        m_playPauseButton->setIcon(QIcon(":/icons/pause.png"));
+    } else {
+        // Update your button icon or text to show "Play"
+        m_playPauseButton->setIcon(QIcon(":/icons/play.png"));
+    }
 }
 
 void MainWindow::addMediaFiles(const QStringList& paths) {
