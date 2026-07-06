@@ -150,47 +150,23 @@ void MainWindow::setupMenuBar() {
     });
 }
 
-void MainWindow::applyThemeString(int themeIndex) {
-    QString baseStyle = R"(
-        QMainWindow, QDialog, QWidget { background-color: %1; color: %2; font-family: 'Segoe UI', Arial, sans-serif; }
-        QSplitter::handle { background-color: %3; }
-        QSplitter::handle:horizontal { width: 4px; }
-        QSplitter::handle:vertical { height: 4px; }
-        QLineEdit, QComboBox, QTextEdit, QListWidget, QTreeWidget { background-color: %4; color: %2; border: 1px solid %3; border-radius: 4px; padding: 4px; }
-        QListWidget::item:selected, QTreeWidget::item:selected { background-color: %5; color: %6; border: 1px solid %7; font-weight: bold; }
-        QListWidget::item:hover, QTreeWidget::item:hover { background-color: %8; }
-        QPushButton { background-color: %9; color: %2; border: 1px solid %3; border-radius: 4px; padding: 5px 12px; }
-        QPushButton:hover { background-color: %5; border: 1px solid %7; color: #ffffff; }
-        QTabWidget::panel { border: 1px solid %3; background-color: %1; }
-        QTabBar::tab { background-color: %4; color: %10; border: 1px solid %3; padding: 6px 14px; }
-        QTabBar::tab:selected { background-color: %1; color: %6; border-bottom-color: %1; font-weight: bold; }
-        QStatusBar, QMenuBar, QToolBar { background-color: %4; border: none; color: %10; }
-        QMenuBar::item:selected { background-color: %5; color: %6; }
-    )";
-
-    QString bg, text, border, inputBg, selBg, selText, selBorder, hoverBg, btnBg, tabText;
-
-    if (themeIndex == 0) { // Arch Stealth
-        bg = "#0d0e11"; text = "#d1d5db"; border = "#1f232a"; inputBg = "#050607";
-        selBg = "#172a3a"; selText = "#38bdf8"; selBorder = "#0284c7"; hoverBg = "#0f172a";
-        btnBg = "#111827"; tabText = "#6b7280";
-    }
-    else if (themeIndex == 1) { // Kdenlive Dark
-        bg = "#2a2a2a"; text = "#eff0f1"; border = "#31363b"; inputBg = "#1d2023";
-        selBg = "#3daee9"; selText = "#ffffff"; selBorder = "#297fa6"; hoverBg = "#2a3642";
-        btnBg = "#31363b"; tabText = "#bdc3c7";
-    }
-    else { // Nordic Frost
-        bg = "#2e3440"; text = "#d8dee9"; border = "#4c566a"; inputBg = "#242933";
-        selBg = "#88c0d0"; selText = "#2e3440"; selBorder = "#81a1c1"; hoverBg = "#3b4252";
-        btnBg = "#434c5e"; tabText = "#e5e9f0";
-    }
-
-    this->setStyleSheet(baseStyle.arg(bg, text, border, inputBg, selBg, selText, selBorder, hoverBg, btnBg, tabText));
-}
 
 void MainWindow::setupTheme() {
-    // Set default theme to Arch Stealth
+    QFile configFile(".config");
+    if (configFile.exists() && configFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&configFile);
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            if (line.startsWith("theme=")) {
+                int themeIndex = line.mid(6).toInt();
+                applyThemeString(themeIndex);
+                this->setProperty("currentThemeIndex", themeIndex);
+                return;
+            }
+        }
+    }
+
+    // Fallback to default theme if config file doesn't exist or is unreadable
     applyThemeString(0);
     this->setProperty("currentThemeIndex", 0);
 }
@@ -808,11 +784,11 @@ void MainWindow::onPreferences() {
 
 void MainWindow::applyThemeString(int themeIndex) {
     QString baseStyle = R"(
-        QMainWindow, QDialog, QWidget { background-color: %1; color: %2; font-family: 'Segoe UI', Arial, sans-serif; }
+        QMainWindow, QDialog, QWidget, QTabWidget, QStackedWidget { background-color: %1; color: %2; font-family: 'Segoe UI', Arial, sans-serif; }
         QSplitter::handle { background-color: %3; }
         QSplitter::handle:horizontal { width: 4px; }
         QSplitter::handle:vertical { height: 4px; }
-        QLineEdit, QComboBox, QTextEdit, QListWidget, QTreeWidget { background-color: %4; color: %2; border: 1px solid %3; border-radius: 4px; padding: 4px; }
+        QLineEdit, QComboBox, QTextEdit, QListWidget, QTreeWidget, QTabWidget, QStackedWidget { background-color: %4; color: %2; border: 1px solid %3; border-radius: 4px; padding: 4px; }
         QListWidget::item:selected, QTreeWidget::item:selected { background-color: %5; color: %6; border: 1px solid %7; font-weight: bold; }
         QListWidget::item:hover, QTreeWidget::item:hover { background-color: %8; }
         QPushButton { background-color: %9; color: %2; border: 1px solid %3; border-radius: 4px; padding: 5px 12px; }
@@ -843,4 +819,24 @@ void MainWindow::applyThemeString(int themeIndex) {
     }
 
     this->setStyleSheet(baseStyle.arg(bg, text, border, inputBg, selBg, selText, selBorder, hoverBg, btnBg, tabText));
+
+    for (QWidget* w : findChildren<QWidget*>()) {
+        w->style()->unpolish(w);
+        w->style()->polish(w);
+        w->update();
+    }
+
+    QFile configFile(".config");
+    if (configFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&configFile);
+        out << "theme=" << themeIndex << "\n";
+    }
+}
+
+void MainWindow::setupFormatComboBox() {
+    // Stub implementation to satisfy linker
+}
+
+void MainWindow::updateCommandPreview() {
+    // Stub implementation to satisfy linker
 }
