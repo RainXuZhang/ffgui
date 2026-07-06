@@ -1,7 +1,10 @@
 #include "MainWindow.h"
-#include "widgets/RenderDialog.h"
 #include "core/FFmpegProbe.h"
-#include "widgets/TimelineWidget.h"
+#include <QDialog>
+#include <QFormLayout>
+#include <QDialogButtonBox>
+#include <QVBoxLayout>
+#include <QComboBox>
 #include <QMenuBar>
 #include <QToolBar>
 #include <QStatusBar>
@@ -101,6 +104,9 @@ void MainWindow::setupMenuBar() {
         qDebug() << "Redo triggered";
     })->setEnabled(false);
 
+    QAction* prefAction = editMenu->addAction(tr("&Preferences"));
+    connect(prefAction, &QAction::triggered, this, &MainWindow::onPreferences);
+
     // View Menu
     QMenu* viewMenu = menuBar->addMenu(tr("&View"));
     viewMenu->addAction(tr("Fullscreen"), QKeySequence::FullScreen, this, [this]() {
@@ -144,69 +150,45 @@ void MainWindow::setupMenuBar() {
     });
 }
 
-void MainWindow::setupTheme() {
-    QString archBlackStyleSheet = R"(
-        /* Global Backgrounds - Pitch Obsidian Black matching the Arch-Black theme */
-        QMainWindow, QDialog, QWidget {
-            background-color: #0b0b0c;
-            color: #d1d1d6;
-            font-family: 'Segoe UI', 'DejaVu Sans', Arial, sans-serif;
-        }
-
-        /* Splitter Handles */
-        QSplitter::handle {
-            background-color: #161618;
-        }
+void MainWindow::applyThemeString(int themeIndex) {
+    QString baseStyle = R"(
+        QMainWindow, QDialog, QWidget { background-color: %1; color: %2; font-family: 'Segoe UI', Arial, sans-serif; }
+        QSplitter::handle { background-color: %3; }
         QSplitter::handle:horizontal { width: 4px; }
         QSplitter::handle:vertical { height: 4px; }
+        QLineEdit, QComboBox, QTextEdit, QListWidget, QTreeWidget { background-color: %4; color: %2; border: 1px solid %3; border-radius: 4px; padding: 4px; }
+        QListWidget::item:selected, QTreeWidget::item:selected { background-color: %5; color: %6; border: 1px solid %7; font-weight: bold; }
+        QListWidget::item:hover, QTreeWidget::item:hover { background-color: %8; }
+        QPushButton { background-color: %9; color: %2; border: 1px solid %3; border-radius: 4px; padding: 5px 12px; }
+        QPushButton:hover { background-color: %5; border: 1px solid %7; color: #ffffff; }
+        QTabWidget::panel { border: 1px solid %3; background-color: %1; }
+        QTabBar::tab { background-color: %4; color: %10; border: 1px solid %3; padding: 6px 14px; }
+        QTabBar::tab:selected { background-color: %1; color: %6
+    )";
 
-        /* Core Editor Panels, Bin, and Lists */
-        QLineEdit, QComboBox, QTextEdit, QListWidget, QTreeWidget {
-            background-color: #050505;
-            color: #d1d1d6;
-            border: 1px solid #1c1c1e;
-            border-radius: 4px;
-            padding: 3px;
-        }
+    QString styleSheet;
+    switch (themeIndex) {
+        case 0: // Arch Stealth
+            styleSheet = baseStyle.arg("#0b0b0c", "#d1d1d6", "#161618", "#050505", "#24292e", "#ffffff", "#24292e", "#1a1a1a", "#18181a", "#7c7c80");
+            break;
+        case 1: // Kdenlive Dark
+            styleSheet = baseStyle.arg("#252525", "#d2d2d2", "#1a1a1a", "#181818", "#2a82da", "#ffffff", "#2a82da", "#222222", "#181818", "#7c7c7c");
+            break;
+        case 2: // Nordic Frost
+            styleSheet = baseStyle.arg("#2e3440", "#d8dee9", "#3b4252", "#2e3440", "#5e81ac", "#eceff4", "#5e81ac", "#434c5e", "#2e3440", "#d8dee9");
+            break;
+        default:
+            styleSheet = baseStyle.arg("#0b0b0c", "#d1d1d6", "#161618", "#050505", "#24292e", "#ffffff", "#24292e", "#1a1a1a", "#18181a", "#7c7c80");
+            break;
+    }
 
-        QListWidget::item:selected, QTreeWidget::item:selected {
-            background-color: #24292e;
-            color: #ffffff;
-        }
+    this->setStyleSheet(styleSheet);
+}
 
-        /* Buttons */
-        QPushButton {
-            background-color: #18181a;
-            color: #d1d1d6;
-            border: 1px solid #242426;
-            border-radius: 4px;
-            padding: 5px 12px;
-        }
-        QPushButton:hover {
-            background-color: #222224;
-            border: 1px solid #323236;
-            color: #ffffff;
-        }
-
-        /* Tabs */
-        QTabWidget::panel {
-            border: 1px solid #1c1c1e;
-            background-color: #0b0b0c;
-        }
-        QTabBar::tab {
-            background-color: #050505;
-            color: #7c7c80;
-            border: 1px solid #1c1c1e;
-            padding: 6px 14px;
-        }
-        QTabBar::tab:selected {
-            background-color: #0b0b0c;
-            color: #ffffff;
-            border-bottom-color: #0b0b0c;
-        }
-    )"; // <-- ENFORCE THIS EXACT CLOSING PARENTHESIS AND QUOTE
-
-    this->setStyleSheet(archBlackStyleSheet);
+void MainWindow::setupTheme() {
+    // Set default theme to Arch Stealth
+    applyThemeString(0);
+    this->setProperty("currentThemeIndex", 0);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent* event) {
@@ -791,69 +773,70 @@ void MainWindow::openVideoFile() {
     }
 }
 
-void MainWindow::setupFormatComboBox() {
-    // Create format combo box
-    formatComboBox = new QComboBox(this);
-    formatComboBox->addItem("Stream Copy (Fastest)", "copy");
-    formatComboBox->addItem("MP4 (H.264 / AAC)", "mp4_h264");
-    formatComboBox->addItem("WebM (VP9 / Opus)", "webm_vp9");
+void MainWindow::onPreferences() {
+    QDialog dialog(this);
+    dialog.setWindowTitle(tr("Preferences"));
+    dialog.setMinimumWidth(320);
 
-    // Add format combo box to the toolbar
-    auto* toolbar = addToolBar("Main Toolbar");
-    toolbar->setMovable(false);
-    toolbar->setStyleSheet("QToolBar { background-color: #252525; border-bottom: 1px solid #1a1a1a; spacing: 4px; }");
-    toolbar->addWidget(formatComboBox);
+    auto* layout = new QVBoxLayout(&dialog);
+    auto* formLayout = new QFormLayout();
+    auto* themeCombo = new QComboBox(&dialog);
+    themeCombo->addItems({tr("Arch Stealth"), tr("Kdenlive Dark"), tr("Nordic Frost")});
 
-    // Initialize progress bar
-    progressBar = new QProgressBar(this);
-    progressBar->setRange(0, 100);
-    progressBar->setValue(0);
-    progressBar->setStyleSheet("QProgressBar { background-color: #252525; color: #d2d2d2; border: 1px solid #1a1a1a; } QProgressBar::chunk { background-color: #2a82da; }");
-    toolbar->addWidget(progressBar);
+    int currentTheme = this->property("currentThemeIndex").toInt();
+    themeCombo->setCurrentIndex(currentTheme);
+
+    formLayout->addRow(tr("Interface Theme:"), themeCombo);
+    layout->addLayout(formLayout);
+
+    auto* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
+    layout->addWidget(buttonBox);
+
+    connect(buttonBox, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+
+    if (dialog.exec() == QDialog::Accepted) {
+        int selectedIndex = themeCombo->currentIndex();
+        this->setProperty("currentThemeIndex", selectedIndex);
+        applyThemeString(selectedIndex);
+    }
 }
 
-void MainWindow::updateCommandPreview() {
-    // Get the current format
-    QString format = formatComboBox->currentData().toString();
+void MainWindow::applyThemeString(int themeIndex) {
+    QString baseStyle = R"(
+        QMainWindow, QDialog, QWidget { background-color: %1; color: %2; font-family: 'Segoe UI', Arial, sans-serif; }
+        QSplitter::handle { background-color: %3; }
+        QSplitter::handle:horizontal { width: 4px; }
+        QSplitter::handle:vertical { height: 4px; }
+        QLineEdit, QComboBox, QTextEdit, QListWidget, QTreeWidget { background-color: %4; color: %2; border: 1px solid %3; border-radius: 4px; padding: 4px; }
+        QListWidget::item:selected, QTreeWidget::item:selected { background-color: %5; color: %6; border: 1px solid %7; font-weight: bold; }
+        QListWidget::item:hover, QTreeWidget::item:hover { background-color: %8; }
+        QPushButton { background-color: %9; color: %2; border: 1px solid %3; border-radius: 4px; padding: 5px 12px; }
+        QPushButton:hover { background-color: %5; border: 1px solid %7; color: #ffffff; }
+        QTabWidget::panel { border: 1px solid %3; background-color: %1; }
+        QTabBar::tab { background-color: %4; color: %10; border: 1px solid %3; padding: 6px 14px; }
+        QTabBar::tab:selected { background-color: %1; color: %6; border-bottom-color: %1; font-weight: bold; }
+        QStatusBar, QMenuBar, QToolBar { background-color: %4; border: none; color: %10; }
+        QMenuBar::item:selected { background-color: %5; color: %6; }
+    )";
 
-    // Get the current in and out points
-    double inPoint = m_timelineWidget->getInPointSeconds();
-    double outPoint = m_timelineWidget->getOutPointSeconds();
+    QString bg, text, border, inputBg, selBg, selText, selBorder, hoverBg, btnBg, tabText;
 
-    // Build the command arguments
-    QStringList arguments;
-    arguments << "-y"; // Overwrite output file if it exists
-
-    // Add in and out points if they are valid
-    if (inPoint >= 0.0 && outPoint > inPoint) {
-        arguments << "-ss" << QString::number(inPoint, 'f', 2);
-        arguments << "-to" << QString::number(outPoint, 'f', 2);
+    if (themeIndex == 0) { // Arch Stealth
+        bg = "#0d0e11"; text = "#d1d5db"; border = "#1f232a"; inputBg = "#050607";
+        selBg = "#172a3a"; selText = "#38bdf8"; selBorder = "#0284c7"; hoverBg = "#0f172a";
+        btnBg = "#111827"; tabText = "#6b7280";
+    }
+    else if (themeIndex == 1) { // Kdenlive Dark
+        bg = "#2a2a2a"; text = "#eff0f1"; border = "#31363b"; inputBg = "#1d2023";
+        selBg = "#3daee9"; selText = "#ffffff"; selBorder = "#297fa6"; hoverBg = "#2a3642";
+        btnBg = "#31363b"; tabText = "#bdc3c7";
+    }
+    else { // Nordic Frost
+        bg = "#2e3440"; text = "#d8dee9"; border = "#4c566a"; inputBg = "#242933";
+        selBg = "#88c0d0"; selText = "#2e3440"; selBorder = "#81a1c1"; hoverBg = "#3b4252";
+        btnBg = "#434c5e"; tabText = "#e5e9f0";
     }
 
-    // Add input file
-    arguments << "-i" << "input.mp4";
-
-    // Add format-specific arguments
-    if (format == "copy") {
-        arguments << "-c" << "copy";
-    } else if (format == "mp4_h264") {
-        arguments << "-c:v" << "libx264";
-        arguments << "-c:a" << "aac";
-        arguments << "-crf" << "23";
-        arguments << "-preset" << "medium";
-    } else if (format == "webm_vp9") {
-        arguments << "-c:v" << "libvpx-vp9";
-        arguments << "-c:a" << "libopus";
-        arguments << "-b:v" << "1M";
-        arguments << "-crf" << "30";
-    }
-
-    // Add output file
-    arguments << "output." + (format == "copy" ? "mp4" : format);
-
-    // Join arguments into a single string
-    QString command = "ffmpeg " + arguments.join(" ");
-
-    // Set the command preview text
-    commandPreviewEdit->setText(command);
+    this->setStyleSheet(baseStyle.arg(bg, text, border, inputBg, selBg, selText, selBorder, hoverBg, btnBg, tabText));
 }

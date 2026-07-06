@@ -12,6 +12,10 @@
 #include <QAudioOutput>
 #include <QPushButton>
 #include <QComboBox>
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QFormLayout>
+#include <QVBoxLayout>
 #include "core/ProjectModel.h"
 #include "widgets/ProjectBinWidget.h"
 #include "widgets/MonitorWidget.h"
@@ -42,6 +46,7 @@ private slots:
     void onSaveProject();
     void onRenderProject();
     void openVideoFile();
+    void onPreferences();
 
     // Bin & Timeline Connections
     void onBinClipAdded(const MediaClip& clip);
@@ -53,6 +58,9 @@ private slots:
 
     // Play/Pause button functionality
     void updatePlayPauseButton();
+
+private:
+    void applyThemeString(int themeIndex);
 
 private:
     void createMenusAndToolbars();
