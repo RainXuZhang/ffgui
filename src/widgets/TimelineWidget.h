@@ -47,7 +47,7 @@ signals:
     void inPointChanged();
     void outPointChanged();
     void razorToolClicked(QPoint pos);
-    void clipDropped(const QString& clipId, double playheadTime, bool isAudio, int trackIndex);
+    void clipDropped(const QString& clipId, double playheadTime, bool isAudio);
 protected:
     void paintEvent(QPaintEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;

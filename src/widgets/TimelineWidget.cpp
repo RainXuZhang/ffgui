@@ -115,20 +115,19 @@ void TimelineWidget::dropEvent(QDropEvent* event) {
     if (event->mimeData()->hasFormat("application/x-ffgui-clip")) {
         QString clipId = event->mimeData()->data("application/x-ffgui-clip");
 
-        // Calculate track index based on vertical position
-        int trackHeight = height() / 4; // Assuming 4 tracks
-        int trackIndex = static_cast<int>(event->position().y()) / trackHeight;
+        // Calculate the drop timestamp timeline location (mouse position X coordinate / 100.0).
+        double playheadTime = static_cast<double>(event->position().x()) / 100.0;
 
-        // Determine if track is audio or video
-        bool isAudio = (trackIndex == 2 || trackIndex == 3); // AudioTrack1 or AudioTrack2
+        // Identify the track channel index row (mouse position Y coordinate / 50).
+        int trackIndex = static_cast<int>(event->position().y()) / 50;
 
-        // Convert horizontal position to timestamp
-        double playheadTime = static_cast<double>(event->position().x()) / width() * totalDurationSeconds;
+        // Determine if it is an audio layer drop (track index >= 2).
+        bool isAudio = (trackIndex >= 2);
 
-        emit clipDropped(clipId, playheadTime, isAudio, trackIndex);
+        emit clipDropped(clipId, playheadTime, isAudio);
         event->acceptProposedAction();
-    } else if (event->mimeData()->hasUrls()) {
-        // Handle file URLs if needed
+        update();
+    } else {
         event->ignore();
     }
 }
