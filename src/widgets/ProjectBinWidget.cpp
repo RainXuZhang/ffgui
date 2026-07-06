@@ -173,6 +173,38 @@ void ProjectBinWidget::onItemSelectionChanged() {
     }
 }
 
+void ProjectBinWidget::mouseMoveEvent(QMouseEvent* event) {
+    if (!(event->buttons() & Qt::LeftButton)) {
+        return;
+    }
+
+    auto* item = m_listWidget->currentItem();
+    if (!item) {
+        return;
+    }
+
+    QString id = item->data(Qt::UserRole).toString();
+    if (!m_clips.contains(id)) {
+        return;
+    }
+
+    QMimeData* mimeData = new QMimeData();
+    mimeData->setData("application/x-ffgui-clip", id.toUtf8());
+
+    QDrag* drag = new QDrag(this);
+    drag->setMimeData(mimeData);
+
+    // Set the drag icon to the thumbnail of the clip
+    if (!m_clips[id].thumbnailPath.isEmpty() && QFile::exists(m_clips[id].thumbnailPath)) {
+        QPixmap pixmap(m_clips[id].thumbnailPath);
+        drag->setPixmap(pixmap.scaled(120, 68, Qt::KeepAspectRatio));
+    } else {
+        drag->setPixmap(QPixmap::fromImage(QImage(120, 68, QImage::Format_ARGB32)));
+    }
+
+    drag->exec(Qt::CopyAction);
+}
+
 void ProjectBinWidget::dropEvent(QDropEvent* event) {
     if (event->mimeData()->hasUrls()) {
         for (const QUrl& url : event->mimeData()->urls()) {
@@ -191,10 +223,9 @@ void ProjectBinWidget::dropEvent(QDropEvent* event) {
         QWidget::dropEvent(event);
     }
 }
-
 // Add dragEnterEvent right below it to fully support the drag-and-drop workflow
 void ProjectBinWidget::dragEnterEvent(QDragEnterEvent* event) {
-    if (event->mimeData()->hasUrls()) {
+    if (event->mimeData()->hasUrls() || event->mimeData()->hasFormat("application/x-ffgui-clip")) {
         event->acceptProposedAction();
     } else {
         QWidget::dragEnterEvent(event);

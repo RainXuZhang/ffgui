@@ -6,6 +6,7 @@
 #include <QProcess>
 #include <QDateTime>
 #include <QUuid>
+#include <QPoint>
 #include "widgets/ProjectBinWidget.h"
 #include "widgets/MonitorWidget.h"
 #include "widgets/TimelineWidget.h"
@@ -53,7 +54,10 @@ private slots:
     void onTimelinePlayheadChanged(double seconds);
     void onEffectChanged();
     void updatePlayPauseButton();
-
+    void onRazorToolTriggered();
+    void onRazorToolClicked(QPoint pos);
+void onClipDropped(const QString& clipId, double playheadTime, bool isAudio, int trackIndex);
+void onClipDropped(const QString& clipId, double timestamp, bool isVideoTrack);
 private:
     void createMenusAndToolbars();
     void setupSplitterLayout();

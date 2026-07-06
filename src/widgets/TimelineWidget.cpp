@@ -1,12 +1,13 @@
-#include "TimelineWidget.h"
+#include <QMimeData>
 #include <QPainter>
 #include <QMouseEvent>
-
+#include "TimelineWidget.h"
 TimelineWidget::TimelineWidget(QWidget* parent)
     : QWidget(parent)
 {
     setMinimumHeight(100);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    setAcceptDrops(true);
 }
 
 void TimelineWidget::setProject(Project* project) {
@@ -95,5 +96,45 @@ void TimelineWidget::mouseMoveEvent(QMouseEvent* event) {
         m_currentPosition = newPosition;
         emit seekRequested(m_currentPosition);
         update();
+    }
+}
+
+void TimelineWidget::dragEnterEvent(QDragEnterEvent* event) {
+    if (event->mimeData()->hasFormat("application/x-ffgui-clip") || event->mimeData()->hasUrls()) {
+        event->acceptProposedAction();
+    }
+}
+
+void TimelineWidget::dragMoveEvent(QDragMoveEvent* event) {
+    if (event->mimeData()->hasFormat("application/x-ffgui-clip") || event->mimeData()->hasUrls()) {
+        event->acceptProposedAction();
+    }
+}
+
+void TimelineWidget::dropEvent(QDropEvent* event) {
+    if (event->mimeData()->hasFormat("application/x-ffgui-clip")) {
+        QString clipId = event->mimeData()->data("application/x-ffgui-clip");
+
+        // Calculate track index based on vertical position
+        int trackHeight = height() / 4; // Assuming 4 tracks
+        int trackIndex = static_cast<int>(event->position().y()) / trackHeight;
+
+        // Determine if track is audio or video
+        bool isAudio = (trackIndex == 2 || trackIndex == 3); // AudioTrack1 or AudioTrack2
+
+        // Convert horizontal position to timestamp
+        double playheadTime = static_cast<double>(event->position().x()) / width() * totalDurationSeconds;
+
+        emit clipDropped(clipId, playheadTime, isAudio, trackIndex);
+        event->acceptProposedAction();
+    } else if (event->mimeData()->hasUrls()) {
+        // Handle file URLs if needed
+        event->ignore();
+    }
+}
+void TimelineWidget::mouseReleaseEvent(QMouseEvent* event) {
+    if (event->button() == Qt::LeftButton) {
+        m_isDragging = false;
+        emit razorToolClicked(event->pos());
     }
 }

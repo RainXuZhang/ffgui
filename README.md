@@ -1,17 +1,91 @@
 # FFGui
 
-FFGui is a powerful GUI application for video editing and processing.
+FFGui is a powerful, professional C++ Qt6-based GUI frontend for FFmpeg, designed to match the comprehensive multi-track editing layout of Kdenlive. It provides real-time previews, custom timeline dragging/splitting/trimming, and dynamic filter-complex generation for high-performance exports.
+
+## Features
+
+### Multi-Track Timeline
+- **4-track layout** matching Kdenlive: Video 2, Video 1, Audio 1, Audio 2
+- Drag-and-drop clips from Project Bin onto timeline tracks
+- Playhead scrubbing with mouse drag
+- In/Out point markers (press **I** / **O** keys)
+- Track locking and muting/hiding
+- Clip trimming and positioning
+
+### Dual Monitor System
+- **Clip Monitor**: Preview source media from Project Bin
+- **Project Monitor**: Preview timeline output at playhead position
+- Playback controls (Play/Pause, Stop)
+- Frame-accurate seeking with keyboard shortcuts
+
+### Project Bin (Media Management)
+- Import video, audio, and image files via dialog or drag-and-drop
+- Automatic media probing via FFmpeg (duration, resolution, FPS, codecs)
+- Thumbnail generation for video clips
+- Clip metadata display (duration, resolution, FPS, audio/video tracks)
+- Add clips to timeline with double-click or "Add to Timeline" button
+- Remove clips from project
+
+### Effect Stack
+- Apply effects to selected timeline clips
+- **Text Overlay**: Custom text, font size, X/Y position
+- **Crop Video**: Crop video frames
+- Enable/disable effects with checkboxes
+- Reorder and remove effects
+- Real-time parameter updates
+
+### Project Management
+- **New Project**: Creates default 4-track timeline
+- **Open Project** (.ffgui): Loads media clips, timeline clips, effects, track settings, playhead position
+- **Save Project** (.ffgui): JSON-based project format preserving all timeline data
+- **Recent Projects** tracking (via config file)
+
+### Rendering & Export
+- **Render Dialog** with FFmpeg integration
+- Video codec selection (libx264, libx265, libvpx-vp9, etc.)
+- Audio codec selection (aac, libmp3lame, libopus, etc.)
+- Bitrate, FPS, resolution configuration
+- Custom FFmpeg arguments (advanced mode)
+- Real-time progress bar with time estimation
+- Render history with double-click to open output files
+
+### Theming
+- **Arch Stealth** (dark, blue accents)
+- **Kdenlive Dark** (classic Kdenlive look)
+- **Nordic Frost** (Nord color palette)
+- Persisted in `.config` file
+
+### Keyboard Shortcuts
+| Key | Action |
+|-----|--------|
+| `Space` | Play/Pause |
+| `←` / `→` | Frame step backward/forward |
+| `Ctrl+←` / `Ctrl+→` | Seek 5 seconds backward/forward |
+| `Shift+←` / `Shift+→` | Jump to In/Out point |
+| `I` | Set In point at playhead |
+| `O` | Set Out point at playhead |
+| `Ctrl+N` | New Project |
+| `Ctrl+O` | Open Project |
+| `Ctrl+S` | Save Project |
+| `Ctrl+R` | Render Project |
+| `F11` | Toggle Fullscreen |
+
+### Drag & Drop
+- Drop media files onto Main Window or Project Bin to import
+- Drag clips from Project Bin to Timeline tracks
+- Drop position determines track and timeline position
 
 ## Installation
 
 ### Prerequisites
-
-- CMake 3.10 or higher
+- CMake 3.20 or higher
 - Ninja build system
-- Qt 5.15 or higher
-- FFmpeg 4.0 or higher
+- Qt 6.2 or higher (Core, Gui, Widgets, Multimedia, MultimediaWidgets, Quick, QuickWidgets, Svg, SvgWidgets, OpenGL, OpenGLWidgets)
+- FFmpeg 4.0 or higher (libavformat, libavcodec, libavutil, libavfilter, libavdevice, libswscale, libswresample)
+- OpenGL
+- OpenMP (optional, for parallel processing)
 
-### Steps
+### Build Steps
 
 1. Clone the repository:
    ```bash
@@ -27,7 +101,7 @@ FFGui is a powerful GUI application for video editing and processing.
 
 3. Run CMake to configure the project:
    ```bash
-   cmake -G Ninja .
+   cmake -G Ninja ..
    ```
 
 4. Build the project:
@@ -40,50 +114,92 @@ FFGui is a powerful GUI application for video editing and processing.
    ./FFGui
    ```
 
-## Usage
+## Project Structure
 
-### Main Window
+```
+ffgui/
+├── CMakeLists.txt
+├── README.md
+├── .config                 # Theme configuration (auto-generated)
+├── src/
+│   ├── main.cpp           # Application entry point
+│   ├── MainWindow.h/cpp   # Main window, menus, layout, project I/O
+│   ├── core/
+│   │   ├── FFGuiApplication.h/cpp  # Qt application subclass, theming, settings
+│   │   ├── FFmpegProbe.h/cpp       # FFmpeg media probing, thumbnail generation
+│   │   ├── ProjectModel.h          # Data structures: MediaClip, TimelineClip, Track, Effect
+│   │   └── Clip.h                  # Clip data structure
+│   └── widgets/
+│       ├── ProjectBinWidget.h/cpp  # Media bin with list view, drag-drop, import
+│       ├── MonitorWidget.h/cpp     # Video preview with playback controls
+│       ├── TimelineWidget.h/cpp    # Multi-track timeline with playhead, clips
+│       ├── EffectStackWidget.h/cpp # Effect stack with parameter controls
+│       └── RenderDialog.h/cpp      # FFmpeg render configuration and execution
+└── build/                   # Build output (generated)
+```
 
-The main window provides access to all the features of FFGui. It consists of several widgets:
+## Project File Format (.ffgui)
 
-- **Timeline Widget**: Displays and edits the timeline of the video project.
-- **Monitor Widget**: Shows the video preview.
-- **Project Bin Widget**: Manages the media files in the project.
-- **Effect Stack Widget**: Applies and manages effects on the selected clip.
+Projects are saved as JSON files with the following structure:
+```json
+{
+  "duration": 300.0,
+  "currentPlayhead": 0.0,
+  "mediaClips": [
+    {
+      "id": "uuid",
+      "filePath": "/path/to/video.mp4",
+      "fileName": "video.mp4",
+      "duration": 10.5,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30.0,
+      "thumbnailPath": "/tmp/thumb_xxx.jpg",
+      "hasAudio": true,
+      "hasVideo": true
+    }
+  ],
+  "tracks": [
+    {
+      "id": 1,
+      "name": "Video 2",
+      "isLocked": false,
+      "isMutedOrHidden": false,
+      "clips": [
+        {
+          "id": "uuid",
+          "mediaClipId": "uuid",
+          "timelineIn": 0.0,
+          "timelineOut": 10.5,
+          "sourceIn": 0.0,
+          "duration": 10.5,
+          "effects": [
+            {
+              "type": "text",
+              "enabled": true,
+              "params": { "text": "Hello", "size": 48, "x": 100, "y": 100 }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
 
-### Timeline Widget
+## Dependencies
 
-The Timeline Widget allows you to:
+### Runtime
+- Qt6 libraries (Core, Gui, Widgets, Multimedia, MultimediaWidgets, Quick, QuickWidgets, Svg, SvgWidgets, OpenGL, OpenGLWidgets)
+- FFmpeg libraries (avformat, avcodec, avutil, avfilter, avdevice, swscale, swresample)
+- OpenGL
+- OpenMP (if available)
 
-- Add, remove, and move clips.
-- Trim and split clips.
-- Adjust the duration of clips.
-- Add transitions between clips.
-
-### Monitor Widget
-
-The Monitor Widget provides:
-
-- Video preview of the current frame.
-- Playback controls (play, pause, stop).
-- Frame navigation (previous frame, next frame).
-
-### Project Bin Widget
-
-The Project Bin Widget helps you:
-
-- Import media files (video, audio, images).
-- Organize media files into folders.
-- Search for media files.
-
-### Effect Stack Widget
-
-The Effect Stack Widget allows you to:
-
-- Apply effects to the selected clip.
-- Adjust effect parameters.
-- Reorder effects.
-- Remove effects.
+### Build-time
+- CMake 3.20+
+- Ninja
+- pkg-config
+- C++20 compatible compiler (GCC 10+, Clang 12+, MSVC 19.28+)
 
 ## Contributing
 
@@ -99,3 +215,10 @@ Contributions are welcome! Please follow these steps to contribute:
 ## License
 
 FFGui is licensed under the MIT License. See the LICENSE file for more details.
+
+## Acknowledgments
+
+- Built with [Qt6](https://www.qt.io/)
+- Powered by [FFmpeg](https://ffmpeg.org/)
+- Inspired by [Kdenlive](https://kdenlive.org/) workflow and layout
+- Icons from system theme (Freedesktop.org specification)

@@ -54,6 +54,7 @@ private:
     QList<SequenceItem> m_projectSequence;
 
 protected:
+    void mouseMoveEvent(QMouseEvent* event) override;
     void dragEnterEvent(QDragEnterEvent* event) override;
     void dropEvent(QDropEvent* event) override;
 };

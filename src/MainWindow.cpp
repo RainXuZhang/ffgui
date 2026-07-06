@@ -833,8 +833,74 @@ void MainWindow::applyThemeString(int themeIndex) {
     }
 }
 
+void MainWindow::onClipDropped(const QString& clipId, double playheadTime, bool isAudio, int trackIndex) {
+    if (!m_project) return;
+
+    // Create a new timeline clip
+    TimelineClip newClip;
+    newClip.id = QUuid::createUuid().toString(QUuid::WithoutBraces);
+    newClip.mediaClipId = clipId;
+    newClip.timelineIn = playheadTime;
+    newClip.sourceIn = 0.0;
+
+    // Find the media clip to get duration
+    MediaClip* mediaClip = nullptr;
+    for (auto& clip : m_project->mediaClips) {
+        if (clip.id == clipId) {
+            mediaClip = &clip;
+            break;
+        }
+    }
+
+    if (mediaClip) {
+        newClip.duration = mediaClip->duration;
+        newClip.timelineOut = playheadTime + mediaClip->duration;
+
+        // Add the clip to the appropriate track
+        for (auto& track : m_project->tracks) {
+            if (track.id == trackIndex + 1) { // Track IDs start at 1
+                track.clips.append(newClip);
+                break;
+            }
+        }
+
+        // Update the timeline
+        if (m_timelineWidget) {
+            m_timelineWidget->updateTimeline();
+        }
+
+        // Update the timeline tracks tree
+        m_timelineTracksTree->clear();
+        for (const auto& track : m_project->tracks) {
+            auto* item = new QTreeWidgetItem(m_timelineTracksTree);
+            item->setText(0, track.name);
+            item->setText(1, QString::number(track.clips.size()));
+            double totalDuration = 0.0;
+            for (const auto& clip : track.clips) {
+                totalDuration = qMax(totalDuration, clip.timelineOut);
+            }
+            item->setText(2, QString::number(totalDuration, 'f', 2) + "s");
+            item->setText(3, track.isLocked ? "Yes" : "No");
+        }
+
+        statusBar()->showMessage("Inserted clip onto Timeline.");
+    }
+}
+
 void MainWindow::setupFormatComboBox() {
     // Stub implementation to satisfy linker
+}
+
+void MainWindow::onRazorToolTriggered() {
+    qDebug() << "Razor tool triggered";
+}
+
+void MainWindow::onRazorToolClicked(QPoint pos) {
+    qDebug() << "Razor tool clicked at position:" << pos;
+}
+
+void MainWindow::onClipDropped(const QString& clipId, double playheadTime, bool isAudio) {
+    qDebug() << "Clip dropped:" << clipId << "at time:" << playheadTime << "isAudio:" << isAudio;
 }
 
 void MainWindow::updateCommandPreview() {

@@ -3,7 +3,9 @@
 
 #include <QWidget>
 #include <QPainter>
+#include <QPoint>
 #include "core/ProjectModel.h"
+#include "core/Clip.h"
 
 class TimelineWidget : public QWidget {
     Q_OBJECT
@@ -20,6 +22,18 @@ double getOutPointSeconds() const { return outPointSeconds; }
 void setOutPointSeconds(double seconds) { outPointSeconds = seconds; emit outPointChanged(); }
 double getSelectedDuration() const { return outPointSeconds - inPointSeconds; }
 
+enum TrackType {
+    VideoTrack2,
+    VideoTrack1,
+    AudioTrack1,
+    AudioTrack2
+};
+
+private:
+    Project* m_project = nullptr;
+    double m_currentPosition = 0.0;
+    bool m_isDragging = false;
+    QMap<TrackType, QList<Clip*>> m_tracks;
 public:
     explicit TimelineWidget(QWidget* parent = nullptr);
     void setProject(Project* project);
@@ -32,17 +46,18 @@ signals:
     void playheadChanged(double seconds);
     void inPointChanged();
     void outPointChanged();
-
+    void razorToolClicked(QPoint pos);
+    void clipDropped(const QString& clipId, double playheadTime, bool isAudio, int trackIndex);
 protected:
     void paintEvent(QPaintEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
     void keyPressEvent(QKeyEvent* event) override;
+    void dragEnterEvent(QDragEnterEvent* event) override;
+    void dragMoveEvent(QDragMoveEvent* event) override;
+    void dropEvent(QDropEvent* event) override;
 
-private:
-    Project* m_project = nullptr;
-    double m_currentPosition = 0.0;
-    bool m_isDragging = false;
 };
 
 #endif // TIMELINEWIDGET_H
