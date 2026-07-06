@@ -163,26 +163,30 @@ void MainWindow::applyThemeString(int themeIndex) {
         QPushButton:hover { background-color: %5; border: 1px solid %7; color: #ffffff; }
         QTabWidget::panel { border: 1px solid %3; background-color: %1; }
         QTabBar::tab { background-color: %4; color: %10; border: 1px solid %3; padding: 6px 14px; }
-        QTabBar::tab:selected { background-color: %1; color: %6
+        QTabBar::tab:selected { background-color: %1; color: %6; border-bottom-color: %1; font-weight: bold; }
+        QStatusBar, QMenuBar, QToolBar { background-color: %4; border: none; color: %10; }
+        QMenuBar::item:selected { background-color: %5; color: %6; }
     )";
 
-    QString styleSheet;
-    switch (themeIndex) {
-        case 0: // Arch Stealth
-            styleSheet = baseStyle.arg("#0b0b0c", "#d1d1d6", "#161618", "#050505", "#24292e", "#ffffff", "#24292e", "#1a1a1a", "#18181a", "#7c7c80");
-            break;
-        case 1: // Kdenlive Dark
-            styleSheet = baseStyle.arg("#252525", "#d2d2d2", "#1a1a1a", "#181818", "#2a82da", "#ffffff", "#2a82da", "#222222", "#181818", "#7c7c7c");
-            break;
-        case 2: // Nordic Frost
-            styleSheet = baseStyle.arg("#2e3440", "#d8dee9", "#3b4252", "#2e3440", "#5e81ac", "#eceff4", "#5e81ac", "#434c5e", "#2e3440", "#d8dee9");
-            break;
-        default:
-            styleSheet = baseStyle.arg("#0b0b0c", "#d1d1d6", "#161618", "#050505", "#24292e", "#ffffff", "#24292e", "#1a1a1a", "#18181a", "#7c7c80");
-            break;
+    QString bg, text, border, inputBg, selBg, selText, selBorder, hoverBg, btnBg, tabText;
+
+    if (themeIndex == 0) { // Arch Stealth
+        bg = "#0d0e11"; text = "#d1d5db"; border = "#1f232a"; inputBg = "#050607";
+        selBg = "#172a3a"; selText = "#38bdf8"; selBorder = "#0284c7"; hoverBg = "#0f172a";
+        btnBg = "#111827"; tabText = "#6b7280";
+    }
+    else if (themeIndex == 1) { // Kdenlive Dark
+        bg = "#2a2a2a"; text = "#eff0f1"; border = "#31363b"; inputBg = "#1d2023";
+        selBg = "#3daee9"; selText = "#ffffff"; selBorder = "#297fa6"; hoverBg = "#2a3642";
+        btnBg = "#31363b"; tabText = "#bdc3c7";
+    }
+    else { // Nordic Frost
+        bg = "#2e3440"; text = "#d8dee9"; border = "#4c566a"; inputBg = "#242933";
+        selBg = "#88c0d0"; selText = "#2e3440"; selBorder = "#81a1c1"; hoverBg = "#3b4252";
+        btnBg = "#434c5e"; tabText = "#e5e9f0";
     }
 
-    this->setStyleSheet(styleSheet);
+    this->setStyleSheet(baseStyle.arg(bg, text, border, inputBg, selBg, selText, selBorder, hoverBg, btnBg, tabText));
 }
 
 void MainWindow::setupTheme() {
