@@ -1,5 +1,6 @@
 #include "core/FFGuiApplication.h"
 #include "MainWindow.h"
+#include "core/ThemeManager.h"
 #include <QApplication>
 #include <QStyleFactory>
 #include <QSurfaceFormat>
@@ -25,8 +26,12 @@ int main(int argc, char *argv[])
     FFGuiApplication::setInstance(&app);
     app.setApplicationName("FFGui");
     app.setApplicationVersion("1.0.0");
-    app.setOrganizationName("FFGui Project");
+    app.setOrganizationName("RainZhang");
     app.setOrganizationDomain("ffgui.org");
+
+    // Initialize ThemeManager with saved theme
+    ThemeManager::AppTheme theme = ThemeManager::loadTheme();
+    ThemeManager::applyTheme(theme, &app);
 
     // Parse command line arguments
     QCommandLineParser parser;
@@ -44,10 +49,7 @@ int main(int argc, char *argv[])
     
     parser.process(app);
 
-    // Apply Kdenlive-like dark theme
-    app.applyDarkTheme();
-
-// Create and show main window
+    // Create and show main window
 MainWindow mainWindow;
 
 // Apply dark theme stylesheet
