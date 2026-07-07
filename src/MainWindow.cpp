@@ -57,10 +57,10 @@ void MainWindow::setupProjectModel() {
     m_project = new Project();
 
     // Add standard tracks matching Kdenlive tracks (V2, V1, A1, A2)
-    m_project->tracks.append({1, "Video 2", false, false, false, {}});
-    m_project->tracks.append({2, "Video 1", false, false, false, {}});
-    m_project->tracks.append({3, "Audio 1", true, false, false, {}});
-    m_project->tracks.append({4, "Audio 2", true, false, false, {}});
+    m_project->tracks.append({1, "Video 2", false, false, false, 1.0, {}});
+    m_project->tracks.append({2, "Video 1", false, false, false, 1.0, {}});
+    m_project->tracks.append({3, "Audio 1", true, false, false, 1.0, {}});
+    m_project->tracks.append({4, "Audio 2", true, false, false, 1.0, {}});
 }
 
 void MainWindow::createMenusAndToolbars() {
@@ -398,9 +398,10 @@ void MainWindow::openProject(const QString& path) {
     for (int i = 0; i < qMin(tracksArr.size(), m_project->tracks.size()); ++i) {
         QJsonObject tObj = tracksArr[i].toObject();
         auto& track = m_project->tracks[i];
-        track.name = tObj["name"].toString();
-        track.isLocked = tObj["isLocked"].toBool();
-        track.isMutedOrHidden = tObj["isMutedOrHidden"].toBool();
+        track.trackName = tObj["trackName"].toString(tObj["name"].toString()); // fallback to old "name" key
+        track.locked = tObj["locked"].toBool(tObj["isLocked"].toBool()); // fallback to old "isLocked" key
+        track.muted = tObj["muted"].toBool(tObj["isMutedOrHidden"].toBool()); // fallback to old "isMutedOrHidden" key
+        track.volume = tObj["volume"].toDouble(1.0);
 
         track.clips.clear();
         QJsonArray clipsArr = tObj["clips"].toArray();
@@ -437,14 +438,14 @@ void MainWindow::openProject(const QString& path) {
     m_timelineTracksTree->clear();
     for (const auto& track : m_project->tracks) {
         auto* item = new QTreeWidgetItem(m_timelineTracksTree);
-        item->setText(0, track.name);
+        item->setText(0, track.trackName);
         item->setText(1, QString::number(track.clips.size()));
         double totalDuration = 0.0;
         for (const auto& clip : track.clips) {
             totalDuration = qMax(totalDuration, clip.timelineOut);
         }
         item->setText(2, QString::number(totalDuration, 'f', 2) + "s");
-        item->setText(3, track.isLocked ? "Yes" : "No");
+        item->setText(3, track.locked ? "Yes" : "No");
     }
     statusBar()->showMessage("Project loaded: " + QFileInfo(path).fileName());
     setWindowTitle("FFGui - " + QFileInfo(path).fileName());
@@ -462,14 +463,14 @@ void MainWindow::onSaveProject() {
     m_timelineTracksTree->clear();
     for (const auto& track : m_project->tracks) {
         auto* item = new QTreeWidgetItem(m_timelineTracksTree);
-        item->setText(0, track.name);
+        item->setText(0, track.trackName);
         item->setText(1, QString::number(track.clips.size()));
         double totalDuration = 0.0;
         for (const auto& clip : track.clips) {
             totalDuration = qMax(totalDuration, clip.timelineOut);
         }
         item->setText(2, QString::number(totalDuration, 'f', 2) + "s");
-        item->setText(3, track.isLocked ? "Yes" : "No");
+        item->setText(3, track.locked ? "Yes" : "No");
     }
 
     QJsonObject rootObj;
@@ -499,9 +500,10 @@ void MainWindow::onSaveProject() {
     for (const auto& track : m_project->tracks) {
         QJsonObject tObj;
         tObj["id"] = track.id;
-        tObj["name"] = track.name;
-        tObj["isLocked"] = track.isLocked;
-        tObj["isMutedOrHidden"] = track.isMutedOrHidden;
+        tObj["trackName"] = track.trackName;
+        tObj["locked"] = track.locked;
+        tObj["muted"] = track.muted;
+        tObj["volume"] = track.volume;
 
         QJsonArray clipsArr;
         for (const auto& clip : track.clips) {
@@ -611,14 +613,14 @@ void MainWindow::onBinClipDoubleClicked(const MediaClip& clip) {
     m_timelineTracksTree->clear();
     for (const auto& track : m_project->tracks) {
         auto* item = new QTreeWidgetItem(m_timelineTracksTree);
-        item->setText(0, track.name);
+        item->setText(0, track.trackName);
         item->setText(1, QString::number(track.clips.size()));
         double totalDuration = 0.0;
         for (const auto& clip : track.clips) {
             totalDuration = qMax(totalDuration, clip.timelineOut);
         }
         item->setText(2, QString::number(totalDuration, 'f', 2) + "s");
-        item->setText(3, track.isLocked ? "Yes" : "No");
+        item->setText(3, track.locked ? "Yes" : "No");
     }
 
     statusBar()->showMessage("Inserted clip onto Timeline.");
@@ -897,14 +899,14 @@ void MainWindow::onClipDropped(const QString& clipId, double playheadTime, bool 
         m_timelineTracksTree->clear();
         for (const auto& track : m_project->tracks) {
             auto* item = new QTreeWidgetItem(m_timelineTracksTree);
-            item->setText(0, track.name);
-            item->setText(1, QString::number(track.clips.size()));
-            double totalDuration = 0.0;
-            for (const auto& clip : track.clips) {
-                totalDuration = qMax(totalDuration, clip.timelineOut);
-            }
-            item->setText(2, QString::number(totalDuration, 'f', 2) + "s");
-            item->setText(3, track.isLocked ? "Yes" : "No");
+        item->setText(0, track.trackName);
+        item->setText(1, QString::number(track.clips.size()));
+        double totalDuration = 0.0;
+        for (const auto& clip : track.clips) {
+            totalDuration = qMax(totalDuration, clip.timelineOut);
+        }
+        item->setText(2, QString::number(totalDuration, 'f', 2) + "s");
+        item->setText(3, track.locked ? "Yes" : "No");
         }
 
         statusBar()->showMessage("Inserted clip onto Timeline.");

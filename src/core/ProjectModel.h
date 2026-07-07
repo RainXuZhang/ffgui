@@ -38,10 +38,11 @@ struct TimelineClip {
 
 struct TimelineTrack {
     int id;
-    QString name;
+    QString trackName;
     bool isAudio = false;
-    bool isLocked = false;
-    bool isMutedOrHidden = false;
+    bool locked = false;
+    bool muted = false;
+    double volume = 1.0;
     QList<TimelineClip> clips;
 };
 
