@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include "core/ThemeManager.h"
 #include "core/FFmpegProbe.h"
 #include <QDialog>
 #include <QFormLayout>
@@ -115,6 +116,29 @@ void MainWindow::setupMenuBar() {
         } else {
             showFullScreen();
         }
+    });
+    
+    // Add Themes submenu to View menu
+    QMenu* themesMenu = viewMenu->addMenu(tr("&Themes"));
+    QAction* darkThemeAction = themesMenu->addAction(tr("&Dark"));
+    QAction* lightThemeAction = themesMenu->addAction(tr("&Light"));
+    QAction* kdenliveThemeAction = themesMenu->addAction(tr("&Kdenlive"));
+    
+    // Connect theme actions to slots
+    connect(darkThemeAction, &QAction::triggered, this, [this]() {
+        ThemeManager::applyTheme(ThemeManager::Dark, qApp);
+        ThemeManager::saveTheme(ThemeManager::Dark);
+        this->centralWidget()->update();
+    });
+    connect(lightThemeAction, &QAction::triggered, this, [this]() {
+        ThemeManager::applyTheme(ThemeManager::Light, qApp);
+        ThemeManager::saveTheme(ThemeManager::Light);
+        this->centralWidget()->update();
+    });
+    connect(kdenliveThemeAction, &QAction::triggered, this, [this]() {
+        ThemeManager::applyTheme(ThemeManager::Kdenlive, qApp);
+        ThemeManager::saveTheme(ThemeManager::Kdenlive);
+        this->centralWidget()->update();
     });
 
     // Tool Menu

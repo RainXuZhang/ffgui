@@ -22,15 +22,13 @@ int main(int argc, char *argv[])
     format.setSamples(4); // MSAA
     QSurfaceFormat::setDefaultFormat(format);
 
-    FFGuiApplication app(argc, argv);
-    FFGuiApplication::setInstance(&app);
+    QApplication app(argc, argv);
     app.setApplicationName("FFGui");
-    app.setApplicationVersion("1.0.0");
     app.setOrganizationName("RainZhang");
-    app.setOrganizationDomain("ffgui.org");
 
-    // Initialize ThemeManager with saved theme
+    // Read the saved theme from QSettings immediately after QApplication is created
     ThemeManager::AppTheme theme = ThemeManager::loadTheme();
+    // Call ThemeManager::instance().applyTheme() before MainWindow is instantiated
     ThemeManager::applyTheme(theme, &app);
 
     // Parse command line arguments
@@ -50,41 +48,8 @@ int main(int argc, char *argv[])
     parser.process(app);
 
     // Create and show main window
-MainWindow mainWindow;
+    MainWindow mainWindow;
 
-// Apply dark theme stylesheet
-QString darkStyleSheet = R"(
-    QMainWindow, QDialog {
-        background-color: #1e1e2e;
-    }
-
-    QLineEdit, QComboBox, QTextEdit {
-        background-color: #11111b;
-        color: #cdd6f4;
-        border-radius: 4px;
-    }
-
-    QPushButton {
-        background-color: #313244;
-        color: #cdd6f4;
-        border-radius: 4px;
-    }
-
-    QPushButton:hover, QPushButton:pressed {
-        background-color: #89b4fa;
-    }
-
-    QProgressBar {
-        background-color: #11111b;
-        border-radius: 4px;
-    }
-
-    QProgressBar::chunk {
-        background-color: #89b4fa;
-        border-radius: 4px;
-    }
-)";
-mainWindow.setStyleSheet(darkStyleSheet);
     // Handle command line arguments
     if (parser.isSet(projectOption)) {
         mainWindow.openProject(parser.value(projectOption));
